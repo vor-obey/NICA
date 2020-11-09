@@ -1,7 +1,7 @@
 class AuthApi {
   #_client = null;
 
-  #_url = '/auth';
+  #_url = '';
 
   /**
    *

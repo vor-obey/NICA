@@ -13,6 +13,14 @@
       "firstName": "Test",
       "lastName": "Testovich",
       "id": 2
+    },
+    {
+      "email": "test1604934211471@gmail.com",
+      "password": "$2a$10$cxjKC3joW.uLNUJ8E.8rJ.YiZomj3Xh1iy8ayMhrJEGKDiGOCFqw2",
+      "firstName": "Name1604934211471",
+      "lastName": "Surname1604934211471",
+      "confirmPassword": "Test1234",
+      "id": 3
     }
   ]
 }
