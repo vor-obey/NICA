@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  parser: 'babel-eslint',
   extends: [
     'plugin:react/recommended',
     'airbnb',
@@ -17,5 +18,11 @@ module.exports = {
   plugins: [
     'react',
   ],
-  rules: {},
+  rules: {
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: ['draftState'],
+    }],
+    'react/prop-types': ['off'],
+  },
 };
