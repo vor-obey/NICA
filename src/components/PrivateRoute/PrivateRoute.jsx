@@ -14,7 +14,7 @@ const PrivateRoute = ({ permissions, ...rest }) => {
     }
   }
 
-  return <Redirect to="login" />;
+  return <Redirect to="/login" />;
 };
 PrivateRoute.propTypes = {
   permissions: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.shape({
