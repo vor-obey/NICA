@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server --watch json-server-data/db.json --port 5000"
+    "json-server": "json-server --watch json-server-data/db.json --port 5000 -m ./node_modules/json-server-auth"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +51,8 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "json-server": "^0.16.2",
+    "json-server-auth": "^2.0.2"
   }
 }
