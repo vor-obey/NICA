@@ -13,7 +13,16 @@ class AuthApi {
     this.#_client = client;
   }
 
-  login = (data) => this.#_client.post(`${this.#_url}/login`, data);
+  login = async (data) => {
+    const { data: { accessToken } } = await this.#_client.post(`${this.#_url}/login`, data);
+    const { data: [user] } = await this.#_client.get(`/users?email=${data.email}`);
+    return {
+      data: {
+        user,
+        accessToken,
+      },
+    };
+  };
 
   signUp = (data) => this.#_client.post(`${this.#_url}/signup`, data);
 }
