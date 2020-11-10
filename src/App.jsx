@@ -11,7 +11,7 @@ function App() {
     <Router>
       <Suspense fallback={<h1>Laoding...</h1>}>
         <Switch>
-          <PrivateRoute exact path="/" component={Home} permissions={['admin']} />
+          <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute path="/signup" component={SignUp} permissions={[]} />
           <Route path="/login" component={Login} />
         </Switch>
