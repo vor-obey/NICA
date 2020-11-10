@@ -7,7 +7,7 @@ import {
 import styles from './LoginForm.module.scss';
 import Button from '../../../../components/Button';
 import LabeledInput from '../../../../components/LabeledInput';
-import FormTitle from '../FormTitle/FormTitle';
+import PitZone from '../../../../components/PitZone/PitZone';
 
 const loginValidationSchema = yup.object({
   email: yup.string()
@@ -34,7 +34,7 @@ const LoginForm = ({ onSubmit }) => (
       () => (
         <Form className={styles.form}>
           <div className={styles.innerWrapper}>
-            <FormTitle />
+            <PitZone />
             <div className={styles.fieldWrapper}>
               <Field name="email" label="Email" as={LabeledInput} />
             </div>
