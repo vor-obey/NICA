@@ -43,10 +43,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 Run json-server on [http://localhost:5000](http://localhost:5000)
 
-**Note: required global dependency**
-
-`npm install -g json-server json-server-auth`
-
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).

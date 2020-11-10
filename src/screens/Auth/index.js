@@ -1,3 +1,2 @@
-import Auth from './Auth';
-
-export default Auth;
+export { default as Login } from './Login';
+export { default as SignUp } from './SignUp';

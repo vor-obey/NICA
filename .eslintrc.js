@@ -24,5 +24,6 @@ module.exports = {
       ignorePropertyModificationsFor: ['draftState'],
     }],
     'react/prop-types': ['off'],
+    'react/jsx-props-no-spreading': 0,
   },
 };

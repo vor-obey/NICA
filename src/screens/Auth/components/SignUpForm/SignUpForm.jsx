@@ -1,11 +1,17 @@
+import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
-import * as yup from 'yup';
 
-const loginValidationSchema = yup.object({
+const signUpValidationSchema = yup.object({
+  firstName: yup.string()
+    .trim()
+    .required(),
+  lastName: yup.string()
+    .trim()
+    .required(),
   email: yup.string()
     .trim()
     .email()
@@ -13,14 +19,19 @@ const loginValidationSchema = yup.object({
   password: yup.string()
     .min(8)
     .required(),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match').required(),
 });
 
 const initialValues = {
-  email: '',
-  password: '',
+  firstName: `Name${Date.now()}`,
+  lastName: `Surname${Date.now()}`,
+  email: `test${Date.now()}@gmail.com`,
+  password: 'Test1234',
+  confirmPassword: 'Test1234',
 };
 
-const LoginForm = (props) => {
+const SignUpForm = (props) => {
   const { onSubmit } = props;
 
   const handleSubmit = useCallback(
@@ -33,15 +44,21 @@ const LoginForm = (props) => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={loginValidationSchema}
+      validationSchema={signUpValidationSchema}
     >
       {
         () => (
           <Form>
+            <Field name="firstName" />
+            <ErrorMessage name="firstName" />
+            <Field name="lastName" />
+            <ErrorMessage name="lastName" />
             <Field name="email" />
             <ErrorMessage name="email" />
             <Field name="password" type="password" />
             <ErrorMessage name="password" />
+            <Field name="confirmPassword" type="password" />
+            <ErrorMessage name="confirmPassword" />
             <button type="submit">Sign In</button>
           </Form>
         )
@@ -50,8 +67,8 @@ const LoginForm = (props) => {
   );
 };
 
-LoginForm.propTypes = {
+SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default LoginForm;
+export default SignUpForm;
