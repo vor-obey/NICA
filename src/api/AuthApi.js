@@ -1,6 +1,8 @@
 class AuthApi {
   #_client = null;
 
+  #_token = null;
+
   #_url = '';
 
   /**
@@ -25,6 +27,10 @@ class AuthApi {
   };
 
   signUp = (data) => this.#_client.post(`${this.#_url}/signup`, data);
+
+  logout = () => {
+    this.#_token = null;
+  };
 }
 
 export default AuthApi;

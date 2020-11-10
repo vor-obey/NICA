@@ -12,6 +12,10 @@ export const signUpRequest = (data) => ({
   },
 });
 
+export const logout = () => ({
+  type: AUTH_ACTION_TYPES.LOGOUT,
+});
+
 export const authRequestFetching = () => ({
   type: AUTH_ACTION_TYPES.AUTH_REQUEST_FETCHING,
 });
