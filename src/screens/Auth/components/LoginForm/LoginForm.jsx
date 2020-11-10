@@ -41,6 +41,9 @@ const LoginForm = ({ onSubmit }) => (
             <div className={styles.fieldWrapper}>
               <Field name="password" type="password" label="Password" as={LabeledInput} />
             </div>
+            <div className={styles.fieldWrapper}>
+              <Field name="remember me" type="checkbox" label="Remember Me" as={LabeledInput} />
+            </div>
             <div className={styles.submitBtnWrapper}>
               <Button primary type="submit">Sign In</Button>
             </div>

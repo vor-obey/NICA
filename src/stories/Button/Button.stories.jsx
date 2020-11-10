@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from './Button';
+import Button from '../../components/Button/Button';
 
 export default {
   title: 'Example/Button',
@@ -10,7 +10,7 @@ export default {
   },
 };
 
-const Template = (args) => <Button {...args} />;
+const Template = (args) => <Button {...args}>Button</Button>;
 
 export const Primary = Template.bind({});
 Primary.args = {
