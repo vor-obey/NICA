@@ -6,21 +6,12 @@
       "lastName": "Test",
       "email": "test@gmail.com",
       "password": "Test1234"
-    },
+    }
+  ],
+  "leagues": [
     {
-      "email": "test2@gmail.com",
-      "password": "$2a$10$j2pxL9ZzHDiBmSAC995py.MLsYq5dm1.qKm9IIDQjy24e/Fen/FuG",
-      "firstName": "Test",
-      "lastName": "Testovich",
-      "id": 2
-    },
-    {
-      "email": "test1604934211471@gmail.com",
-      "password": "$2a$10$cxjKC3joW.uLNUJ8E.8rJ.YiZomj3Xh1iy8ayMhrJEGKDiGOCFqw2",
-      "firstName": "Name1604934211471",
-      "lastName": "Surname1604934211471",
-      "confirmPassword": "Test1234",
-      "id": 3
+      "name": "Georgia",
+      "img": "https://pbs.twimg.com/profile_images/697426284389990401/0yQjSVI-.jpg"
     }
   ]
 }

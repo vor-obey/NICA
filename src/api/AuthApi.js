@@ -1,3 +1,5 @@
+import queryString from 'query-string';
+
 class AuthApi {
   #_client = null;
 
@@ -16,17 +18,11 @@ class AuthApi {
   }
 
   login = async (data) => {
-    const { data: { accessToken } } = await this.#_client.post(`${this.#_url}/login`, data);
-    const { data: [user] } = await this.#_client.get(`/users?email=${data.email}`);
-    return {
-      data: {
-        user,
-        accessToken,
-      },
-    };
+    const query = queryString.stringify(data);
+    return this.#_client.get(`/users?${query}`);
   };
 
-  signUp = (data) => this.#_client.post(`${this.#_url}/signup`, data);
+  signUp = (data) => this.#_client.post('/users', data);
 
   logout = () => {
     this.#_token = null;
