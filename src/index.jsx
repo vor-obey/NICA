@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './reset.css';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import mocks from './mocks';

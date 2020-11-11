@@ -1,24 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './LabeledInput.module.scss';
+import {
+  Input, Label, FormGroup, FormFeedback,
+} from 'reactstrap';
+import { useField } from 'formik';
 
-const LabeledInput = ({ label, ...rest }) => (
-  // eslint-disable-next-line react/jsx-filename-extension,jsx-a11y/label-has-associated-control
-  <label className={styles.container}>
-    <span className={styles.label}>
-      {label}
-    </span>
-    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-    <input className={styles.input} {...rest} />
-  </label>
-);
+const LabeledInput = ({ label, type, ...rest }) => {
+  const [field, { error, touched }] = useField(rest);
+
+  return (
+    <FormGroup className="position-relative d-flex flex-column w-100">
+      <Label>
+        <span>
+          {label}
+        </span>
+        <Input type={type} invalid={error && touched} {...field} />
+        {error && <FormFeedback tooltip>{error}</FormFeedback>}
+      </Label>
+    </FormGroup>
+  );
+};
 
 LabeledInput.propTypes = {
+  type: PropTypes.string,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+};
+
+LabeledInput.defaultProps = {
+  type: 'text',
+  placeholder: '',
 };
 
 export default LabeledInput;
