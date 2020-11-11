@@ -6,4 +6,4 @@ export default {
   component: LoginForm,
 };
 
-export const Template = () => (<LoginForm onSubmit={() => {}} />);
+export const Template = () => <LoginForm />;

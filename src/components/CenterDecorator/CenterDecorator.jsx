@@ -1,5 +1,5 @@
 import React from 'react';
-import './CenterDecorator.module.scss';
+import './CenterDecorator.scss';
 
 const Center = ({ children }) => (
   <div className="center_wrapper">
