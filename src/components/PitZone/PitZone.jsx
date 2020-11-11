@@ -1,8 +1,8 @@
 import React from 'react';
 import TentIcon from './icon_red_white_tent.svg';
-import styles from './FormTitle.module.scss';
+import styles from './PitZone.module.scss';
 
-const FormTitle = () => (
+const PitZone = () => (
 
   <div className={styles.container}>
     <img className={styles.icon} src={TentIcon} alt="Pit Zone" />
@@ -11,4 +11,4 @@ const FormTitle = () => (
 
 );
 
-export default FormTitle;
+export default PitZone;

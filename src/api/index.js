@@ -1,9 +1,10 @@
-import axios from 'axios';
-import config from '../app/config';
-import AuthApi from './AuthApi';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-const client = axios.create(config.api);
+const baseURL = 'https://48p1r2roz4.sse.codesandbox.io';
 
-export const auth = new AuthApi({ client });
+const client = new ApolloClient({
+  uri: baseURL,
+  cache: new InMemoryCache(),
+});
 
 export default client;
