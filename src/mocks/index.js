@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { LOGIN_USER } from '../layouts/Auth/views/Login';
-import { SIGN_UP_USER } from '../layouts/Auth/views/SignUp';
+import { LOGIN_USER } from '../layouts/Auth/containers/Login';
+import { SIGN_UP_USER } from '../layouts/Auth/containers/SignUp';
 
 export const testUser = {
   firstName: 'Name',
@@ -8,7 +8,6 @@ export const testUser = {
   email: 'test@gmail.com',
   password: 'Test1234',
   confirmPassword: 'Test1234',
-  role: 'admin',
 };
 
 const mocks = [
@@ -21,6 +20,7 @@ const mocks = [
       data: {
         user: {
           id: 1,
+          role: 'admin',
           ...testUser,
         },
       },
@@ -35,6 +35,7 @@ const mocks = [
       data: {
         user: {
           id: 1,
+          role: 'admin',
           ...testUser,
         },
       },

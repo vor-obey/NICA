@@ -5,8 +5,8 @@ import {
   Row, Col, Card, CardBody,
 } from 'reactstrap';
 import Logo from '../../components/NicaLogo';
-import Login from './views/Login';
-import SignUp from './views/SignUp';
+import Login from './containers/Login';
+import SignUp from './containers/SignUp';
 import PitZone from '../../components/PitZone/PitZone';
 
 const Auth = () => (
