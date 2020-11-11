@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from '@apollo/client';
+import { MockedProvider } from '@apollo/client/testing';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './reset.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import client from './api';
+import mocks from './mocks';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
+    <MockedProvider mocks={mocks}>
       <App />
-    </ApolloProvider>
+    </MockedProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
