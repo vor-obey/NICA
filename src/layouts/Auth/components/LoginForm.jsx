@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Input, Button, Checkbox, Typography,
+  Form, Input, Button, Checkbox, Row,
 } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './Form.module.scss';
+import Logo from '../../../components/NicaLogo';
+import PitZone from '../../../components/PitZone/PitZone';
 
-const { Title } = Typography;
+// const { Title } = Typography;
 
 const emailRules = [
   {
@@ -27,49 +29,59 @@ const passwordRules = [
 ];
 
 const LoginForm = ({ onSubmit }) => (
-  <Form
-    className={styles.form}
-    size="large"
-    layout="vertical"
-    onFinish={onSubmit}
-  >
-    <Title level={1}>Sign in</Title>
-    <Form.Item
-      name="email"
-      rules={emailRules}
+  <div>
+    <Logo />
+    <Form
+      className={styles.form}
+      size="large"
+      layout="vertical"
+      onFinish={onSubmit}
     >
-      <Input
-        placeholder="example@mail.com"
-        prefix={
-          <MailOutlined className={styles.formInputIcon} />
-        }
-      />
-    </Form.Item>
-    <Form.Item
-      type="password"
-      name="password"
-      rules={passwordRules}
-    >
-      <Input
-        placeholder="password"
-        prefix={
-          <LockOutlined className={styles.formInputIcon} />
-        }
-      />
-    </Form.Item>
-    <Form.Item name="remember">
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item>
-    <Form.Item>
-      <Button
-        type="primary"
-        htmlType="submit"
-        className={styles.submitButton}
+      <Row>
+        <PitZone />
+      </Row>
+      <Form.Item
+        name="email"
+        rules={emailRules}
       >
-        Sign in
-      </Button>
-    </Form.Item>
-  </Form>
+        <Input
+          placeholder="example@mail.com"
+          prefix={
+            <MailOutlined className={styles.formInputIcon} />
+          }
+        />
+      </Form.Item>
+      <Form.Item
+        type="password"
+        name="password"
+        rules={passwordRules}
+      >
+        <Input.Password
+          placeholder="password"
+          prefix={
+            <LockOutlined className={styles.formInputIcon} />
+          }
+        />
+      </Form.Item>
+      <Form.Item name="remember" valuePropName="checked">
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+      <Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className={styles.submitButton}
+        >
+          Sign in
+        </Button>
+      </Form.Item>
+    </Form>
+    <Row justify="center" className={styles.linkForgotPass}>
+      <a className="login-form-forgot" href="/forgotpassword">
+        Forgot password?
+      </a>
+    </Row>
+  </div>
 );
 
 LoginForm.propTypes = {
