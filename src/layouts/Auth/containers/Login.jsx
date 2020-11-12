@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { useCallback } from 'react';
 import {
   Redirect,
@@ -21,7 +22,7 @@ const Login = () => {
 
   const onSubmitLoginHandle = useCallback((values) => {
     login({
-      variables: values,
+      variables: _.pick(values, ['email', 'password']),
     });
   }, [login]);
 

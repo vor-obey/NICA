@@ -1,3 +1,3 @@
-import Home from './Home';
+import Admin from './Admin';
 
-export default Home;
+export default Admin;
