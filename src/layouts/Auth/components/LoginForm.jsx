@@ -5,10 +5,7 @@ import {
 } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './Form.module.scss';
-import Logo from '../../../components/NicaLogo';
-import PitZone from '../../../components/PitZone/PitZone';
-
-// const { Title } = Typography;
+import AuthContainer from './AuthContainer';
 
 const emailRules = [
   {
@@ -29,17 +26,8 @@ const passwordRules = [
 ];
 
 const LoginForm = ({ onSubmit }) => (
-  <div>
-    <Logo />
-    <Form
-      className={styles.form}
-      size="large"
-      layout="vertical"
-      onFinish={onSubmit}
-    >
-      <Row>
-        <PitZone />
-      </Row>
+  <>
+    <AuthContainer onSubmit={onSubmit}>
       <Form.Item
         name="email"
         rules={emailRules}
@@ -48,7 +36,7 @@ const LoginForm = ({ onSubmit }) => (
           placeholder="example@mail.com"
           prefix={
             <MailOutlined className={styles.formInputIcon} />
-          }
+         }
         />
       </Form.Item>
       <Form.Item
@@ -60,7 +48,7 @@ const LoginForm = ({ onSubmit }) => (
           placeholder="password"
           prefix={
             <LockOutlined className={styles.formInputIcon} />
-          }
+         }
         />
       </Form.Item>
       <Form.Item name="remember" valuePropName="checked">
@@ -75,13 +63,13 @@ const LoginForm = ({ onSubmit }) => (
           Sign in
         </Button>
       </Form.Item>
-    </Form>
+    </AuthContainer>
     <Row justify="center" className={styles.linkForgotPass}>
-      <a className="login-form-forgot" href="/forgotpassword">
+      <a className="login-form-forgot" href="/forgotpass">
         Forgot password?
       </a>
     </Row>
-  </div>
+  </>
 );
 
 LoginForm.propTypes = {
