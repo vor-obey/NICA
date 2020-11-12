@@ -7,7 +7,7 @@ import styles from './Form.module.scss';
 import PitZone from '../../../components/PitZone/PitZone';
 
 const AuthContainer = ({ onSubmit, children }) => (
-  <div>
+  <>
     <Logo />
     <Form
       className={styles.form}
@@ -22,7 +22,7 @@ const AuthContainer = ({ onSubmit, children }) => (
       {children}
 
     </Form>
-  </div>
+  </>
 );
 
 export default AuthContainer;

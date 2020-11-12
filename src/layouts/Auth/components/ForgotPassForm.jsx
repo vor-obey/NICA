@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
-import AuthContainer from './AuthContainer';
 import styles from './Form.module.scss';
 
 const emailRules = [
@@ -12,7 +11,7 @@ const emailRules = [
 ];
 
 const ForgotPassForm = () => (
-  <AuthContainer>
+  <>
     <Form.Item
       name="email"
       rules={emailRules}
@@ -33,7 +32,7 @@ const ForgotPassForm = () => (
         Send Email
       </Button>
     </Form.Item>
-  </AuthContainer>
+  </>
 );
 
 export default ForgotPassForm;
