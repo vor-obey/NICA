@@ -1,16 +1,17 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 
 const Auth = lazy(() => import('./layouts/Auth'));
-const Admin = lazy(() => import('./layouts/Admin'));
+const Home = lazy(() => import('./layouts/Home'));
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<h1>Laoding...</h1>}>
         <Switch>
-          <Route exact path="/" component={Admin} />
           <Route path={['/login', '/signup']} component={Auth} />
+          <PrivateRoute path="/" component={Home} />
         </Switch>
       </Suspense>
     </Router>

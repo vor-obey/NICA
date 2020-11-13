@@ -15,11 +15,15 @@
 }
 
 .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.3);
+  max-width: 100%;
   margin: 16px;
 }
 
 .siteLayoutBackground {
   background: #fff;
+}
+
+.pageHeader {
+  background-color: #e6f7ff;
+  padding-left: 10px;
 }
