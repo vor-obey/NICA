@@ -1,23 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Route, Redirect, useHistory } from 'react-router-dom';
-import checkPermissions from './helpers/checkPermissions';
-import * as selectors from '../../selectors';
+import { Route } from 'react-router-dom';
 
-const PrivateRoute = ({ permissions, ...rest }) => {
-  const history = useHistory();
-  const user = useSelector(selectors.userSelector);
-
-  if (!user) {
-    return <Redirect to="/login" />;
-  }
-  if (permissions && !checkPermissions(user, permissions)) {
-    history.goBack();
-    return null;
-  }
-  return <Route {...rest} />;
-};
+const PrivateRoute = ({ permissions, ...rest }) => <Route {...rest} />;
 
 PrivateRoute.propTypes = {
   permissions: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.shape({
