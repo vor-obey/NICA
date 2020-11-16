@@ -1,0 +1,47 @@
+.iconSuccess {
+  font-size: 40px;
+  color: green;
+  margin-right: 20px;
+}
+
+.iconNotification {
+  font-size: 40px;
+  color: #1890ff;
+  margin-right: 20px;
+}
+
+.paragraphStyles {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1px solid #1890ff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.resultSuccess {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1px solid forestgreen;
+  padding: 10px;
+  border-radius: 5px;
+  color: forestgreen;
+}
+
+.resultDanger {
+  background: none;
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  color: red;
+}
+
+.iconDanger {
+  font-size: 40px;
+  color: red;
+  margin-right: 20px;
+}
