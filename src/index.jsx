@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { MockedProvider } from '@apollo/client/testing';
 import 'antd/dist/antd.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import mocks from './mocks';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>

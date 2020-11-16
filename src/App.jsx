@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 
 const Auth = lazy(() => import('./layouts/Auth'));
-const Home = lazy(() => import('./layouts/Home'));
+const Dashboard = lazy(() => import('./layouts/Dashboard'));
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Suspense fallback={<h1>Laoding...</h1>}>
         <Switch>
           <Route path={['/login', '/signup']} component={Auth} />
-          <PrivateRoute path="/" component={Home} />
+          <PrivateRoute path="/" component={Dashboard} />
         </Switch>
       </Suspense>
     </Router>
