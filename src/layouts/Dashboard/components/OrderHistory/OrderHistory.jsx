@@ -16,7 +16,7 @@ const paidData = [
   'Paid $130.00 with Check on 2016-09-22 12:45:29 EDT',
 ];
 
-const OrderHistory = ({ columns, orders }) => {
+const OrderHistory = ({ columns, orders, loading }) => {
   const renderOrders = orders.map((order) => (
     <div key={order.id} style={{ marginBottom: 80 }}>
       <Divider orientation="left" style={{ color: '#1890ff' }}>
@@ -28,6 +28,7 @@ const OrderHistory = ({ columns, orders }) => {
         </Text>
       </Row>
       <Table
+        loading={loading}
         columns={columns}
         dataSource={orders}
         pagination={false}

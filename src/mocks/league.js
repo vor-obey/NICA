@@ -1,5 +1,5 @@
 import faker from 'faker/locale/en';
-import { LEAGUE_QUERY } from '../layouts/Dashboard/containers/League';
+import { LEAGUE_QUERY } from '../layouts/Dashboard/containers/League/League';
 
 const generateEvents = (length) => [...new Array(length)].map((item, index) => ({
   id: index,

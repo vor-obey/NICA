@@ -16,7 +16,7 @@ import { gql } from '@apollo/client';
 import Index from './containers/Index';
 import Logo from '../../components/Logo';
 import styles from './Dashboard.module.scss';
-import { League } from './containers/League';
+import League from './containers/League';
 import PrivateRoute from '../../components/PrivateRoute';
 
 const {
