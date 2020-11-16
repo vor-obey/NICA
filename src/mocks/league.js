@@ -25,7 +25,7 @@ const generateLeague = () => ({
     year: 2020,
   },
   name: 'Georgia',
-  image: 'https://lh3.googleusercontent.com/proxy/RFsZ4vAUEX_iv9hykEq-zSXteoZdufnDY323JQduvfxuIqVDjqQMYgKm-_yYc8tMdxLt40AUmgrMAZ8i8w8CIerRXWGvMNF9C3fYP65o59t7oEkADvw7bmYQrA',
+  image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
   events: generateEvents(24),
   conferences: generateConferences(14),
   teams: generateTeams(37),

@@ -1,6 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import PersonalInfo from '../../components/PersonalInfo/PersonalInfo';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
+
+export const PROFILE_INFO_QUERY = gql`
+    query profileInfo($userId: ID!){
+        profile(id: $userId){
+            id,
+            firstName,
+            lastName,
+            email,
+            address {
+                city,
+                timeZone,
+            },
+            orders {
+                id,
+                date,
+                status,
+                products {
+                    id,
+                    name,
+                    price,
+                    rider {
+                        id,
+                        firstName,
+                        lastName,
+                    }
+                }
+            }
+        }
+    }
+`;
 
 const personalInfoCol = [
   {
@@ -89,11 +120,27 @@ const orders = [
   },
 ];
 
-const Index = () => (
-  <>
-    <OrderHistory columns={orderHistoryCol} orders={orders} />
-    <PersonalInfo columns={personalInfoCol} data={userInfo} />
-  </>
-);
+const Index = () => {
+  const { loading, data } = useQuery(PROFILE_INFO_QUERY, {
+    variables: {
+      userId: 1,
+    },
+  });
+
+  useEffect(() => {
+    console.dir({
+      loading,
+      data,
+
+    });
+  }, [loading, data]);
+
+  return (
+    <>
+      <OrderHistory columns={orderHistoryCol} orders={orders} />
+      <PersonalInfo columns={personalInfoCol} data={userInfo} />
+    </>
+  );
+};
 
 export default Index;

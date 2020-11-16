@@ -5,10 +5,13 @@ import 'antd/dist/antd.css';
 import App from './App';
 import mocks from './mocks';
 import reportWebVitals from './reportWebVitals';
+import {
+  cache,
+} from './api';
 
 ReactDOM.render(
   <React.StrictMode>
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={mocks} cache={cache}>
       <App />
     </MockedProvider>
   </React.StrictMode>,

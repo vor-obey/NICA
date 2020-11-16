@@ -4,7 +4,6 @@ import {
   Button,
   Menu,
   Layout,
-  Image,
 } from 'antd';
 import {
   HomeOutlined,
@@ -13,7 +12,7 @@ import {
   MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { Switch, Link, useLocation } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Index from './containers/Index';
 import Logo from '../../components/Logo';
 import styles from './Dashboard.module.scss';
@@ -21,7 +20,7 @@ import { League } from './containers/League';
 import PrivateRoute from '../../components/PrivateRoute';
 
 const {
-  Header, Sider, Content, Footer,
+  Header, Sider, Content,
 } = Layout;
 
 const siderWidth = 270;
@@ -46,11 +45,6 @@ export const DASHBOARD_USER_QUERY = gql`
 
 const Dashboard = () => {
   const location = useLocation();
-  const { data } = useQuery(DASHBOARD_USER_QUERY, {
-    variables: {
-      userId: 1,
-    },
-  });
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
   const onClickCollapseBtnHandle = useCallback(() => setIsSiderCollapsed((v) => !v), []);
@@ -87,7 +81,6 @@ const Dashboard = () => {
             onClick={onClickCollapseBtnHandle}
             icon={isSiderCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           />
-          <Image src={data?.league?.image} alt={data?.league?.name} />
         </Header>
         <Content className={styles.content}>
           <Switch>
@@ -95,9 +88,6 @@ const Dashboard = () => {
             <PrivateRoute path="/league" component={League} />
           </Switch>
         </Content>
-        <Footer>
-          Footer
-        </Footer>
       </Layout>
     </Layout>
   );
