@@ -4,6 +4,7 @@ import {
   Button,
   Menu,
   Layout,
+  Drawer,
 } from 'antd';
 import {
   HomeOutlined,
@@ -48,6 +49,15 @@ const Dashboard = () => {
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
   const onClickCollapseBtnHandle = useCallback(() => setIsSiderCollapsed((v) => !v), []);
+  const [visible, setVisible] = useState(false);
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
 
   return (
     <Layout>
@@ -88,6 +98,29 @@ const Dashboard = () => {
             <PrivateRoute path="/league" component={League} />
           </Switch>
         </Content>
+        <MenuUnfoldOutlined
+          onClick={showDrawer}
+          style={{
+            position: 'fixed',
+            top: 80,
+            right: 20,
+            color: 'black',
+            zIndex: 10,
+            fontSize: 25,
+          }}
+        />
+        <Drawer
+          title="Basic Drawer"
+          placement="right"
+          closable
+          onClose={onClose}
+          visible={visible}
+          key="right"
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer>
       </Layout>
     </Layout>
   );
