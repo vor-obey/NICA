@@ -13,8 +13,8 @@ const generateProducts = (length) => [...new Array(length)].map((item, index) =>
   },
 }));
 
-const generateOrders = (length = 4) => [...new Array(length)].map((item, index) => ({
-  id: index,
+const generateOrders = (length = 4) => [...new Array(length)].map(() => ({
+  id: faker.random.uuid(),
   date: faker.date.past()
     .toISOString(),
   status: 'paid',
