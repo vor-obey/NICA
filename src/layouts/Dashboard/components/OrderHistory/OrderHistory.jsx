@@ -23,7 +23,13 @@ const OrderHistory = ({ columns, orders, name }) => {
       </Row>
       <Table
         columns={columns}
-        dataSource={order.products}
+        dataSource={order.products.map((prod) => (
+          {
+            name: prod.name,
+            price: prod.price,
+            fullName: `${prod.rider.firstName} ${prod.rider.lastName}`,
+          }
+        ))}
         pagination={false}
       />
       <Row className={styles.paragraphStyles}>

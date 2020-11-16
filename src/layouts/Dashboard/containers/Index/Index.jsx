@@ -84,7 +84,7 @@ const orderHistoryCol = [
   {
     title: 'Rider',
     width: '20%',
-    dataIndex: 'rider.lastName',
+    dataIndex: 'fullName',
     key: 'reider',
     fixed: 'left',
   },
