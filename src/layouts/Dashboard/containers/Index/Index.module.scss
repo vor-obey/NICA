@@ -1,12 +1,16 @@
+$danger: red;
+$success: #22aa22;
+$primary: #1890ff;
+
 .iconSuccess {
   font-size: 40px;
-  color: green;
+  color: $success;
   margin-right: 20px;
 }
 
 .iconNotification {
   font-size: 40px;
-  color: #1890ff;
+  color: $primary;
   margin-right: 20px;
 }
 
@@ -14,34 +18,34 @@
   display: flex;
   align-items: center;
   background: none;
-  border: 1px solid #1890ff;
+  border: 1px solid $primary;
   padding: 10px;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 
 .resultSuccess {
   display: flex;
   align-items: center;
   background: none;
-  border: 1px solid forestgreen;
+  border: 1px solid $success;
   padding: 10px;
   border-radius: 5px;
-  color: forestgreen;
+  color: $success;
 }
 
 .resultDanger {
   background: none;
-  border: 1px solid red;
+  border: 1px solid $danger;
   padding: 10px;
   border-radius: 5px;
   display: flex;
   align-items: center;
-  color: red;
+  color: $danger;
 }
 
 .iconDanger {
   font-size: 40px;
-  color: red;
+  color: $danger;
   margin-right: 20px;
 }
