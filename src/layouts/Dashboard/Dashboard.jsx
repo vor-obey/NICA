@@ -1,15 +1,14 @@
 /* eslint react/no-array-index-key: 0 */
 import React, { useCallback, useState } from 'react';
 import {
-  Button,
   Menu,
   Layout,
   Image,
+  Drawer,
 } from 'antd';
 import {
   HomeOutlined,
   CrownOutlined,
-  MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { Switch, Link, useLocation } from 'react-router-dom';
@@ -46,6 +45,7 @@ export const DASHBOARD_USER_QUERY = gql`
 
 const Dashboard = () => {
   const location = useLocation();
+  const [visible, setVisible] = useState(false);
   const { data } = useQuery(DASHBOARD_USER_QUERY, {
     variables: {
       userId: 1,
@@ -53,7 +53,14 @@ const Dashboard = () => {
   });
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
-  const onClickCollapseBtnHandle = useCallback(() => setIsSiderCollapsed((v) => !v), []);
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
 
   return (
     <Layout>
@@ -82,11 +89,6 @@ const Dashboard = () => {
         }}
       >
         <Header className={styles.header}>
-          <Button
-            size="large"
-            onClick={onClickCollapseBtnHandle}
-            icon={isSiderCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          />
           <Image src={data?.league?.image} alt={data?.league?.name} />
         </Header>
         <Content className={styles.content}>
@@ -95,7 +97,28 @@ const Dashboard = () => {
             <PrivateRoute path="/league" component={League} />
           </Switch>
         </Content>
-        <Footer>
+        <MenuUnfoldOutlined
+          onClick={showDrawer}
+          style={{
+            position: 'fixed', top: 80, right: 20, color: 'black', zIndex: 10, fontSize: 25,
+          }}
+        />
+        <Drawer
+          title="Basic Drawer"
+          placement="right"
+          closable
+          onClose={onClose}
+          visible={visible}
+          key="right"
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer>
+        <Footer style={{
+          border: '1px solid red', position: 'fixed', bottom: 0, width: '100%',
+        }}
+        >
           Footer
         </Footer>
       </Layout>
