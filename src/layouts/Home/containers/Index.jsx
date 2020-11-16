@@ -2,7 +2,7 @@ import React from 'react';
 import PersonalInfo from '../components/PersonalInfo/PersonalInfo';
 import OrderHistory from '../components/OrderHistory/OrderHistory';
 
-const columns = [
+const personalInfoCol = [
   {
     title: 'First Name',
     width: 'auto',
@@ -34,7 +34,7 @@ const columns = [
   },
 ];
 
-const data = [
+const userInfo = [
   {
     key: '1',
     name: 'John',
@@ -45,7 +45,7 @@ const data = [
   },
 ];
 
-const columns2 = [
+const orderHistoryCol = [
   {
     title: 'Product',
     width: 'auto',
@@ -91,8 +91,8 @@ const orders = [
 
 const Index = () => (
   <>
-    <OrderHistory columns={columns2} orders={orders} />
-    <PersonalInfo columns={columns} data={data} />
+    <OrderHistory columns={orderHistoryCol} orders={orders} />
+    <PersonalInfo columns={personalInfoCol} data={userInfo} />
   </>
 );
 
