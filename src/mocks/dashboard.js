@@ -14,11 +14,12 @@ const generateProducts = (length) => [...new Array(length)].map((item, index) =>
 }));
 
 const generateOrders = (length = 4) => [...new Array(length)].map(() => ({
+  total: faker.random.number(1000),
   id: faker.random.uuid(),
   date: faker.date.past()
     .toISOString(),
   status: 'paid',
-  products: generateProducts(faker.random.number(10, 30)),
+  products: generateProducts(10),
 }));
 
 const generateAddress = () => ({
