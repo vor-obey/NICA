@@ -1,4 +1,3 @@
-/* eslint react/no-array-index-key: 0 */
 import React, { useCallback, useState } from 'react';
 import {
   Menu,
@@ -15,7 +14,6 @@ import {
   PieChartOutlined,
 } from '@ant-design/icons';
 import {
-  Route,
   Switch,
   Link,
   useLocation,
@@ -26,11 +24,11 @@ import Index from './containers/Index';
 import League from './containers/League';
 import Logo from '../../components/Logo';
 import styles from './Dashboard.module.scss';
+import Teams from './containers/Teams/Teams';
+import Events from './containers/Events/Events';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
-import Events from './containers/Events/Events';
 import Conferences from './containers/Conferences/Conferences';
-import Teams from './containers/Teams/Teams';
 
 const {
   Sider, Content,
