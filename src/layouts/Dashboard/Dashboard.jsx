@@ -1,7 +1,6 @@
 /* eslint react/no-array-index-key: 0 */
 import React, { useCallback, useState } from 'react';
 import {
-  Button,
   Menu,
   Layout,
   Drawer,
@@ -10,20 +9,25 @@ import {
   HomeOutlined,
   CrownOutlined,
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Switch, Link, useLocation } from 'react-router-dom';
-import { gql } from '@apollo/client';
+import {
+  Route,
+  Switch,
+  Link,
+  useLocation,
+} from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
+
 import Index from './containers/Index';
+import League from './containers/League';
 import Logo from '../../components/Logo';
 import styles from './Dashboard.module.scss';
-import League from './containers/League';
 import PrivateRoute from '../../components/PrivateRoute';
+import DashboardHeader from './components/DashboardHeader';
 
 const {
-  Header, Sider, Content,
+  Sider, Content,
 } = Layout;
-
 const siderWidth = 270;
 const siderCollapsedWidth = 80;
 
@@ -33,44 +37,53 @@ export const DASHBOARD_USER_QUERY = gql`
             id
             firstName
             lastName
+            image
         }
         league{
             id
             name
             image
-            season {
-                year
-            }
+            season
         }
     }`;
 
 const Dashboard = () => {
   const location = useLocation();
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
-  const onClickCollapseBtnHandle = useCallback(() => setIsSiderCollapsed((v) => !v), []);
-  const [visible, setVisible] = useState(false);
 
-  const onClose = () => {
-    setVisible(false);
-  };
+  const closeDrawer = useCallback(() => {
+    setIsDrawerVisible(false);
+  }, [setIsDrawerVisible]);
 
-  const showDrawer = () => {
-    setVisible(true);
-  };
+  const openDrawer = useCallback(() => {
+    setIsDrawerVisible(true);
+  }, [setIsDrawerVisible]);
+
+  const { loading, data } = useQuery(DASHBOARD_USER_QUERY, {
+    variables: {
+      userId: 1,
+    },
+  });
 
   return (
     <Layout>
       <Sider
-        className={styles.sider}
         collapsible
-        collapsed={isSiderCollapsed}
+        breakpoint="md"
         width={siderWidth}
-        collapsedWidth={siderCollapsedWidth}
         onCollapse={onCollapse}
+        className={styles.sider}
+        collapsed={isSiderCollapsed}
+        collapsedWidth={siderCollapsedWidth}
       >
         <Logo />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={[location.pathname]}
+        >
           <Menu.Item key="/" icon={<HomeOutlined />}>
             <Link to="/">Home</Link>
           </Menu.Item>
@@ -85,37 +98,27 @@ const Dashboard = () => {
           marginLeft: isSiderCollapsed ? siderCollapsedWidth : siderWidth,
         }}
       >
-        <Header className={styles.header}>
-          <Button
-            size="large"
-            onClick={onClickCollapseBtnHandle}
-            icon={isSiderCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          />
-        </Header>
+        <DashboardHeader loading={loading} user={data?.user} />
         <Content className={styles.content}>
           <Switch>
             <PrivateRoute path="/" exact component={Index} />
             <PrivateRoute path="/league" component={League} />
+            <Route path="/events/:eventId">
+              specific event page
+            </Route>
           </Switch>
         </Content>
-        <MenuUnfoldOutlined
-          onClick={showDrawer}
-          style={{
-            position: 'fixed',
-            top: 80,
-            right: 20,
-            color: 'black',
-            zIndex: 10,
-            fontSize: 25,
-          }}
+        <MenuFoldOutlined
+          onClick={openDrawer}
+          className={styles.drawerBtn}
         />
         <Drawer
-          title="Basic Drawer"
-          placement="right"
           closable
-          onClose={onClose}
-          visible={visible}
           key="right"
+          placement="right"
+          onClose={closeDrawer}
+          title="Basic Drawer"
+          visible={isDrawerVisible}
         >
           <p>Some contents...</p>
           <p>Some contents...</p>

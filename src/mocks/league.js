@@ -21,9 +21,7 @@ const generateTeams = (length) => [...new Array(length)].map((item, index) => ({
 
 const generateLeague = () => ({
   id: 1,
-  season: {
-    year: 2020,
-  },
+  season: '2020',
   name: 'Georgia',
   image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
   events: generateEvents(24),

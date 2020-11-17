@@ -1,6 +1,6 @@
-$headerHeight: 64px;
 $siderWidth: 270px;
 $siderCollapsedWidth: 80px;
+$headerHeight: 80px;
 
 .layout {
   height: 100vh;
@@ -18,15 +18,47 @@ $siderCollapsedWidth: 80px;
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  width: 100vw;
-  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.headerItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
 }
 
 .content {
   padding: 40px;
 }
 
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.drawerBtn {
+  position: fixed;
+  bottom: 50%;
+  right: 20px;
+
+  z-index: 10;
+  font-size: 25px;
+  transform-origin: center;
+  animation: scale;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
 
 
