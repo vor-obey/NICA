@@ -11,6 +11,9 @@ import {
   CrownOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  TeamOutlined,
+  CalendarOutlined,
+  PieChartOutlined,
 } from '@ant-design/icons';
 import { Switch, Link, useLocation } from 'react-router-dom';
 import { gql } from '@apollo/client';
@@ -80,13 +83,13 @@ const Dashboard = () => {
           <Menu.Item key="/league" icon={<CrownOutlined />}>
             <Link to="/league">League</Link>
           </Menu.Item>
-          <Menu.Item key="/teams" icon={<CrownOutlined />}>
+          <Menu.Item key="/teams" icon={<TeamOutlined />}>
             <Link to="/teams">Teams</Link>
           </Menu.Item>
-          <Menu.Item key="/events" icon={<CrownOutlined />}>
+          <Menu.Item key="/events" icon={<CalendarOutlined />}>
             <Link to="/events">Events</Link>
           </Menu.Item>
-          <Menu.Item key="/conferences" icon={<CrownOutlined />}>
+          <Menu.Item key="/conferences" icon={<PieChartOutlined />}>
             <Link to="/conferences">Conferences</Link>
           </Menu.Item>
         </Menu>
