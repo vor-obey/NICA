@@ -19,6 +19,9 @@ import Logo from '../../components/Logo';
 import styles from './Dashboard.module.scss';
 import League from './containers/League';
 import PrivateRoute from '../../components/PrivateRoute';
+import Events from './containers/Events/Events';
+import Conferences from './containers/Conferences/Conferences';
+import Teams from './containers/Teams/Teams';
 
 const {
   Header, Sider, Content,
@@ -77,6 +80,15 @@ const Dashboard = () => {
           <Menu.Item key="/league" icon={<CrownOutlined />}>
             <Link to="/league">League</Link>
           </Menu.Item>
+          <Menu.Item key="/teams" icon={<CrownOutlined />}>
+            <Link to="/teams">Teams</Link>
+          </Menu.Item>
+          <Menu.Item key="/events" icon={<CrownOutlined />}>
+            <Link to="/events">Events</Link>
+          </Menu.Item>
+          <Menu.Item key="/conferences" icon={<CrownOutlined />}>
+            <Link to="/conferences">Conferences</Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout
@@ -96,6 +108,12 @@ const Dashboard = () => {
           <Switch>
             <PrivateRoute path="/" exact component={Index} />
             <PrivateRoute path="/league" component={League} />
+            <PrivateRoute exact path="/events" component={Events} />
+            <PrivateRoute exact path="/teams" component={Teams} />
+            <PrivateRoute exact path="/conferences" component={Conferences} />
+            <PrivateRoute path="/events/:id">Events</PrivateRoute>
+            <PrivateRoute path="/teams/:id">Teams</PrivateRoute>
+            <PrivateRoute path="/conferences/:id">Conferences</PrivateRoute>
           </Switch>
         </Content>
         <MenuUnfoldOutlined
