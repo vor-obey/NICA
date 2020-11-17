@@ -48,13 +48,7 @@ const DashboardHeader = ({ user, loading }) => (
           >
             <Card.Meta
               className={styles.userItem}
-              avatar={loading ? (
-                <Skeleton.Avatar
-                  shape="circle"
-                  size="large"
-                  active
-                />
-              ) : <Avatar size="large" src={user?.image} />}
+              avatar={<Avatar size="large" src={user?.image} />}
               title={`${user?.firstName} ${user?.lastName}`}
             />
           </Skeleton>
