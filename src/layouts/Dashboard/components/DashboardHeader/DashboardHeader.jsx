@@ -10,6 +10,7 @@ import {
   Col,
 } from 'antd';
 import { Link } from 'react-router-dom';
+import { UserOutlined } from '@ant-design/icons';
 import styles from './DashboardHeader.module.scss';
 
 const { Header } = Layout;
@@ -35,7 +36,6 @@ const DashboardHeader = ({ user, loading }) => (
             overflow: 'hidden',
           }}
         >
-
           <Skeleton
             avatar={{
               size: 'large',
@@ -48,11 +48,16 @@ const DashboardHeader = ({ user, loading }) => (
           >
             <Card.Meta
               className={styles.userItem}
-              avatar={<Avatar size="large" src={user?.image} />}
+              avatar={(
+                <Avatar
+                  size="large"
+                  src={user?.image}
+                  icon={<UserOutlined />}
+                />
+              )}
               title={`${user?.firstName} ${user?.lastName}`}
             />
           </Skeleton>
-
         </Dropdown>
       </Col>
     </Row>
