@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useCallback, useMemo } from 'react';
 import {
   Button, Row, Table, Typography,
@@ -16,11 +15,13 @@ const tableProps = {
   pagination: { pageSize: 6 },
 };
 
-const TableWidget = ({ title, columns, ...props }) => {
+const TableWidget = ({
+  title, columns, buttons, ...props
+}) => {
   const renderTitle = useCallback(() => (
     <Row className={styles.tableTitleRow} justify="space-between" align="middle">
       <Title level={2} className={styles.tableTitle}>{title}</Title>
-      <Button type="primary" icon={<PlusOutlined />} shape="circle" size="large" />
+      {(buttons && buttons()) || <Button type="primary" icon={<PlusOutlined />} shape="circle" size="large" />}
     </Row>
   ), [title]);
 
