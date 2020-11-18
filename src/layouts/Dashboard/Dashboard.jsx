@@ -28,6 +28,7 @@ import Events from './containers/Events/Events';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
 import Conferences from './containers/Conferences/Conferences';
+import Team from './containers/Teams/Team/Team';
 
 const {
   Sider, Content,
@@ -120,7 +121,7 @@ const Dashboard = () => {
             <PrivateRoute exact path="/teams" component={Teams} />
             <PrivateRoute exact path="/conferences" component={Conferences} />
             <PrivateRoute path="/events/:id">Events</PrivateRoute>
-            <PrivateRoute path="/teams/:id">Teams</PrivateRoute>
+            <PrivateRoute path="/teams/:id" component={Team} />
             <PrivateRoute path="/conferences/:id">Conferences</PrivateRoute>
           </Switch>
         </Content>
