@@ -1,14 +1,12 @@
 
 .tableTitleRow {
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1rem;
 
   .tableTitle {
     margin: 0;
   }
 }
 
-.tableRow {
-  & > td {
-    padding: 1rem 2rem !important;
-  }
+.tableColumn {
+  padding: 1rem 1.5rem !important;
 }

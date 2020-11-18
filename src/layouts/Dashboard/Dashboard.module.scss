@@ -49,10 +49,10 @@ $headerHeight: 80px;
 
 .drawerBtn {
   position: fixed;
-  bottom: 50%;
-  right: 20px;
+  right: 0;
+  top: 150px;
+  z-index: 99;
 
-  z-index: 10;
   font-size: 25px;
   transform-origin: center;
   animation: scale;

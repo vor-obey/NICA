@@ -8,7 +8,6 @@ import {
   HomeOutlined,
   CrownOutlined,
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
   TeamOutlined,
   CalendarOutlined,
   PieChartOutlined,

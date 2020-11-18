@@ -1,17 +1,32 @@
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import {
-  Button, Col, Row, Table, Typography,
+  Col,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
-import { useQuery } from '@apollo/client';
-import { PlusOutlined } from '@ant-design/icons';
+import { gql, useQuery } from '@apollo/client';
 import styles from '../League/League.module.scss';
-import { LEAGUE_QUERY } from '../League/League';
+import TableWidget from '../../components/TableWidget';
 
-const { Title } = Typography;
+export const LEAGUE_TEAMS_QUERY = gql`
+    query leagueTeams($leagueId: ID!){
+        league(id: $leagueId){
+            id
+            name{
+                short
+                formal
+            }
+            image
+            season
+            teams{
+                id
+                name
+                createdAt
+            }
+        }
+    }`;
 
-const teamsTableColumns = [
+const columns = [
   {
     key: 'name',
     title: 'Name',
@@ -22,9 +37,9 @@ const teamsTableColumns = [
   },
   {
     ellipsis: true,
-    key: 'birthdate',
-    title: 'Birthdate',
-    dataIndex: 'birthdate',
+    key: 'createdAt',
+    title: 'Created at',
+    dataIndex: 'createdAt',
     className: styles.tableColumn,
     render: (value) => format(new Date(value), 'dd/MM/yyyy mm:HH'),
   },
@@ -33,56 +48,30 @@ const teamsTableColumns = [
     title: 'Actions',
     className: styles.tableColumn,
     render: (test, record) => (
-      <Link
-        to={`/events/${record.id}?edit=true`}
-        type="primary"
-      >
+      <Link to={`/teams/${record.id}`}>
         Edit
       </Link>
     ),
   },
-
 ];
 
-const Teams = () => {
-  const { data: { league } = {}, loading } = useQuery(LEAGUE_QUERY, {
+const Events = () => {
+  const { data, loading } = useQuery(LEAGUE_TEAMS_QUERY, {
     variables: {
       leagueId: 1,
     },
   });
 
-  const renderTableTitle = useCallback((title) => () => (
-    <Row className={styles.tableTitleRow} justify="space-between">
-      <Title style={{ margin: 0 }}>{title}</Title>
-      <Button type="primary" icon={<PlusOutlined />} shape="circle" size="large" />
-    </Row>
-  ), []);
-
-  const tableProps = useMemo(() => ({
-    loading,
-    size: 'small',
-    scroll: {
-      x: true,
-    },
-    bordered: true,
-    pagination: {
-      pageSize: 6,
-    },
-    tableLayout: 'auto',
-    style: {
-      width: '100%',
-    },
-  }), [loading]);
   return (
     <Col span={24}>
-      <Table
-        {...tableProps}
-        columns={teamsTableColumns}
-        dataSource={league?.teams}
-        title={renderTableTitle('Teams')}
+      <TableWidget
+        title="Teams"
+        columns={columns}
+        loading={loading}
+        dataSource={data?.league?.teams}
       />
     </Col>
   );
 };
 
-export default Teams;
+export default Events;

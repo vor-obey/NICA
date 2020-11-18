@@ -1,88 +1,73 @@
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import {
-  Button, Col, Row, Table, Typography,
+  Col,
 } from 'antd';
-import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
-import { useQuery } from '@apollo/client';
-import { PlusOutlined } from '@ant-design/icons';
-import styles from '../League/League.module.scss';
-import { LEAGUE_QUERY } from '../League/League';
+import { Link } from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client';
+import TableWidget from '../../components/TableWidget';
 
-const { Title } = Typography;
+export const LEAGUE_CONFERENCES_QUERY = gql`
+    query leagueConferences($leagueId: ID!){
+        league(id: $leagueId){
+            id
+            name
+            image
+            season
+            conferences{
+                id
+                name
+                date
+            }
+        }
+    }`;
 
-const conferencesTableColumns = [
+const columns = [
   {
     key: 'name',
     title: 'Name',
     ellipsis: true,
     dataIndex: 'name',
-    className: styles.tableColumn,
     render: (text, record) => <Link to={`/conferences/${record.id}`}>{text}</Link>,
   },
   {
+    key: 'date',
+    title: 'Date',
     ellipsis: true,
-    key: 'birthdate',
-    title: 'Birthdate',
-    dataIndex: 'birthdate',
-    className: styles.tableColumn,
+    dataIndex: 'date',
     render: (value) => format(new Date(value), 'dd/MM/yyyy mm:HH'),
   },
   {
     key: 'action',
     title: 'Actions',
-    className: styles.tableColumn,
     render: (test, record) => (
       <Link
-        to={`/events/${record.id}?edit=true`}
+        to={`/events/${record.id}`}
         type="primary"
       >
         Edit
       </Link>
     ),
   },
-
 ];
 
-const Conferences = () => {
-  const { data: { league } = {}, loading } = useQuery(LEAGUE_QUERY, {
+const Events = () => {
+  const { data, loading } = useQuery(LEAGUE_CONFERENCES_QUERY, {
     variables: {
       leagueId: 1,
     },
   });
 
-  const renderTableTitle = useCallback((title) => () => (
-    <Row className={styles.tableTitleRow} justify="space-between">
-      <Title style={{ margin: 0 }}>{title}</Title>
-      <Button type="primary" icon={<PlusOutlined />} shape="circle" size="large" />
-    </Row>
-  ), []);
-
-  const tableProps = useMemo(() => ({
-    loading,
-    size: 'small',
-    scroll: {
-      x: true,
-    },
-    bordered: true,
-    pagination: {
-      pageSize: 6,
-    },
-    tableLayout: 'auto',
-    style: {
-      width: '100%',
-    },
-  }), [loading]);
   return (
     <Col span={24}>
-      <Table
-        {...tableProps}
-        columns={conferencesTableColumns}
-        dataSource={league?.conferences}
-        title={renderTableTitle('Conferences')}
+      <TableWidget
+        columns={columns}
+        loading={loading}
+        title="Conferences"
+        dataSource={data?.league?.conferences}
       />
     </Col>
   );
 };
 
-export default Conferences;
+export default Events;
