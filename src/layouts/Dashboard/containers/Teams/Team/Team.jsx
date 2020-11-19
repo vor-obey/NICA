@@ -1,12 +1,44 @@
 import React from 'react';
 import {
-  Button, Col, Divider, Row,
+  Col, Divider, Row, Popover, Image, Typography,
 } from 'antd';
 import { Link } from 'react-router-dom';
-import { CheckCircleOutlined, PlusCircleOutlined, DownloadOutlined } from '@ant-design/icons';
+import {
+  // eslint-disable-next-line no-unused-vars
+  DownloadOutlined, PlusOutlined, MinusOutlined,
+} from '@ant-design/icons';
+import { gql, useQuery } from '@apollo/client';
 import TableWidget from '../../../components/TableWidget';
 import styles from './Team.module.scss';
 import Statistics from '../../../components/Statistics';
+import PageTitle from '../../../components/PageTitle';
+import LeagueLogo from './Lea.png';
+
+const { Title, Text } = Typography;
+
+export const TEAM_QUERY = gql`
+    query teamData($teamId: ID!){
+        team (id: $teamId){
+            coaches {
+                id,
+                name,
+                level,
+                email,
+                phone,
+                hours
+            },
+            riders {
+            name,
+            racePlate,
+            grade,
+            category,
+            practiceReady,
+            events,
+            hours,
+                state,
+            }
+        }
+    }`;
 
 const columns = [
   {
@@ -81,39 +113,16 @@ const columnsEvents = [
     dataIndex: 'events',
   },
   {
-    key: '1',
-    title: '1',
+    key: 'state',
+    title: 'State',
     ellipsis: true,
-    dataIndex: '1',
+    dataIndex: 'state',
   },
   {
     ellipsis: true,
     key: 'TTCHours',
     title: 'TTC Hours',
     dataIndex: 'hours',
-  },
-];
-
-const data = [
-  {
-    name: ['Andy Harber', <CheckCircleOutlined style={{ color: 'green', marginLeft: 20 }} />],
-    level: 3,
-    email: 'example@mail.ua',
-    phone: 38099955542,
-    hours: 0.0,
-  },
-];
-
-const dataEvents = [
-  {
-    name: 'Abigaly Teryy',
-    racePlate: 5261,
-    grade: 5,
-    category: 'Freshman',
-    practiceReady: 'Yes',
-    events: 'events',
-    1: <CheckCircleOutlined style={{ color: 'green' }} />,
-    hours: 0.0,
   },
 ];
 
@@ -156,38 +165,55 @@ const statisticsTeamOverview = [
 ];
 
 const Team = () => {
+  const { loading, data } = useQuery(TEAM_QUERY, {
+    variables: {
+      teamId: 1,
+    },
+  });
+
   const renderButtonCoach = () => (
     <Row>
-      <Col>
-        <Button type="primary" icon={<DownloadOutlined />} size="large">
-          Export Coaches CSV
-        </Button>
-      </Col>
-      <Col>
-        <Button type="primary" icon={<DownloadOutlined />} size="large" style={{ marginLeft: 15 }}>
-          Export Coaches Emergency Contacts CSV
-        </Button>
-      </Col>
+      <Popover
+        placement="left"
+        content={(
+          <div className={styles.popoverLinks}>
+            <a href="/fff">Export Coaches CSV</a>
+            <a href="/fff">Emergency Contacts CSV</a>
+          </div>
+)}
+        trigger="click"
+      >
+        <DownloadOutlined className={styles.buttonIcons} />
+      </Popover>
     </Row>
   );
 
   const renderButtonRider = () => (
     <Row>
-      <Col>
-        <Button type="primary" icon={<DownloadOutlined />} size="large">
-          Export Rider Roster CSV
-        </Button>
-      </Col>
-      <Col>
-        <Button type="primary" icon={<DownloadOutlined />} size="large" style={{ marginLeft: 15 }}>
-          Export Riders Emergency Contacts CSV
-        </Button>
-      </Col>
+      <Popover
+        placement="left"
+        content={(
+          <div className={styles.popoverLinks}>
+            <a href="/fff">Export Riders CSV</a>
+            <a href="/fff">Emergency Contacts CSV</a>
+          </div>
+        )}
+        trigger="click"
+      >
+        <DownloadOutlined className={styles.buttonIcons} />
+      </Popover>
     </Row>
   );
 
   return (
     <>
+      <PageTitle
+        loading={loading}
+        title={<Title style={{ fontSize: '2vmax' }}>Allatoona Creek Composite</Title>}
+        avatar={<Image style={{ marginRight: 20 }} src={LeagueLogo} />}
+        description={<Text style={{ fontSize: '1.5vmax' }} type="secondary">Season 2020</Text>}
+      />
+
       <Col span={24} style={{ marginBottom: 40 }}>
         <Divider orientation="left">Team Overview</Divider>
         <Statistics statistics={statisticsTeamOverview} />
@@ -200,55 +226,52 @@ const Team = () => {
       <Col span={24} style={{ marginBottom: 50 }}>
         <TableWidget
           columns={columns}
+          loading={loading}
           title="Coaches"
-          dataSource={data}
+          dataSource={data?.team?.coaches}
           buttons={renderButtonCoach}
+          footer={() => (
+            <>
+              <Row align="end">
+                <a href="/fff" className={styles.buttonLinks}>
+                  <MinusOutlined className={styles.positionBtn} />
+                  Re-Invite Coaches to the New Season
+                </a>
+              </Row>
+              <Row align="end">
+                <a href="/fff" className={styles.buttonLinks}>
+                  <PlusOutlined className={styles.positionBtn} />
+                  Invite New Coaches
+                </a>
+              </Row>
+            </>
+          )}
         />
-        <Row>
-          <Button
-            icon={<PlusCircleOutlined className={styles.buttonIcons} />}
-            className={styles.underTableButton}
-            type="primary"
-            size="large"
-          >
-            Invite New Coaches
-          </Button>
-          <Button
-            icon={<PlusCircleOutlined className={styles.buttonIcons} />}
-            className={styles.underTableButton}
-            type="primary"
-            size="large"
-          >
-            Re-Invite Coaches to the New Season
-          </Button>
-        </Row>
       </Col>
 
       <Col span={24} style={{ marginBottom: 50 }}>
         <TableWidget
           columns={columnsEvents}
           title="Riders and Events"
-          dataSource={dataEvents}
+          dataSource={data?.team?.riders}
           buttons={renderButtonRider}
+          footer={() => (
+            <>
+              <Row align="end">
+                <a href="/fff" className={styles.buttonLinks}>
+                  <MinusOutlined className={styles.positionBtn} />
+                  Re-Invite Riders to the New Season
+                </a>
+              </Row>
+              <Row align="end">
+                <a href="/fff" className={styles.buttonLinks}>
+                  <PlusOutlined className={styles.positionBtn} />
+                  Invite New Riders
+                </a>
+              </Row>
+            </>
+          )}
         />
-        <Row>
-          <Button
-            icon={<PlusCircleOutlined className={styles.buttonIcons} />}
-            className={styles.underTableButton}
-            type="primary"
-            size="large"
-          >
-            Invite New Riders
-          </Button>
-          <Button
-            icon={<PlusCircleOutlined className={styles.buttonIcons} />}
-            className={styles.underTableButton}
-            type="primary"
-            size="large"
-          >
-            Re-Invite Riders to the New Season
-          </Button>
-        </Row>
       </Col>
     </>
   );
