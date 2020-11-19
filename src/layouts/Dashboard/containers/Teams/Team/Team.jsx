@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  Button, Col, Descriptions, Divider, Row, Skeleton,
+  Button, Col, Divider, Row,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { CheckCircleOutlined, PlusCircleOutlined, DownloadOutlined } from '@ant-design/icons';
 import TableWidget from '../../../components/TableWidget';
 import styles from './Team.module.scss';
+import Statistics from '../../../components/Statistics';
 
 const columns = [
   {
@@ -116,6 +117,44 @@ const dataEvents = [
   },
 ];
 
+const statisticsTeenTrail = [
+  {
+    title: 'Coaches',
+    value: 5,
+  },
+  {
+    title: 'Riders',
+    value: 9,
+  },
+  {
+    title: 'Other volunteers',
+    value: 57,
+  },
+  {
+    title: 'Total',
+    value: 70,
+  },
+];
+
+const statisticsTeamOverview = [
+  {
+    title: 'Registered Coaches',
+    value: 9,
+  },
+  {
+    title: 'Total Coaches',
+    value: 7,
+  },
+  {
+    title: 'Registered riders',
+    value: 67,
+  },
+  {
+    title: 'Total Riders',
+    value: 40,
+  },
+];
+
 const Team = () => {
   const renderButtonCoach = () => (
     <Row>
@@ -149,6 +188,15 @@ const Team = () => {
 
   return (
     <>
+      <Col span={24} style={{ marginBottom: 40 }}>
+        <Divider orientation="left">Team Overview</Divider>
+        <Statistics statistics={statisticsTeamOverview} />
+      </Col>
+      <Col span={24} style={{ marginBottom: 40 }}>
+        <Divider orientation="left">Teen Trail Corps Hours</Divider>
+        <Statistics statistics={statisticsTeenTrail} />
+      </Col>
+
       <Col span={24} style={{ marginBottom: 50 }}>
         <TableWidget
           columns={columns}
@@ -201,58 +249,6 @@ const Team = () => {
             Re-Invite Riders to the New Season
           </Button>
         </Row>
-      </Col>
-
-      <Col>
-        <Divider orientation="left">Teen Trail Corps Hours</Divider>
-        <Descriptions bordered layout="vertical">
-          <Descriptions.Item label="Coaches" span={1}>
-            <Skeleton paragraph={false} active loading={false}>
-              0.0
-            </Skeleton>
-          </Descriptions.Item>
-          <Descriptions.Item label="Riders" span={0.5}>
-            <Skeleton paragraph={false} active loading={false}>
-              0.0
-            </Skeleton>
-          </Descriptions.Item>
-          <Descriptions.Item label="Other volunteers" span={0.5}>
-            <Skeleton paragraph={false} active loading={false}>
-              0.0
-            </Skeleton>
-          </Descriptions.Item>
-          <Descriptions.Item label="Total" span={1}>
-            <Skeleton paragraph={false} active loading={false}>
-              0.0
-            </Skeleton>
-          </Descriptions.Item>
-        </Descriptions>
-      </Col>
-
-      <Col>
-        <Divider orientation="left">Team Overview</Divider>
-        <Descriptions bordered layout="vertical">
-          <Descriptions.Item label="Registered Coaches" span={1}>
-            <Skeleton paragraph={false} active loading={false}>
-              48
-            </Skeleton>
-          </Descriptions.Item>
-          <Descriptions.Item label="Total Coaches" span={0.5}>
-            <Skeleton paragraph={false} active loading={false}>
-              5
-            </Skeleton>
-          </Descriptions.Item>
-          <Descriptions.Item label="Registered riders" span={0.5}>
-            <Skeleton paragraph={false} active loading={false}>
-              7
-            </Skeleton>
-          </Descriptions.Item>
-          <Descriptions.Item label="Total Riders" span={1}>
-            <Skeleton paragraph={false} active loading={false}>
-              20
-            </Skeleton>
-          </Descriptions.Item>
-        </Descriptions>
       </Col>
     </>
   );
