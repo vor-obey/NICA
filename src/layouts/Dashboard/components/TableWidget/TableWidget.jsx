@@ -16,7 +16,7 @@ const tableProps = {
 };
 
 const TableWidget = ({
-  title, columns, buttons, ...props
+  title, columns, buttons, footer, ...props
 }) => {
   const renderTitle = useCallback(() => (
     <Row className={styles.tableTitleRow} justify="space-between" align="middle">
@@ -31,7 +31,13 @@ const TableWidget = ({
   );
 
   return (
-    <Table {...tableProps} title={renderTitle} columns={columnsWithClassName} {...props} />
+    <Table
+      {...tableProps}
+      title={renderTitle}
+      columns={columnsWithClassName}
+      footer={footer}
+      {...props}
+    />
   );
 };
 
