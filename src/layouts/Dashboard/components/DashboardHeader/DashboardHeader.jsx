@@ -28,23 +28,23 @@ const DashboardHeader = ({ user, loading }) => (
   <Header className={styles.header}>
     <Row justify="end">
       <Col>
-        <Dropdown
-          trigger={['click', 'hover']}
-          overlay={menu}
-          style={{
-            maxWidth: 250,
-            overflow: 'hidden',
+        <Skeleton
+          avatar={{
+            size: 'large',
+            shape: 'circle',
           }}
+          loading={loading}
+          active
+          title={{ width: 160 }}
+          paragraph={false}
         >
-          <Skeleton
-            avatar={{
-              size: 'large',
-              shape: 'circle',
+          <Dropdown
+            trigger={['click', 'hover']}
+            overlay={menu}
+            style={{
+              maxWidth: 250,
+              overflow: 'hidden',
             }}
-            loading={loading}
-            active
-            title={{ width: 160 }}
-            paragraph={false}
           >
             <Card.Meta
               className={styles.userItem}
@@ -57,8 +57,8 @@ const DashboardHeader = ({ user, loading }) => (
               )}
               title={`${user?.firstName} ${user?.lastName}`}
             />
-          </Skeleton>
-        </Dropdown>
+          </Dropdown>
+        </Skeleton>
       </Col>
     </Row>
   </Header>
