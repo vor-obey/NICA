@@ -29,6 +29,7 @@ import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
 import Conferences from './containers/Conferences/Conferences';
 import Team from './containers/Teams/Team/Team';
+import Season from './containers/Season';
 
 const {
   Sider, Content,
@@ -116,7 +117,8 @@ const Dashboard = () => {
         <Content className={styles.content}>
           <Switch>
             <PrivateRoute path="/" exact component={Index} />
-            <PrivateRoute path="/league" component={League} />
+            <PrivateRoute exact path="/league" component={League} />
+            <PrivateRoute path="/leagues/:leagueId/seasons/:seasonId" component={Season} />
             <PrivateRoute exact path="/events" component={Events} />
             <PrivateRoute exact path="/teams" component={Teams} />
             <PrivateRoute exact path="/conferences" component={Conferences} />
