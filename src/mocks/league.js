@@ -24,18 +24,21 @@ const generateEvents = generate((item, index) => ({
     .toISOString(),
   __typename: 'Event',
 }));
+
 const generateConferences = generate((item, index) => ({
   id: index,
   name: faker.name.title(),
   date: faker.date[Math.random() > 0.5 ? 'soon' : 'past'](),
   __typename: 'Conference',
 }));
+
 const generateTeams = generate((item, index) => ({
   id: index,
   name: faker.name.findName(),
   createdAt: faker.date.past(),
   __typename: 'Team',
 }));
+
 const generateStatistics = generate(() => ({
   title: faker.name.title(),
   value: faker.random.number({
@@ -44,6 +47,7 @@ const generateStatistics = generate(() => ({
   }),
   __typename: 'Stat',
 }));
+
 const generateAdmins = generate((item, index) => {
   const gender = faker.random.number({
     min: 0,
@@ -56,6 +60,7 @@ const generateAdmins = generate((item, index) => {
     email: faker.internet.email(),
   });
 });
+
 const leagueInfo = {
   request: {
     query: LEAGUE_INFO_QUERY,
@@ -67,6 +72,10 @@ const leagueInfo = {
     data: {
       league: {
         ...league,
+        season: {
+          id: 1,
+          name: '2020',
+        },
         riderRegistrationStatus: 'close',
         coachRegistrationStatus: 'open',
         registrationContact: 'Georgia League',
@@ -85,7 +94,7 @@ const leagueInfo = {
           min: 6,
           max: 16,
         })),
-        statistics: generateStatistics(7),
+        statistics: generateStatistics(3),
       },
     },
   }),
@@ -119,7 +128,7 @@ const leagueEvents = {
       leagueId: 1,
     },
   },
-  result: () => ({
+  result: {
     data: {
       league: {
         ...league,
@@ -129,7 +138,7 @@ const leagueEvents = {
         })),
       },
     },
-  }),
+  },
 };
 
 const leagueConferences = {
