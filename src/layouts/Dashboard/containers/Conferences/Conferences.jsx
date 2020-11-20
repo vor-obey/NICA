@@ -1,11 +1,15 @@
 import React from 'react';
 import {
-  Col,
+  Col, Image, Row, Typography,
 } from 'antd';
 import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
+import { SettingFilled } from '@ant-design/icons';
 import TableWidget from '../../components/TableWidget';
+import PageTitle from '../../components/PageTitle';
+
+const { Title, Text } = Typography;
 
 export const LEAGUE_CONFERENCES_QUERY = gql`
     query leagueConferences($leagueId: ID!){
@@ -59,14 +63,42 @@ const Events = () => {
   });
 
   return (
-    <Col span={24}>
-      <TableWidget
-        columns={columns}
-        loading={loading}
-        title="Conferences"
-        dataSource={data?.league?.conferences}
-      />
-    </Col>
+    <Row gutter={[0, 60]}>
+      <Col span={24}>
+        <PageTitle
+          loading={loading}
+          avatar={(
+            <Image
+              width={260}
+              src={data?.league?.image}
+              fallback=""
+            />
+          )}
+          title={(
+            <Title>
+              {`${data?.league?.name?.short} league`}
+            </Title>
+          )}
+          description={(
+            <Link to={`/leagues/${data?.league?.id}/seasons/${data?.league?.season?.id}`}>
+              <Text type="secondary">
+                {`Season ${data?.league?.season?.name} `}
+                <SettingFilled />
+              </Text>
+            </Link>
+          )}
+        />
+      </Col>
+
+      <Col span={24}>
+        <TableWidget
+          columns={columns}
+          loading={loading}
+          title="Conferences"
+          dataSource={data?.league?.conferences}
+        />
+      </Col>
+    </Row>
   );
 };
 
