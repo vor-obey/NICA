@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  Form, Input, Button, Checkbox, Typography,
+  Form, Input, Button, Checkbox, Row,
 } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './Form.module.scss';
-
-const { Title } = Typography;
 
 const emailRules = [
   {
@@ -26,14 +23,8 @@ const passwordRules = [
   },
 ];
 
-const LoginForm = ({ onSubmit }) => (
-  <Form
-    className={styles.form}
-    size="large"
-    layout="vertical"
-    onFinish={onSubmit}
-  >
-    <Title level={1}>Sign in</Title>
+const LoginForm = () => (
+  <>
     <Form.Item
       name="email"
       rules={emailRules}
@@ -42,7 +33,7 @@ const LoginForm = ({ onSubmit }) => (
         placeholder="example@mail.com"
         prefix={
           <MailOutlined className={styles.formInputIcon} />
-        }
+         }
       />
     </Form.Item>
     <Form.Item
@@ -50,14 +41,14 @@ const LoginForm = ({ onSubmit }) => (
       name="password"
       rules={passwordRules}
     >
-      <Input
+      <Input.Password
         placeholder="password"
         prefix={
           <LockOutlined className={styles.formInputIcon} />
-        }
+         }
       />
     </Form.Item>
-    <Form.Item name="remember">
+    <Form.Item name="remember" valuePropName="checked">
       <Checkbox>Remember me</Checkbox>
     </Form.Item>
     <Form.Item>
@@ -69,11 +60,12 @@ const LoginForm = ({ onSubmit }) => (
         Sign in
       </Button>
     </Form.Item>
-  </Form>
+    <Row justify="center" className={styles.linkForgotPass}>
+      <a className="login-form-forgot" href="/forgotpass">
+        Forgot password?
+      </a>
+    </Row>
+  </>
 );
-
-LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default LoginForm;

@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Suspense fallback={<h1>Laoding...</h1>}>
         <Switch>
-          <Route path={['/login', '/signup']} component={Auth} />
+          <Route path={['/login', '/signup', '/forgotpass']} component={Auth} />
           <PrivateRoute path="/" component={Dashboard} />
         </Switch>
       </Suspense>
