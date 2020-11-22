@@ -1,4 +1,4 @@
-import format from 'date-fns/format';
+import moment from 'moment';
 import React, { useCallback } from 'react';
 import {
   Alert, Button, Descriptions, Space, Table, Typography, Divider,
@@ -35,7 +35,8 @@ const SeasonRegistrationItem = ({
           type="error"
           message={name}
           icon={<NotificationOutlined />}
-          description={`The late fee is effected now! Is in effect starting ${format(new Date(startedAt), 'yyyy-MM-dd HH:mm')}`}
+          description={`The late fee is effected now! Is in effect starting ${moment(startedAt)
+            .format('YYYY-MM-DD HH:mm')}`}
         />
       );
     }

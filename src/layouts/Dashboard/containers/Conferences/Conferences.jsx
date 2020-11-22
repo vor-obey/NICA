@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Col, Image, Row, Typography,
 } from 'antd';
-import format from 'date-fns/format';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import { SettingFilled } from '@ant-design/icons';
@@ -39,7 +39,8 @@ const columns = [
     title: 'Date',
     ellipsis: true,
     dataIndex: 'date',
-    render: (value) => format(new Date(value), 'dd/MM/yyyy mm:HH'),
+    render: (value) => moment(value)
+      .format('DD/MM/YYYY HH:mm'),
   },
   {
     key: 'action',
