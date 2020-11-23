@@ -13,12 +13,16 @@ const { Title, Text } = Typography;
 
 const SeasonInfoEdit = ({ loading, season }) => {
   const {
-    name, startedAt, league, divisionsCount,
+    name,
+    startedAt,
+    league,
+    divisionsCount,
     contactsInfoReleases,
     riderNewsletterId,
     coachNewsletterId,
     allowCoachesReportTTCHours,
   } = season;
+
   return (
     <Collapse>
       <Panel key={1} header={<Title level={3}>General information</Title>}>

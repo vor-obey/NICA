@@ -70,7 +70,7 @@ export const SEASON_EDIT_PROPS_QUERY = gql`
 const SeasonEdit = () => {
   const { seasonId, leagueId } = useParams();
 
-  const { loading, data, error } = useQuery(SEASON_EDIT_PROPS_QUERY, {
+  const { loading, data } = useQuery(SEASON_EDIT_PROPS_QUERY, {
     variables: {
       leagueId,
       seasonId,

@@ -23,9 +23,7 @@ const categoriesColumns = [
   },
 ];
 const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
+  onChange: (selectedRowKeys, selectedRows) => {},
   getCheckboxProps: (record) => {
     const { id, ridersCount } = record;
     return {

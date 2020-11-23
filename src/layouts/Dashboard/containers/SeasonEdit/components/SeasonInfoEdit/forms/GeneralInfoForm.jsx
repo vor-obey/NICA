@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
 import moment from 'moment';
-import { Form, DatePicker } from 'antd';
 import PropTypes from 'prop-types';
+import { Form, DatePicker } from 'antd';
+import React, { useCallback } from 'react';
 
 const dateFormat = 'DD/MM/YYYY';
 
@@ -15,12 +15,12 @@ const GeneralInfoForm = ({ onSubmit, initialValues }) => {
     onSubmit(allFields);
   }, [onSubmit]);
   return (
-    <Form onFieldsChange={fieldsChangeHandle} initialValues={initialValues}>
+    <Form onFieldsChange={fieldsChangeHandle}>
       <Form.Item
         style={formItemStyle}
         name="startDate"
       >
-        <DatePicker defaultValue={moment(startDate)} format={dateFormat} />
+        <DatePicker defaultValue={moment(startDate)} />
       </Form.Item>
     </Form>
   );
