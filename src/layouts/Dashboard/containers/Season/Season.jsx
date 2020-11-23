@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  Row, Col, Image, Typography,
+  Row, Col, Image, Typography, Skeleton, Button,
 } from 'antd';
 import { gql, useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
-import PageTitle from '../../components/PageTitle';
-import SeasonRiderCategories from './components/SeasonRiderCategories';
-import SeasonRegistrations from './components/SeasonRegistrations';
-import SeasonSchedule from './components/SeasonSchedule';
+import { Link, useParams } from 'react-router-dom';
 import SeasonInfo from './components/SeasonInfo';
+import PageTitle from '../../components/PageTitle';
+import SeasonSchedule from './components/SeasonSchedule';
+import SeasonRegistrations from './components/SeasonRegistrations';
+import SeasonRiderCategories from './components/SeasonRiderCategories';
 
 const { Title, Text } = Typography;
 
@@ -105,6 +105,11 @@ const Season = () => {
               </Text>
             )}
           />
+          <Skeleton active loading={loading} paragraph={false}>
+            <Link to={`/leagues/${leagueId}/seasons/${seasonId}/edit`}>
+              <Button type="primary">Edit</Button>
+            </Link>
+          </Skeleton>
         </Col>
         <Col span={24}>
           <SeasonInfo loading={loading} season={data?.season ?? {}} />

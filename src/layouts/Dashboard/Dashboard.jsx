@@ -22,14 +22,15 @@ import { gql, useQuery } from '@apollo/client';
 import Index from './containers/Index';
 import League from './containers/League';
 import Logo from '../../components/Logo';
+import Season from './containers/Season';
 import styles from './Dashboard.module.scss';
 import Teams from './containers/Teams/Teams';
 import Events from './containers/Events/Events';
+import Team from './containers/Teams/Team/Team';
+import SeasonEdit from './containers/SeasonEdit';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
 import Conferences from './containers/Conferences/Conferences';
-import Team from './containers/Teams/Team/Team';
-import Season from './containers/Season';
 
 const {
   Sider, Content,
@@ -118,7 +119,8 @@ const Dashboard = () => {
           <Switch>
             <PrivateRoute path="/" exact component={Index} />
             <PrivateRoute exact path="/league" component={League} />
-            <PrivateRoute path="/leagues/:leagueId/seasons/:seasonId" component={Season} />
+            <PrivateRoute exact path="/leagues/:leagueId/seasons/:seasonId" component={Season} />
+            <PrivateRoute path="/leagues/:leagueId/seasons/:seasonId/edit" component={SeasonEdit} />
             <PrivateRoute exact path="/events" component={Events} />
             <PrivateRoute exact path="/teams" component={Teams} />
             <PrivateRoute exact path="/conferences" component={Conferences} />

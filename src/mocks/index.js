@@ -4,7 +4,7 @@ import dashboardMocks from './dashboard';
 import seasonMocks from './season';
 import teamMocks from './team';
 
-const delay = 2000;
+const delay = 200;
 
 const mocks = [
   ...authMocks,
