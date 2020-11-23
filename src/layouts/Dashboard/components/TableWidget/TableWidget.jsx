@@ -1,8 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import {
-  Button, Row, Table, Typography,
+  Row, Table, Typography,
 } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import styles from './TableWidget.module.scss';
 
 const { Title } = Typography;
@@ -21,7 +20,7 @@ const TableWidget = ({
   const renderTitle = useCallback(() => (
     <Row className={styles.tableTitleRow} justify="space-between" align="middle">
       <Title level={2} className={styles.tableTitle}>{title}</Title>
-      {(buttons && buttons()) || <Button type="primary" icon={<PlusOutlined />} shape="circle" size="large" />}
+      {buttons && buttons()}
     </Row>
   ), [title]);
 
