@@ -3,6 +3,7 @@ import leagueMocks from './league';
 import dashboardMocks from './dashboard';
 import seasonMocks from './season';
 import teamMocks from './team';
+import coachMock from './coach';
 
 const delay = 200;
 
@@ -12,6 +13,7 @@ const mocks = [
   ...leagueMocks,
   ...seasonMocks,
   ...teamMocks,
+  ...coachMock,
 ].map(
   (m) => ({ delay, ...m }),
 );

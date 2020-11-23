@@ -4,7 +4,6 @@ import {
 } from 'antd';
 import { Link } from 'react-router-dom';
 import {
-  // eslint-disable-next-line no-unused-vars
   DownloadOutlined, PlusOutlined, MinusOutlined,
 } from '@ant-design/icons';
 import { gql, useQuery } from '@apollo/client';
@@ -46,7 +45,7 @@ const columns = [
     title: 'Coach Name',
     ellipsis: true,
     dataIndex: 'name',
-    render: (text, record) => <Link to={`/teams/coach/${record.id}`}>{text}</Link>,
+    render: (text) => <Link to="coach">{text}</Link>,
   },
   {
     ellipsis: true,
