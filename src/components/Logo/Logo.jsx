@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoIcon from './NICA_lockup.svg';
+import LogoIcon from './noimage2.png';
 import styles from './Logo.module.scss';
 
 const Logo = (props) => (
