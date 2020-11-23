@@ -2,15 +2,16 @@ import React, { useCallback, useState } from 'react';
 import {
   Menu,
   Layout,
+  Button,
   Drawer,
 } from 'antd';
 import {
   HomeOutlined,
   CrownOutlined,
-  MenuFoldOutlined,
   TeamOutlined,
   CalendarOutlined,
   PieChartOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import {
   Switch,
@@ -57,17 +58,14 @@ export const DASHBOARD_USER_QUERY = gql`
 
 const Dashboard = () => {
   const location = useLocation();
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [isDrawerVisible, setIsDrawerVisible] = useState(true);
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
 
-  const closeDrawer = useCallback(() => {
-    setIsDrawerVisible(false);
-  }, [setIsDrawerVisible]);
-
-  const openDrawer = useCallback(() => {
-    setIsDrawerVisible(true);
-  }, [setIsDrawerVisible]);
+  const switchDrawer = useCallback(
+    () => setIsDrawerVisible((v) => !v),
+    [],
+  );
 
   const { loading, data } = useQuery(DASHBOARD_USER_QUERY, {
     variables: {
@@ -79,6 +77,7 @@ const Dashboard = () => {
     <Layout>
       <Sider
         collapsible
+        theme="dark"
         breakpoint="md"
         width={siderWidth}
         onCollapse={onCollapse}
@@ -131,22 +130,22 @@ const Dashboard = () => {
             <PrivateRoute exact path="/coach" component={Coach} />
           </Switch>
         </Content>
-        <MenuFoldOutlined
-          onClick={openDrawer}
-          className={styles.drawerBtn}
-        />
         <Drawer
           closable
           key="right"
           placement="right"
-          onClose={closeDrawer}
+          onClose={switchDrawer}
           title="Basic Drawer"
           visible={isDrawerVisible}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Drawer>
+          handler={(
+            <Button
+              type="primary"
+              onClick={switchDrawer}
+              className={styles.drawerBtn}
+              icon={<SettingOutlined className={styles.drawerBtnIcon} />}
+            />
+          )}
+        />
       </Layout>
     </Layout>
   );

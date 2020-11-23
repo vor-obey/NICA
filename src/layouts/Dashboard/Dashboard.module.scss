@@ -48,17 +48,37 @@ $headerHeight: 80px;
 }
 
 .drawerBtn {
-  position: fixed;
-  right: 0;
-  top: 150px;
-  z-index: 99;
-
-  font-size: 25px;
-  transform-origin: center;
-  animation: scale;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
+  $size: 3rem;
+  position: absolute;
+  bottom: 50vh;
+  right: 100%;
+  z-index: 1000;
+  width: $size;
+  height: $size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem 0 0 0.5rem;
+  font-size: 20px;
 }
 
+.drawerBtnIcon{
+  font-size: 1em;
+}
 
+.drawerTrigger {
+  color: white;
+  position: absolute;
+  bottom: 50vh;
+  right: 100%;
+  z-index: 200;
+
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  text-align: center;
+  background: #1890ff;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  pointer-events: auto;
+}
