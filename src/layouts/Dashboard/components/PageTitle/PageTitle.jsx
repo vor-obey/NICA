@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Skeleton, Card } from 'antd';
+import { Skeleton, Card, Image } from 'antd';
 
 const skeletonAvatar = {
   size: 160,
@@ -17,7 +17,7 @@ const PageTitle = ({
   >
     <Card.Meta
       style={{ display: 'flex', alignItems: 'center' }}
-      avatar={avatar}
+      avatar={<Image width={350} src={avatar} />}
       title={title}
       description={description}
     />
