@@ -29,6 +29,7 @@ import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
 import Conferences from './containers/Conferences/Conferences';
 import Team from './containers/Teams/Team/Team';
+import Coach from './containers/Coach/Coach';
 
 const {
   Sider, Content,
@@ -120,9 +121,10 @@ const Dashboard = () => {
             <PrivateRoute exact path="/events" component={Events} />
             <PrivateRoute exact path="/teams" component={Teams} />
             <PrivateRoute exact path="/conferences" component={Conferences} />
-            <PrivateRoute path="/events/:id">Events</PrivateRoute>
-            <PrivateRoute path="/teams/:id" component={Team} />
-            <PrivateRoute path="/conferences/:id">Conferences</PrivateRoute>
+            <PrivateRoute exact path="/events/:id">Events</PrivateRoute>
+            <PrivateRoute exact path="/teams/:id" component={Team} />
+            <PrivateRoute exact path="/conferences/:id">Conferences</PrivateRoute>
+            <PrivateRoute exact path="/coach" component={Coach} />
           </Switch>
         </Content>
         <MenuFoldOutlined
