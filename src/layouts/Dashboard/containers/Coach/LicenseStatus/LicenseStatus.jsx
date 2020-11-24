@@ -4,6 +4,20 @@ import { Skeleton } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import TableWidget from '../../../components/TableWidget';
 
+const resultIconS = {
+  color: 'green',
+  fontSize: 20,
+};
+
+const resultIconF = {
+  color: 'red',
+  fontSize: 20,
+};
+
+const renderIconsResult = (v) => (
+  v ? <CheckCircleOutlined style={resultIconS} />
+    : <CloseCircleOutlined style={resultIconF} />);
+
 const columns = [
   {
     title: 'License Requirement',
@@ -19,19 +33,19 @@ const columns = [
     title: 'License Level: 1',
     ellipsis: true,
     dataIndex: 'licenseLevel1',
-    render: (v) => (v ? <CheckCircleOutlined style={{ color: 'green', fontSize: 20 }} /> : <CloseCircleOutlined style={{ color: 'red', fontSize: 20 }} />),
+    render: renderIconsResult,
   },
   {
     title: 'License Level: 2',
     ellipsis: true,
     dataIndex: 'licenseLevel2',
-    render: (v) => (v ? <CheckCircleOutlined style={{ color: 'green', fontSize: 20 }} /> : <CloseCircleOutlined style={{ color: 'red', fontSize: 20 }} />),
+    render: renderIconsResult,
   },
   {
     title: 'License Level: 3',
     ellipsis: true,
     dataIndex: 'licenseLevel3',
-    render: (v) => (v ? <CheckCircleOutlined style={{ color: 'green', fontSize: 20 }} /> : <CloseCircleOutlined style={{ color: 'red', fontSize: 20 }} />),
+    render: renderIconsResult,
   },
 ];
 
