@@ -3,13 +3,18 @@ import { LEAGUE_TEAMS_QUERY } from '../layouts/Dashboard/containers/Teams/Teams'
 import { LEAGUE_EVENTS_QUERY } from '../layouts/Dashboard/containers/Events/Events';
 import { LEAGUE_CONFERENCES_QUERY } from '../layouts/Dashboard/containers/Conferences/Conferences';
 import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/League/League';
+import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/LeagueDashboard/LeagueDashboard';
 
 const league = {
-  id: 1,
-  season: '2020',
+  id: '1',
+  season: {
+    id: '1',
+    name: '2020',
+    __typename: 'Season',
+  },
   name: {
-    short: 'Georgia',
-    formal: 'Georgia Interscholastic',
+    short: 'Utah',
+    formal: 'Utah Interscholastic',
   },
   image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
   __typename: 'League',
@@ -61,21 +66,17 @@ const generateAdmins = generate((item, index) => {
   });
 });
 
-const leagueInfo = {
+const leagueDashboardMock = {
   request: {
-    query: LEAGUE_INFO_QUERY,
+    query: LEAGUE_DASHBOARD_QUERY,
     variables: {
-      leagueId: 1,
+      leagueId: '1',
     },
   },
   result: () => ({
     data: {
-      league: {
+      leagueDashboard: {
         ...league,
-        season: {
-          id: 1,
-          name: '2020',
-        },
         riderRegistrationStatus: 'close',
         coachRegistrationStatus: 'open',
         registrationContact: 'Georgia League',
@@ -100,65 +101,75 @@ const leagueInfo = {
   }),
 };
 
-const leagueTeams = {
+const leagueTeamsMock = {
   request: {
     query: LEAGUE_TEAMS_QUERY,
     variables: {
-      leagueId: 1,
+      leagueId: '1',
     },
   },
   result: {
     data: {
-      league: {
-        ...league,
-
-        teams: generateTeams(faker.random.number({
-          min: 4,
-          max: 60,
-        })),
-      },
+      teams: generateTeams(faker.random.number({
+        min: 4,
+        max: 60,
+      })),
     },
   },
 };
 
-const leagueEvents = {
+const leagueEventsMock = {
   request: {
     query: LEAGUE_EVENTS_QUERY,
     variables: {
-      leagueId: 1,
+      leagueId: '1',
     },
   },
   result: {
     data: {
-      league: {
-        ...league,
-        events: generateEvents(faker.random.number({
-          min: 4,
-          max: 60,
-        })),
-      },
+      events: generateEvents(faker.random.number({
+        min: 4,
+        max: 60,
+      })),
     },
   },
 };
 
-const leagueConferences = {
+const leagueConferencesMock = {
   request: {
     query: LEAGUE_CONFERENCES_QUERY,
     variables: {
-      leagueId: 1,
+      leagueId: '1',
     },
   },
   result: () => ({
     data: {
-      league: {
-        ...league,
-        conferences: generateConferences(faker.random.number({
-          min: 4,
-          max: 60,
-        })),
-      },
+      conferences: generateConferences(faker.random.number({
+        min: 4,
+        max: 60,
+      })),
     },
   }),
 };
 
-export default [leagueInfo, leagueTeams, leagueEvents, leagueConferences];
+const leagueInfoMock = {
+  request: {
+    query: LEAGUE_INFO_QUERY,
+    variables: {
+      leagueId: '1',
+    },
+  },
+  result: {
+    data: {
+      league,
+    },
+  },
+};
+
+export default [
+  leagueInfoMock,
+  leagueDashboardMock,
+  leagueTeamsMock,
+  leagueEventsMock,
+  leagueConferencesMock,
+];

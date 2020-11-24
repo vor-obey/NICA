@@ -71,7 +71,7 @@ const SeasonRegistrationItem = ({
           {closedAt || 'not set'}
         </Descriptions.Item>
       </Descriptions>
-      <Table dataSource={products} columns={productsColumns} bordered />
+      <Table rowKey="id" dataSource={products} columns={productsColumns} />
     </Space>
 
   );

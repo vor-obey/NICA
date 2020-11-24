@@ -3,6 +3,7 @@ import {
   Collapse, Descriptions, Skeleton, Typography,
 } from 'antd';
 import PropTypes from 'prop-types';
+import styles from './SeasonInfo.module.scss';
 
 const { Panel } = Collapse;
 const { Title } = Typography;
@@ -18,7 +19,12 @@ const SeasonInfo = ({ loading, season }) => {
 
   return (
     <Collapse>
-      <Panel key={1} header={<Title level={3}>General information</Title>}>
+      <Panel
+        key={1}
+        header={
+          <Title level={3} data-margin-fix className={styles.panelTitle}>General information</Title>
+        }
+      >
         <Skeleton
           active
           loading={loading}
@@ -46,7 +52,15 @@ const SeasonInfo = ({ loading, season }) => {
           </Descriptions>
         </Skeleton>
       </Panel>
-      <Panel key={2} header={<Title level={3}>Release of Contacts Information</Title>}>
+      <Panel
+        key={2}
+        header={(
+          <Title level={3} data-margin-fix className={styles.panelTitle}>
+            Release of Contacts
+            Information
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}
@@ -63,7 +77,15 @@ const SeasonInfo = ({ loading, season }) => {
           </Descriptions>
         </Skeleton>
       </Panel>
-      <Panel key={3} header={<Title level={3}>Mad mini information</Title>}>
+      <Panel
+        key={3}
+        header={(
+          <Title level={3} data-margin-fix className={styles.panelTitle}>
+            Mad mini
+            information
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}
@@ -79,7 +101,15 @@ const SeasonInfo = ({ loading, season }) => {
           </Descriptions>
         </Skeleton>
       </Panel>
-      <Panel key={4} header={<Title level={3}>Teen trail corps</Title>}>
+      <Panel
+        key={4}
+        header={(
+          <Title level={3} data-margin-fix className={styles.panelTitle}>
+            Teen trail
+            corps
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}

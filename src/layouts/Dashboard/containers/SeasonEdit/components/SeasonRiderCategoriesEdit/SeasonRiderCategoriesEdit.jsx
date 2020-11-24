@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card, Table, Typography, Button, Input,
+  Card, Table, Typography,
 } from 'antd';
-import { EditFilled, DeleteFilled } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -23,7 +22,8 @@ const categoriesColumns = [
   },
 ];
 const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {},
+  onChange: () => {
+  },
   getCheckboxProps: (record) => {
     const { id, ridersCount } = record;
     return {

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Form, DatePicker } from 'antd';
 import React, { useCallback } from 'react';
 
-const dateFormat = 'DD/MM/YYYY';
-
 const formItemStyle = {
   margin: 0,
 };

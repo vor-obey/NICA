@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Row, Col, Image, Typography, Skeleton, Button,
+  Row, Col, Skeleton,
 } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import SeasonInfo from './components/SeasonInfo';
@@ -10,17 +11,15 @@ import SeasonSchedule from './components/SeasonSchedule';
 import SeasonRegistrations from './components/SeasonRegistrations';
 import SeasonRiderCategories from './components/SeasonRiderCategories';
 
-const { Title, Text } = Typography;
-
 export const SEASON_PROPS_QUERY = gql`
-    query seasonProperties($seasonId: ID!, $leagueId: ID!){
+    query seasonProperties($seasonId: ID!){
         season(id: $seasonId){
             #general information
             id
             name
             startedAt
             divisionsCount
-            league(id: $leagueId){
+            league{
                 id
                 name
                 image
@@ -68,71 +67,50 @@ export const SEASON_PROPS_QUERY = gql`
     }
 `;
 
-// Before a rider's category placement is verified, each time the rider's grade is set or changed,
-// the rider's category will then be automatically changed according to these rules. After the
-// rider's category placement is verified, the category will not be changed automatically.
-
 const Season = () => {
-  const { seasonId, leagueId } = useParams();
+  const { seasonId } = useParams();
   const { loading, data } = useQuery(SEASON_PROPS_QUERY, {
     variables: {
       seasonId,
-      leagueId,
     },
   });
 
   return (
-    <>
-      <Row gutter={[0, 40]}>
-        <Col span={24}>
-          <PageTitle
-            loading={loading}
-            avatar={(
-              <Image
-                width={260}
-                src={data?.season?.league?.image}
-                fallback=""
-              />
-            )}
-            title={(
-              <Title>
-                Season properties
-              </Title>
-            )}
-            description={(
-              <Text type="secondary">
-                {`Season ${data?.season?.name} `}
-              </Text>
-            )}
-          />
-          <Skeleton active loading={loading} paragraph={false}>
-            <Link to={`/leagues/${leagueId}/seasons/${seasonId}/edit`}>
-              <Button type="primary">Edit</Button>
+    <Row gutter={[0, 60]}>
+      <Col span={24}>
+        <PageTitle
+          loading={loading}
+          avatar={data?.season?.league?.image}
+          title="Season properties"
+          description={(
+            <Link to={`/seasons/${seasonId}/edit`}>
+              {`Season ${data?.season?.name ?? ''}`}
+              <EditOutlined />
             </Link>
-          </Skeleton>
-        </Col>
-        <Col span={24}>
-          <SeasonInfo loading={loading} season={data?.season ?? {}} />
-        </Col>
-        <Col span={24}>
-          <SeasonRiderCategories
-            loading={loading}
-            categories={data?.season?.riderCategories}
-            riderCategoriesAssigmentRules={data?.season?.riderCategoriesAssigmentRules}
-          />
-        </Col>
-        <Col span={24}>
-          <SeasonRegistrations
-            loading={loading}
-            registrations={data?.season?.registrations}
-
-          />
-        </Col>
-        <Col span={24}>
-          <SeasonSchedule events={data?.season?.events} loading={loading} />
-        </Col>
-      </Row>
-    </>
+          )}
+        />
+        <Skeleton active loading={loading} paragraph={false} />
+      </Col>
+      <Col span={24}>
+        <SeasonInfo loading={loading} season={data?.season ?? {}} />
+      </Col>
+      <Col span={24}>
+        <SeasonRiderCategories
+          loading={loading}
+          categories={data?.season?.riderCategories ?? []}
+          riderCategoriesAssigmentRules={data?.season?.riderCategoriesAssigmentRules ?? []}
+        />
+      </Col>
+      <Col span={24}>
+        <SeasonRegistrations
+          loading={loading}
+          registrations={data?.season?.registrations}
+        />
+      </Col>
+      <Col span={24}>
+        <SeasonSchedule events={data?.season?.events} loading={loading} />
+      </Col>
+    </Row>
   );
 };
 

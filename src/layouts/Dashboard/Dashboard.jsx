@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Menu,
   Layout,
@@ -12,6 +12,7 @@ import {
   CalendarOutlined,
   PieChartOutlined,
   SettingOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons';
 import {
   Switch,
@@ -26,17 +27,19 @@ import Logo from '../../components/Logo';
 import Season from './containers/Season';
 import styles from './Dashboard.module.scss';
 import Teams from './containers/Teams/Teams';
+import Coach from './containers/Coach/Coach';
 import Events from './containers/Events/Events';
+import Team from './containers/Teams/Team/Team';
 import SeasonEdit from './containers/SeasonEdit';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
 import Conferences from './containers/Conferences/Conferences';
-import Team from './containers/Teams/Team/Team';
-import Coach from './containers/Coach/Coach';
 
 const {
   Sider, Content,
 } = Layout;
+const { SubMenu } = Menu;
+
 const siderWidth = 270;
 const siderCollapsedWidth = 80;
 
@@ -58,7 +61,7 @@ export const DASHBOARD_USER_QUERY = gql`
 
 const Dashboard = () => {
   const location = useLocation();
-  const [isDrawerVisible, setIsDrawerVisible] = useState(true);
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
 
@@ -72,6 +75,8 @@ const Dashboard = () => {
       userId: 1,
     },
   });
+
+  const leagueId = useMemo(() => data?.league?.id ?? null, [data]);
 
   return (
     <Layout>
@@ -94,18 +99,20 @@ const Dashboard = () => {
           <Menu.Item key="/" icon={<HomeOutlined />}>
             <Link to="/">Home</Link>
           </Menu.Item>
-          <Menu.Item key="/league" icon={<CrownOutlined />}>
-            <Link to="/league">League</Link>
-          </Menu.Item>
-          <Menu.Item key="/teams" icon={<TeamOutlined />}>
-            <Link to="/teams">Teams</Link>
-          </Menu.Item>
-          <Menu.Item key="/events" icon={<CalendarOutlined />}>
-            <Link to="/events">Events</Link>
-          </Menu.Item>
-          <Menu.Item key="/conferences" icon={<PieChartOutlined />}>
-            <Link to="/conferences">Conferences</Link>
-          </Menu.Item>
+          <SubMenu title="League" disabled={loading && !leagueId} icon={<CrownOutlined />}>
+            <Menu.Item key={`/leagues/${leagueId}/dashboard`} icon={<DashboardOutlined />}>
+              <Link to={`/leagues/${leagueId}/dashboard`}>Dashboard</Link>
+            </Menu.Item>
+            <Menu.Item key={`/leagues/${leagueId}/teams`} icon={<TeamOutlined />}>
+              <Link to={`/leagues/${leagueId}/teams`}>Teams</Link>
+            </Menu.Item>
+            <Menu.Item key={`/leagues/${leagueId}/events`} icon={<CalendarOutlined />}>
+              <Link to={`/leagues/${leagueId}/events`}>Events</Link>
+            </Menu.Item>
+            <Menu.Item key={`/leagues/${leagueId}/conferences`} icon={<PieChartOutlined />}>
+              <Link to={`/leagues/${leagueId}/conferences`}>Conferences</Link>
+            </Menu.Item>
+          </SubMenu>
         </Menu>
       </Sider>
       <Layout
@@ -118,15 +125,13 @@ const Dashboard = () => {
         <Content className={styles.content}>
           <Switch>
             <PrivateRoute path="/" exact component={Index} />
-            <PrivateRoute exact path="/league" component={League} />
-            <PrivateRoute exact path="/leagues/:leagueId/seasons/:seasonId" component={Season} />
-            <PrivateRoute path="/leagues/:leagueId/seasons/:seasonId/edit" component={SeasonEdit} />
+            <PrivateRoute path="/leagues/:leagueId" component={League} />
+            <PrivateRoute exact path="/seasons/:seasonId" component={Season} />
+            <PrivateRoute path="/seasons/:seasonId/edit" component={SeasonEdit} />
             <PrivateRoute exact path="/events" component={Events} />
             <PrivateRoute exact path="/teams" component={Teams} />
             <PrivateRoute exact path="/conferences" component={Conferences} />
-            <PrivateRoute exact path="/events/:id">Events</PrivateRoute>
             <PrivateRoute exact path="/teams/:id" component={Team} />
-            <PrivateRoute exact path="/conferences/:id">Conferences</PrivateRoute>
             <PrivateRoute exact path="/coach" component={Coach} />
           </Switch>
         </Content>

@@ -43,7 +43,7 @@ const SeasonRegistrationEditItem = ({
         closedAt,
       }}
     />
-    <Table dataSource={products} columns={productsColumns} bordered />
+    <Table rowKey="id" dataSource={products} columns={productsColumns} />
   </Space>
 
 );

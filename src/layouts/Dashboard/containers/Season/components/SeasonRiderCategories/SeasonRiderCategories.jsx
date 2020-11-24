@@ -35,12 +35,12 @@ const categoriesRulesColumns = [
   {
     title: 'Add/Edit',
     key: 'add/edit',
-    render: (v, record) => <Button type="primary" icon={<EditFilled />}>Edit</Button>,
+    render: () => <Button type="primary" icon={<EditFilled />}>Edit</Button>,
   },
   {
     title: 'Remove',
     key: 'remove',
-    render: (v, record) => <Button type="primary" icon={<DeleteFilled />}>Remove</Button>,
+    render: () => <Button type="primary" icon={<DeleteFilled />}>Remove</Button>,
   },
 ];
 
@@ -52,6 +52,7 @@ const SeasonRiderCategories = ({ loading, categories, riderCategoriesAssigmentRu
   )}
   >
     <Table
+      rowKey="id"
       loading={loading}
       scroll={{ x: true }}
       dataSource={categories}
@@ -59,6 +60,7 @@ const SeasonRiderCategories = ({ loading, categories, riderCategoriesAssigmentRu
       title={() => <Title level={3}>Available Categories</Title>}
     />
     <Table
+      rowKey="id"
       loading={loading}
       scroll={{ x: true }}
       columns={categoriesRulesColumns}

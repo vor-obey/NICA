@@ -35,7 +35,6 @@ const seasonMock = {
   request: {
     query: SEASON_PROPS_QUERY,
     variables: {
-      leagueId: '1',
       seasonId: '1',
     },
   },
@@ -189,7 +188,6 @@ const seasonEditMock = {
   request: {
     query: SEASON_EDIT_PROPS_QUERY,
     variables: {
-      leagueId: '1',
       seasonId: '1',
     },
   },
@@ -197,7 +195,7 @@ const seasonEditMock = {
     data: {
       season: {
         // general information
-        id: 1,
+        id: '1',
         name: '2020',
         startedAt: faker.date.soon()
           .toISOString(),

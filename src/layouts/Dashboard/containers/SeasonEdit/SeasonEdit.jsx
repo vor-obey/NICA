@@ -1,25 +1,23 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
+import { Link, useParams } from 'react-router-dom';
 import {
-  Row, Col, Typography, Image,
+  Row, Col,
 } from 'antd';
 import PageTitle from '../../components/PageTitle';
 import SeasonInfoEdit from './components/SeasonInfoEdit';
 import SeasonRiderCategoriesEdit from './components/SeasonRiderCategoriesEdit';
 import SeasonRegistrationsEdit from './components/SeasonRegistrationsEdit';
 
-const { Title, Text } = Typography;
-
 export const SEASON_EDIT_PROPS_QUERY = gql`
-    query seasonEditProperties($seasonId: ID!, $leagueId: ID!){
+    query seasonEditProperties($seasonId: ID!){
         season(id: $seasonId){
             #general information
             id
             name
             startedAt
             divisionsCount
-            league(id: $leagueId){
+            league{
                 id
                 name
                 image
@@ -68,36 +66,25 @@ export const SEASON_EDIT_PROPS_QUERY = gql`
 `;
 
 const SeasonEdit = () => {
-  const { seasonId, leagueId } = useParams();
+  const { seasonId } = useParams();
 
   const { loading, data } = useQuery(SEASON_EDIT_PROPS_QUERY, {
     variables: {
-      leagueId,
       seasonId,
     },
   });
 
   return (
-    <Row gutter={[0, 40]}>
+    <Row gutter={[0, 60]}>
       <Col span={24}>
         <PageTitle
           loading={loading}
-          avatar={(
-            <Image
-              width={260}
-              src={data?.season?.league?.image}
-              fallback=""
-            />
-          )}
-          title={(
-            <Title>
-              Season properties
-            </Title>
-          )}
+          avatar={data?.season?.league?.image}
+          title="Season properties"
           description={(
-            <Text type="secondary">
-              {`Season ${data?.season?.name}`}
-            </Text>
+            <Link to={`/seasons/${seasonId}`}>
+              {`Season ${data?.season?.name ?? ''}`}
+            </Link>
           )}
         />
       </Col>

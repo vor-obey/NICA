@@ -2,6 +2,12 @@ $siderWidth: 270px;
 $siderCollapsedWidth: 80px;
 $headerHeight: 80px;
 
+%flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .layout {
   height: 100vh;
   position: relative;
@@ -35,35 +41,22 @@ $headerHeight: 80px;
   padding: 40px;
 }
 
-@keyframes scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 .drawerBtn {
   $size: 3rem;
+  @extend %flexCenter;
   position: absolute;
   bottom: 50vh;
   right: 100%;
   z-index: 1000;
   width: $size;
   height: $size;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 0.5rem 0 0 0.5rem;
   font-size: 20px;
 }
 
-.drawerBtnIcon{
-  font-size: 1em;
+.drawerBtnIcon {
+  @extend %flexCenter;
+  font-size: 1.1em;
 }
 
 .drawerTrigger {

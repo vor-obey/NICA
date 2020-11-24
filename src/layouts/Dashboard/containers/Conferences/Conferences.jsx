@@ -1,28 +1,15 @@
 import React from 'react';
-import {
-  Col, Image, Row, Typography,
-} from 'antd';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
-import { SettingFilled } from '@ant-design/icons';
+import { Link, useParams } from 'react-router-dom';
 import TableWidget from '../../components/TableWidget';
-import PageTitle from '../../components/PageTitle';
-
-const { Title, Text } = Typography;
 
 export const LEAGUE_CONFERENCES_QUERY = gql`
     query leagueConferences($leagueId: ID!){
-        league(id: $leagueId){
+        conferences{
             id
             name
-            image
-            season
-            conferences{
-                id
-                name
-                date
-            }
+            date
         }
     }`;
 
@@ -56,51 +43,23 @@ const columns = [
   },
 ];
 
-const Events = () => {
+const Conferences = () => {
+  const { leagueId } = useParams();
   const { data, loading } = useQuery(LEAGUE_CONFERENCES_QUERY, {
     variables: {
-      leagueId: 1,
+      leagueId,
     },
   });
 
   return (
-    <Row gutter={[0, 60]}>
-      <Col span={24}>
-        <PageTitle
-          loading={loading}
-          avatar={(
-            <Image
-              width={260}
-              src={data?.league?.image}
-              fallback=""
-            />
-          )}
-          title={(
-            <Title>
-              {`${data?.league?.name?.short} league`}
-            </Title>
-          )}
-          description={(
-            <Link to={`/leagues/${data?.league?.id}/seasons/${data?.league?.season?.id}`}>
-              <Text type="secondary">
-                {`Season ${data?.league?.season?.name} `}
-                <SettingFilled />
-              </Text>
-            </Link>
-          )}
-        />
-      </Col>
-
-      <Col span={24}>
-        <TableWidget
-          columns={columns}
-          loading={loading}
-          title="Conferences"
-          dataSource={data?.league?.conferences}
-        />
-      </Col>
-    </Row>
+    <TableWidget
+      rowKey="id"
+      columns={columns}
+      loading={loading}
+      title="Conferences"
+      dataSource={data?.conferences ?? []}
+    />
   );
 };
 
-export default Events;
+export default Conferences;

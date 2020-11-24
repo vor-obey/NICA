@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import {
   Collapse, Descriptions, Skeleton, Typography, Space,
 } from 'antd';
+import styles from './SeasonInfoEdit.module.scss';
+import MadMiniInfoForm from './forms/MadMiniInfoForm';
 import GeneralInfoForm from './forms/GeneralInfoForm';
 import ContactsInfoForm from './forms/ContactsInfoForm';
-import MadMiniInfoForm from './forms/MadMiniInfoForm';
 import TeenTrailCorpsForm from './forms/TeenTrailCorpsForm';
 
 const { Panel } = Collapse;
@@ -25,7 +26,15 @@ const SeasonInfoEdit = ({ loading, season }) => {
 
   return (
     <Collapse>
-      <Panel key={1} header={<Title level={3}>General information</Title>}>
+      <Panel
+        key={1}
+        header={(
+          <Title data-margin-fix className={styles.panelTitle} level={3}>
+            General
+            information
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}
@@ -51,7 +60,15 @@ const SeasonInfoEdit = ({ loading, season }) => {
           </Descriptions>
         </Skeleton>
       </Panel>
-      <Panel key={2} header={<Title level={3}>Release of Contacts Information</Title>}>
+      <Panel
+        key={2}
+        header={(
+          <Title data-margin-fix className={styles.panelTitle} level={3}>
+            Release of
+            Contacts Information
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}
@@ -66,7 +83,15 @@ const SeasonInfoEdit = ({ loading, season }) => {
           </Descriptions>
         </Skeleton>
       </Panel>
-      <Panel key={3} header={<Title level={3}>Mad mini information</Title>}>
+      <Panel
+        key={3}
+        header={(
+          <Title data-margin-fix className={styles.panelTitle} level={3}>
+            Mad mini
+            information
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}
@@ -100,7 +125,15 @@ const SeasonInfoEdit = ({ loading, season }) => {
           </Space>
         </Skeleton>
       </Panel>
-      <Panel key={4} header={<Title level={3}>Teen trail corps</Title>}>
+      <Panel
+        key={4}
+        header={(
+          <Title data-margin-fix className={styles.panelTitle} level={3}>
+            Teen trail
+            corps
+          </Title>
+        )}
+      >
         <Skeleton
           active
           loading={loading}

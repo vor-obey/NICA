@@ -29,13 +29,14 @@ const columns = [
   {
     title: 'Edit',
     key: 'edit',
-    render: (v, record) => <Button type="primary" icon={<EditFilled />}>Edit</Button>,
+    render: () => <Button type="primary" icon={<EditFilled />}>Edit</Button>,
   },
 ];
 
 const SeasonSchedule = ({ loading, events }) => (
   <>
     <TableWidget
+      rowKey="id"
       title="Events"
       columns={columns}
       loading={loading}
