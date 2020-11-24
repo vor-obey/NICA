@@ -14,6 +14,31 @@ const generateCoachesLicense = (length) => [...new Array(length)].map((item, ind
   }
 ));
 
+const generateProducts = (length) => [...new Array(length)].map((item, index) => ({
+  id: index,
+  name: faker.commerce.productName(),
+  price: faker.commerce.price(),
+  rider: {
+    id: index,
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+  },
+}));
+
+const generateOrders = (length = 4) => [...new Array(length)].map(() => ({
+  total: faker.random.number(1000),
+  id: faker.random.uuid(),
+  date: faker.date.past()
+    .toISOString(),
+  status: 'paid',
+  products: generateProducts(10),
+}));
+
+const generateAddress = () => ({
+  city: faker.address.city(),
+  timeZone: faker.address.timeZone(),
+});
+
 const coachMock = {
   request: {
     query: DASHBOARD_COACH_QUERY,
@@ -49,6 +74,14 @@ const coachMock = {
           zone: faker.address.timeZone(),
         },
         __typename: 'User',
+        profile: {
+          id: 1,
+          firstName: faker.name.firstName(0),
+          lastName: faker.name.lastName(0),
+          email: faker.internet.email(),
+          address: generateAddress(),
+          orders: generateOrders(),
+        },
       },
     },
   },

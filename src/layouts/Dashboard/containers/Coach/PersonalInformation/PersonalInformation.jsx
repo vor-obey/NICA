@@ -2,6 +2,9 @@ import React from 'react';
 import { Descriptions, Skeleton } from 'antd';
 
 const PersonalInformation = ({ data, loading }) => {
+  if (!data) {
+    return null;
+  }
   const {
     email, name, gender, birthday, phone, address,
   } = data;

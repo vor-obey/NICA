@@ -176,8 +176,8 @@ const Team = () => {
         placement="left"
         content={(
           <div className={styles.popoverLinks}>
-            <a href="/fff">Export Coaches CSV</a>
-            <a href="/fff">Emergency Contacts CSV</a>
+            <a target="_blank" rel="noopener noreferrer" href="/#">Export Coaches CSV</a>
+            <a target="_blank" rel="noopener noreferrer" href="/#">Emergency Contacts CSV</a>
           </div>
 )}
         trigger="click"
@@ -193,8 +193,8 @@ const Team = () => {
         placement="left"
         content={(
           <div className={styles.popoverLinks}>
-            <a href="/fff">Export Riders CSV</a>
-            <a href="/fff">Emergency Contacts CSV</a>
+            <a target="_blank" rel="noopener noreferrer" href="/#">Export Riders CSV</a>
+            <a target="_blank" rel="noopener noreferrer" href="/#">Emergency Contacts CSV</a>
           </div>
         )}
         trigger="click"
@@ -230,20 +230,20 @@ const Team = () => {
           dataSource={data?.team?.coaches}
           buttons={renderButtonCoach}
           footer={() => (
-            <>
+            <div className={styles.marginLinks}>
               <Row align="end">
-                <a href="/fff" className={styles.buttonLinks}>
+                <a target="_blank" rel="noopener noreferrer" href="/#" className={styles.buttonLinks}>
                   <MinusOutlined className={styles.positionBtn} />
                   Re-Invite Coaches to the New Season
                 </a>
               </Row>
               <Row align="end">
-                <a href="/fff" className={styles.buttonLinks}>
+                <a target="_blank" rel="noopener noreferrer" href="/#" className={styles.buttonLinks}>
                   <PlusOutlined className={styles.positionBtn} />
                   Invite New Coaches
                 </a>
               </Row>
-            </>
+            </div>
           )}
         />
       </Col>
@@ -255,20 +255,20 @@ const Team = () => {
           dataSource={data?.team?.riders}
           buttons={renderButtonRider}
           footer={() => (
-            <>
+            <div className={styles.marginLinks}>
               <Row align="end">
-                <a href="/fff" className={styles.buttonLinks}>
+                <a target="_blank" rel="noopener noreferrer" href="/#" className={styles.buttonLinks}>
                   <MinusOutlined className={styles.positionBtn} />
                   Re-Invite Riders to the New Season
                 </a>
               </Row>
               <Row align="end">
-                <a href="/fff" className={styles.buttonLinks}>
+                <a target="_blank" rel="noopener noreferrer" href="/#" className={styles.buttonLinks}>
                   <PlusOutlined className={styles.positionBtn} />
                   Invite New Riders
                 </a>
               </Row>
-            </>
+            </div>
           )}
         />
       </Col>
