@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Col, Image, Row, Typography,
+  Col, Row, Typography,
 } from 'antd';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { SettingFilled } from '@ant-design/icons';
 import styles from '../League/League.module.scss';
 import TableWidget from '../../components/TableWidget';
 import PageTitle from '../../components/PageTitle';
+import LeagueLogo from './Lea.png';
 
 const { Title, Text } = Typography;
 
@@ -72,13 +73,7 @@ const Events = () => {
       <Col span={24}>
         <PageTitle
           loading={loading}
-          avatar={(
-            <Image
-              width={260}
-              src={data?.league?.image}
-              fallback=""
-            />
-          )}
+          avatar={LeagueLogo}
           title={(
             <Title>
               {`${data?.league?.name?.short} league`}
