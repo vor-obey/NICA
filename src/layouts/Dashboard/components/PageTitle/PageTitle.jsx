@@ -17,7 +17,7 @@ const PageTitle = ({
   >
     <Card.Meta
       style={{ display: 'flex', alignItems: 'center' }}
-      avatar={<Image width={350} src={avatar} />}
+      avatar={<Image width={350} style={{ marginRight: 20 }} src={avatar} />}
       title={title}
       description={description}
     />
