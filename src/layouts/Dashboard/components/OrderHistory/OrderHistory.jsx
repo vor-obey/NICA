@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Collapse, Divider, Row, Table, Typography, Col, List,
+  Divider, Row, Table, Typography, Col, List,
 } from 'antd';
 import {
   CheckCircleOutlined, CreditCardOutlined, CloseCircleOutlined, CaretRightOutlined,
@@ -8,9 +8,32 @@ import {
 import styles from '../../containers/Index/Index.module.scss';
 
 const { Text } = Typography;
-const { Panel } = Collapse;
 
-const OrderHistory = ({ columns, orders, name }) => {
+const orderHistoryCol = [
+  {
+    title: 'Product',
+    width: '70%',
+    dataIndex: 'name',
+    key: 'product',
+    fixed: 'left',
+  },
+  {
+    title: 'Rider',
+    width: '20%',
+    dataIndex: 'fullName',
+    key: 'reider',
+    fixed: 'left',
+  },
+  {
+    title: 'Price',
+    width: '10%',
+    dataIndex: 'price',
+    key: 'price',
+    fixed: 'left',
+  },
+];
+
+const OrderHistory = ({ orders, name }) => {
   const renderOrders = orders.map((order) => (
     <div key={order.id} style={{ marginBottom: 80 }}>
       <Divider orientation="left" style={{ color: '#1890ff' }}>
@@ -22,7 +45,8 @@ const OrderHistory = ({ columns, orders, name }) => {
         </Text>
       </Row>
       <Table
-        columns={columns}
+        rowKey={order.id}
+        columns={orderHistoryCol}
         dataSource={order.products.map((prod) => (
           {
             name: prod.name,
@@ -69,11 +93,7 @@ const OrderHistory = ({ columns, orders, name }) => {
 
   return (
     <>
-      <Collapse ghost>
-        <Panel header="Order history" key={1}>
-          {renderOrders}
-        </Panel>
-      </Collapse>
+      { renderOrders }
     </>
   );
 };
