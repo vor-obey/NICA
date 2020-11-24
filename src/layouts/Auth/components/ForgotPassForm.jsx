@@ -13,7 +13,7 @@ const emailRules = [
 ];
 
 const ForgotPassForm = () => (
-  <>
+  <Form>
     <Form.Item
       name="email"
       rules={emailRules}
@@ -39,7 +39,7 @@ const ForgotPassForm = () => (
         Back to login
       </a>
     </Row>
-  </>
+  </Form>
 );
 
 export default ForgotPassForm;

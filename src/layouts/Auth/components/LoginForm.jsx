@@ -23,8 +23,8 @@ const passwordRules = [
   },
 ];
 
-const LoginForm = () => (
-  <>
+const LoginForm = ({ onSubmit }) => (
+  <Form onFinish={onSubmit}>
     <Form.Item
       name="email"
       rules={emailRules}
@@ -65,7 +65,7 @@ const LoginForm = () => (
         Forgot password?
       </a>
     </Row>
-  </>
+  </Form>
 );
 
 export default LoginForm;

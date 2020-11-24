@@ -4,8 +4,9 @@ import {
 } from 'antd';
 import Logo from '../../../components/Logo';
 import styles from './Form.module.scss';
+import LogoType from './noimage2.png';
 
-const AuthContainer = ({ onSubmit, children }) => (
+const AuthContainer = ({ children }) => (
   <Col
     lg={{
       span: 6,
@@ -29,10 +30,9 @@ const AuthContainer = ({ onSubmit, children }) => (
       className={styles.form}
       size="large"
       layout="vertical"
-      onFinish={onSubmit}
     >
+      <img src={LogoType} style={{ width: '100%' }} alt="ops" />
       {children}
-
     </Form>
   </Col>
 );

@@ -49,8 +49,8 @@ const confirmPassRules = [
   }),
 ];
 
-const SignUpForm = () => (
-  <>
+const SignUpForm = ({ onSubmit }) => (
+  <Form onFinish={onSubmit}>
     <Form.Item
       name="firstName"
       type="text"
@@ -120,7 +120,7 @@ const SignUpForm = () => (
         Sign Up
       </Button>
     </Form.Item>
-  </>
+  </Form>
 );
 
 export default SignUpForm;
