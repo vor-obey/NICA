@@ -7,11 +7,8 @@ import {
 import {
   Link, Switch, Route, useParams,
 } from 'react-router-dom';
-import Teams from '../Teams';
-import Events from '../Events/Events';
 import LeagueDashboard from '../LeagueDashboard';
 import PageTitle from '../../components/PageTitle';
-import Conferences from '../Conferences/Conferences';
 
 export const LEAGUE_INFO_QUERY = gql`
     query leagueInfo($leagueId: ID!){
@@ -52,9 +49,6 @@ const League = () => {
       <Col span={24}>
         <Switch>
           <Route path="/leagues/:leagueId/dashboard" component={LeagueDashboard} />
-          <Route path="/leagues/:leagueId/teams" component={Teams} />
-          <Route path="/leagues/:leagueId/events" component={Events} />
-          <Route path="/leagues/:leagueId/conferences" component={Conferences} />
         </Switch>
       </Col>
     </Row>
