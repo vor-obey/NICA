@@ -104,7 +104,7 @@ const Coach = () => {
         />
       </Row>
 
-      <Collapse defaultActiveKey={['1']} accordion className={styles.collapseM}>
+      <Collapse accordion className={styles.collapseM}>
         <Panel key={1} header={header[0]} className={styles.panelP}>
           <PersonalInformation data={data?.coach} loading={loading} />
         </Panel>
