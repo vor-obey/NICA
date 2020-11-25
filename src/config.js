@@ -4,8 +4,8 @@ export const graphQLClient = {
 
 export const permissions = {
   roles: {
-    admin: 'admin',
-    coach: 'coach',
-    rider: 'rider',
+    SUPER_ADMIN: 'SUPER_ADMIN',
+    LEAGUE_ADMIN: 'LEAGUE_ADMIN',
+    COACH: 'COACH',
   },
 };
