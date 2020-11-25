@@ -1,5 +1,6 @@
 import faker from 'faker/locale/en';
 import { DASHBOARD_USER_QUERY } from '../layouts/Dashboard/Dashboard';
+import { permissions } from '../config';
 
 const pageHeaderMock = {
   request: {
@@ -15,6 +16,7 @@ const pageHeaderMock = {
         firstName: faker.name.firstName(0),
         lastName: faker.name.lastName(0),
         image: faker.image.avatar(),
+        role: permissions.roles.COACH,
       },
       league: {
         id: 1,
