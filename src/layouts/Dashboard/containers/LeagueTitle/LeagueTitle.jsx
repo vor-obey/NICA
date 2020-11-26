@@ -5,9 +5,8 @@ import {
   Row, Col,
 } from 'antd';
 import {
-  Link, Switch, Route, useParams,
+  Link, useParams,
 } from 'react-router-dom';
-import LeagueDashboard from '../LeagueDashboard';
 import PageTitle from '../../components/PageTitle';
 
 export const LEAGUE_INFO_QUERY = gql`
@@ -24,11 +23,11 @@ export const LEAGUE_INFO_QUERY = gql`
     }
 `;
 
-const League = () => {
+const LeagueTitle = () => {
   const { leagueId } = useParams();
   const { data, loading } = useQuery(LEAGUE_INFO_QUERY, {
     variables: {
-      leagueId,
+      leagueId: '1',
     },
   });
   return (
@@ -46,13 +45,8 @@ const League = () => {
           )}
         />
       </Col>
-      <Col span={24}>
-        <Switch>
-          <Route path="/leagues/:leagueId/dashboard" component={LeagueDashboard} />
-        </Switch>
-      </Col>
     </Row>
   );
 };
 
-export default League;
+export default LeagueTitle;
