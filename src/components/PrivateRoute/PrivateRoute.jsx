@@ -2,23 +2,21 @@ import React from 'react';
 import { Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import checkPermissions from './helpers/checkPermissions';
-import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
+import { permissions } from '../../configs/app';
+import useCurrentUser from '../../hooks/useCurrentUser';
+import checkPermission from './helpers/checkPermissions';
 
-// If the permissions are not defined, only checks authorization.
-// If the permissions are defined, checks authorization and access rights.
+// If the allowedRoles are not defined, only checks authorization.
+// If the allowedRoles are defined, checks authorization and access rights.
 
-const PrivateRoute = ({ permissions, ...props }) => {
-  const { data, loading } = useCurrentUserQuery();
-
+const PrivateRoute = ({ roles, ...props }) => {
+  const { data, loading } = useCurrentUser();
   if (loading) {
     return <Spin size="large" />;
   }
 
   if (data) {
-    const { user } = data;
-
-    if (!permissions || checkPermissions(user, permissions)) {
+    if (!roles || checkPermission(data?.user?.role, roles)) {
       return <Route {...props} />;
     }
   }
@@ -32,15 +30,17 @@ const PrivateRoute = ({ permissions, ...props }) => {
   );
 };
 
+const rolesPropType = PropTypes.arrayOf(PropTypes.oneOf(Object.values(permissions.roles)));
+
 PrivateRoute.propTypes = {
-  permissions: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.shape({
-    include: PropTypes.arrayOf(PropTypes.string),
-    exclude: PropTypes.arrayOf(PropTypes.string),
+  roles: PropTypes.oneOfType([rolesPropType, PropTypes.shape({
+    include: rolesPropType,
+    exclude: rolesPropType,
   })]),
 };
 
 PrivateRoute.defaultProps = {
-  permissions: null,
+  roles: null,
 };
 
 export default PrivateRoute;

@@ -1,20 +1,18 @@
 /**
  *
- * @param {object} user
- * @param {string} user.role
- * @param {object | Array<string>} permissions
- * @returns {boolean|*}
+ * @param {string} role
+ * @param {Array<string>} roles
+ * @returns {boolean}
  */
-const checkPermissions = (user, permissions) => {
-  const { role } = user;
-  if (Array.isArray(permissions)) {
-    return permissions.includes(role);
+const checkPermissions = (role, roles) => {
+  if (Array.isArray(roles)) {
+    return roles.includes(role);
   }
-  if ('include' in permissions) {
-    return permissions.include.includes(role);
+  if ('include' in roles && Array.isArray(roles.include)) {
+    return roles.include.includes(role);
   }
-  if ('exclude' in permissions) {
-    return !permissions.exclude.includes((role));
+  if ('exclude' in roles && Array.isArray(roles.exclude)) {
+    return !roles.exclude.includes(role);
   }
   return false;
 };

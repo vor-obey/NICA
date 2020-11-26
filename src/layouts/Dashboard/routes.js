@@ -1,6 +1,6 @@
 import { HomeOutlined } from '@ant-design/icons';
 import Index from './containers/Index';
-import { permissions } from '../../config';
+import { permissions } from '../../configs/app';
 
 const { SUPER_ADMIN, LEAGUE_ADMIN, COACH } = permissions.roles;
 

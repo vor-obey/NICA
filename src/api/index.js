@@ -1,10 +1,10 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { graphQLClient } from '../config';
+import { apolloClient } from '../configs/app';
 
 export const cache = new InMemoryCache();
 
 const client = new ApolloClient({
-  ...graphQLClient,
+  ...apolloClient,
   cache,
 });
 

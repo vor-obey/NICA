@@ -1,4 +1,4 @@
-export const graphQLClient = {
+export const apolloClient = {
   uri: '',
 };
 

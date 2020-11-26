@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import faker from 'faker';
+import { USER_ROLE } from '../configs/mock';
+import { CURRENT_USER_QUERY } from '../hooks/useCurrentUser';
 import { LOGIN_USER } from '../layouts/Auth/containers/Login';
 import { SIGN_UP_USER } from '../layouts/Auth/containers/SignUp';
-import { CURRENT_USER_QUERY } from '../hooks/useCurrentUserQuery';
-import { permissions } from '../config';
 
 export const testUser = {
   firstName: 'Name',
@@ -22,7 +22,7 @@ const loginMock = {
     data: {
       user: {
         id: 1,
-        role: 'admin',
+        role: USER_ROLE,
         ...testUser,
       },
       token: 'access token',
@@ -38,7 +38,7 @@ const signUpMock = {
     data: {
       user: {
         id: 1,
-        role: 'admin',
+        role: USER_ROLE,
         ...testUser,
       },
     },
@@ -48,20 +48,23 @@ const signUpMock = {
 const currentUserMock = {
   request: {
     query: CURRENT_USER_QUERY,
-    variables: null,
+    variables: {
+      userId: '1',
+    },
   },
-  result: {
+  result: () => ({
     data: {
       user: {
         id: '1',
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        avatar: faker.image.people(),
+        image: faker.image.people(),
         email: faker.internet.email(),
-        role: permissions.roles.SUPER_ADMIN,
+        role: USER_ROLE,
+        __typename: 'User',
       },
     },
-  },
+  }),
 };
 
 const authMocks = [loginMock, signUpMock, currentUserMock];
