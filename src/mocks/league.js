@@ -1,6 +1,6 @@
 import faker from 'faker/locale/en';
-import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/League/League';
-import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/LeagueDashboard/LeagueDashboard';
+import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/LeagueTitle';
+import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
 
 const league = {
   id: '1',
@@ -54,7 +54,7 @@ const leagueDashboardMock = {
         ...league,
         riderRegistrationStatus: 'close',
         coachRegistrationStatus: 'open',
-        registrationContact: 'Georgia League',
+        registrationContact: 'Georgia LeagueTitle',
         riderSeasonFeeRegistrationMessage: faker.lorem.sentences(faker.random.number({
           min: 4,
           max: 6,

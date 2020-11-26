@@ -1,6 +1,21 @@
 import faker from 'faker/locale/en';
 import { DASHBOARD_COACH_QUERY } from '../layouts/Dashboard/containers/Coach/Coach';
-import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/Coach/LicenseStatus/LicenseStatus';
+import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/Licenses/Licenses';
+
+const league = {
+  id: '1',
+  season: {
+    id: '1',
+    name: '2020',
+    __typename: 'Season',
+  },
+  name: {
+    short: 'Utah',
+    formal: 'Utah Interscholastic',
+  },
+  image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
+  __typename: 'League',
+};
 
 const generateCoachesLicense = (length) => [...new Array(length)].map((item, index) => (
   {
@@ -82,6 +97,7 @@ const coachMock = {
           address: generateAddress(),
           orders: generateOrders(),
         },
+        league,
       },
     },
   },
