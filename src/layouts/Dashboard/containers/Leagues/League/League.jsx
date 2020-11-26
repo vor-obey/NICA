@@ -5,12 +5,12 @@ import {
 import {
   DownloadOutlined,
 } from '@ant-design/icons';
-import styles from './Team.module.scss';
+import styles from './League.module.scss';
 import Admins from '../../Admins';
-import League from '../../League';
+import LeagueTitle from '../../LeagueTitle';
 import Coaches from '../../Coaches';
 
-const Team = () => {
+const League = () => {
   const renderButtonCoach = () => (
     <Row>
       <Popover
@@ -30,7 +30,7 @@ const Team = () => {
 
   return (
     <>
-      <League />
+      <LeagueTitle />
 
       <Coaches buttons={renderButtonCoach || ''} />
 
@@ -39,4 +39,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default League;
