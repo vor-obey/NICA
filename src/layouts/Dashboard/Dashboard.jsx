@@ -18,6 +18,10 @@ import NavBar from './components/NavBar/NavBar';
 import { permissions } from '../../configs/app';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
+import Index from './containers/Index';
+import League from './containers/Leagues/League/League';
+import LicenseStatus from './containers/Licenses';
+import Coaches from './containers/Coaches';
 
 const { roles: ROLES } = permissions;
 const {
@@ -80,7 +84,7 @@ const Dashboard = () => {
             <PrivateRoute
               exact
               path="/"
-              component={() => 'My Profile Component'}
+              component={Index}
             />
             <PrivateRoute
               exact
@@ -91,7 +95,7 @@ const Dashboard = () => {
             <PrivateRoute
               exact
               path="/coaches"
-              component={() => 'Coaches Component'}
+              component={Coaches}
             />
             <PrivateRoute
               exact
@@ -103,11 +107,11 @@ const Dashboard = () => {
             />
             <PrivateRoute
               path="/leagues/:leagueId"
-              component={() => 'My League Component'}
+              component={League}
             />
             <PrivateRoute
               path="/licences/:licenceId"
-              component={() => 'My Licences Component'}
+              component={LicenseStatus}
             />
           </Switch>
         </Content>
