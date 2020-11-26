@@ -6,8 +6,8 @@ import { permissions } from '../../configs/app';
 import useCurrentUser from '../../hooks/useCurrentUser';
 import checkPermission from './helpers/checkPermissions';
 
-// If the allowedRoles are not defined, only checks authorization.
-// If the allowedRoles are defined, checks authorization and access rights.
+// If the "roles" prop are not defined, only checks authorization.
+// If the "roles" prop are defined, checks authorization and access rights.
 
 const PrivateRoute = ({ roles, ...props }) => {
   const { data, loading } = useCurrentUser();
