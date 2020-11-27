@@ -121,7 +121,7 @@ const LicenseStatus = () => {
   });
 
   const renderBtn = () => (
-    <a href="fff">
+    <a href=" ">
       <QuestionCircleOutlined style={{ marginRight: 10, fontSize: 18 }} />
       Learn mo about the Coaches License
     </a>

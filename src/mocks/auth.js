@@ -65,6 +65,7 @@ const currentUserMock = {
       },
     },
   }),
+  delay: 10,
 };
 
 const authMocks = [loginMock, signUpMock, currentUserMock];
