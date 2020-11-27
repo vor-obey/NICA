@@ -1,13 +1,21 @@
 import React from 'react';
-import { Descriptions } from 'antd';
+import { Descriptions, Button, Typography } from 'antd';
+
+const { Title } = Typography;
 
 const PersonalInformation = ({ data }) => {
   const {
-    email, name, gender, birthday, phone, address,
+    email, name, gender, birthday, phone, address, role,
   } = data;
 
   return (
-    <Descriptions layout="horizontal" bordered column={1}>
+    <Descriptions
+      layout="horizontal"
+      title={<Title>Personal information</Title>}
+      bordered
+      column={1}
+      extra={role === 'LEAGUE_ADMIN' ? <Button danger>Deactivate coach</Button> : ''}
+    >
       <Descriptions.Item label="Email">{email}</Descriptions.Item>
       <Descriptions.Item label="First name">{name.firstName}</Descriptions.Item>
       <Descriptions.Item label="Last name">{name.lastName}</Descriptions.Item>
