@@ -99,6 +99,11 @@ const Dashboard = () => {
             />
             <PrivateRoute
               exact
+              path="/coaches/:coachId"
+              component={Index}
+            />
+            <PrivateRoute
+              exact
               path="/licences"
               component={() => 'Component'}
               roles={{
