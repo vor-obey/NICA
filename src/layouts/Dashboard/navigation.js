@@ -9,26 +9,26 @@ import { permissions } from '../../configs/app';
 
 const { roles: ROLES } = permissions;
 
-export default [
+const navItems = [
   {
     icon: ProfileOutlined,
-    to: '/',
+    to: () => '/',
     name: 'My Profile',
   },
   {
     icon: GroupOutlined,
-    to: '/leagues',
+    to: () => '/leagues',
     name: 'Leagues',
     roles: [ROLES.SUPER_ADMIN],
   },
   {
     name: 'Coaches',
-    to: '/coaches',
+    to: () => '/coaches',
     icon: TeamOutlined,
   },
   {
     name: 'Licences',
-    to: '/licences',
+    to: () => '/licences',
     icon: FileDoneOutlined,
     roles: [ROLES.SUPER_ADMIN, ROLES.LEAGUE_ADMIN],
   },
@@ -40,8 +40,10 @@ export default [
   },
   {
     name: 'My Licences',
-    to: ({ licenceId }) => `/licences/${licenceId}`,
+    to: ({ licenceId }) => `/licenses/${licenceId}`,
     icon: HomeOutlined,
     roles: [ROLES.COACH],
   },
 ];
+
+export default navItems;

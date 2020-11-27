@@ -1,7 +1,7 @@
 import faker from 'faker/locale/en';
 import { USER_ROLE } from '../configs/mock';
 import { DASHBOARD_USER_QUERY } from '../layouts/Dashboard/Dashboard';
-import { DASHBOARD_NAVBAR_QUERY } from '../hooks/useNavItems/useNavItems';
+import { DASHBOARD_NAVBAR_QUERY } from '../layouts/Dashboard/components/NavBar/NavBar';
 
 const dashboardMock = {
   request: {
@@ -38,7 +38,6 @@ const dashboardNavMock = {
       },
     },
   }),
-  delay: 1,
 };
 
 export default [dashboardMock, dashboardNavMock];
