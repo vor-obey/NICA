@@ -1,4 +1,4 @@
 import { permissions } from './app';
 
-export const USER_ROLE = permissions.roles.COACH;
+export const USER_ROLE = permissions.roles.SUPER_ADMIN;
 export const DELAY = 3000;
