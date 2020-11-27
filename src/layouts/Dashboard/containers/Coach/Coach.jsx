@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Collapse, Row, Card, Skeleton,
+  Collapse, Row, Card, Skeleton, Space,
 } from 'antd';
 import { gql, useQuery } from '@apollo/client';
 import CoachInfo from './CoachInfo';
@@ -13,6 +13,7 @@ import CoachReleases from './CoachReleases';
 import CoachAdmin from './CoachAdmin';
 import styles from './Coach.module.scss';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
+import LicenseStatus from '../Licenses';
 
 const { Panel } = Collapse;
 
@@ -40,6 +41,7 @@ export const DASHBOARD_COACH_QUERY = gql`
             birthday,
             phone,
             address
+            role,
             profile {
                 id,
                 firstName,
@@ -76,12 +78,17 @@ const Coach = () => {
       coachId: 1,
     },
   });
+
   return (
     <>
       <Row className={styles.logoHeader}>
         <PageTitle
           loading={loading}
-          title={<div className={styles.titleHeader}>{`Coach: ${data?.coach?.name?.firstName} ${data?.coach?.name?.lastName}`}</div>}
+          title={(
+            <div className={styles.titleHeader}>
+              {`Coach: ${data?.coach?.name?.firstName} ${data?.coach?.name?.lastName}`}
+            </div>
+)}
           avatar={data?.coach?.league.image}
           description={(
             <div className={styles.descriptionHeader}>
@@ -90,11 +97,16 @@ const Coach = () => {
           )}
         />
       </Row>
+
       <Skeleton loading={loading} active>
         <Card bordered={false}>
           <PersonalInformation data={data?.coach} loading={loading} />
         </Card>
       </Skeleton>
+
+      <div className={styles.licenseTable}>
+        {data?.coach?.role === 'LEAGUE_ADMIN' && <LicenseStatus />}
+      </div>
 
       {/* <Panel key={2} header={header[1]} className={styles.panelP}> */}
       {/*  <CoachAdmin loading={loading} /> */}
