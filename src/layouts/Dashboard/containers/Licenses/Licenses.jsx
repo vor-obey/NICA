@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Skeleton } from 'antd';
+import { Skeleton, Col } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import TableWidget from '../../components/TableWidget';
 
@@ -49,58 +49,6 @@ const columns = [
   },
 ];
 
-const columns2 = [
-  {
-    title: 'Season',
-    ellipsis: true,
-    dataIndex: 'season',
-  },
-  {
-    title: 'Highest Season Level',
-    ellipsis: true,
-    dataIndex: 'highestSeasonLevel',
-  },
-  {
-    title: 'Highest Season Level',
-    ellipsis: true,
-    dataIndex: 'highestSeasonLevel',
-  },
-  {
-    title: 'Last changed',
-    ellipsis: true,
-    dataIndex: 'lastChanged',
-  },
-  {
-    title: 'Helmet delivery',
-    ellipsis: true,
-    dataIndex: 'helmetDelivery',
-  },
-  {
-    title: 'Other notes',
-    ellipsis: true,
-    dataIndex: 'otherNotes',
-  },
-];
-
-const dataSrc = [
-  {
-    id: 1,
-    season: 2019,
-    highestSeasonLevel: 2,
-    lastChanged: '2017-25-10',
-    helmetDelivery: 'No information',
-    otherNotes: 'No information',
-  },
-  {
-    id: 2,
-    season: 2018,
-    highestSeasonLevel: 3,
-    lastChanged: '2018-25-10',
-    helmetDelivery: 'No information',
-    otherNotes: 'No information',
-  },
-];
-
 export const COACH_LICENSE_QUERY = gql`
     query dashboardLicenseCoach($coachId: ID!){
         license (id: $coachId) {
@@ -137,16 +85,6 @@ const LicenseStatus = () => {
           dataSource={data?.license}
           title="License level: 3"
           buttons={renderBtn}
-        />
-      </Skeleton>
-
-      <Skeleton loading={loading} active>
-        <TableWidget
-          rowKey="id"
-          pagination={false}
-          columns={columns2}
-          dataSource={dataSrc}
-          title="License level history:"
         />
       </Skeleton>
     </>
