@@ -1,9 +1,11 @@
 import faker from 'faker/locale/en';
-import { TEAM_QUERY } from '../layouts/Dashboard/containers/Coaches/Coaches';
+import { COACH_QUERY } from '../layouts/Dashboard/containers/Coaches/Coaches';
+import { USER_ROLE } from '../configs/mock';
 
 const generateCoaches = (length) => [...new Array(length)].map((item, index) => (
   {
     id: index,
+    league: faker.commerce.productName(),
     name: faker.name.findName(),
     email: faker.internet.email(),
     level: faker.random.number(20),
@@ -14,15 +16,16 @@ const generateCoaches = (length) => [...new Array(length)].map((item, index) => 
 
 const pageTeamMock = {
   request: {
-    query: TEAM_QUERY,
+    query: COACH_QUERY,
     variables: {
       teamId: 1,
     },
   },
   result: {
     data: {
-      team: {
-        coaches: generateCoaches(20),
+      coaches: {
+        coach: generateCoaches(20),
+        role: USER_ROLE,
       },
     },
   },
