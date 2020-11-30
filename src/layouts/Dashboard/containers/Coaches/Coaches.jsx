@@ -5,7 +5,7 @@ import {
 import { ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import styles from '../Leagues/League/League.module.scss';
+import styles from './Coaches.module.scss';
 import TableWidget from '../../components/TableWidget';
 
 export const COACH_QUERY = gql`
@@ -170,7 +170,13 @@ const Coaches = () => {
 
   // eslint-disable-next-line no-nested-ternary
   return (
-    <Col span={24} style={{ marginBottom: 50, marginTop: 50 }}>
+    <Col
+      span={24}
+      style={{
+        marginBottom: 50,
+        marginTop: 50,
+      }}
+    >
       <TableWidget
         rowKey="id"
         pagination={{ pageSize: 15 }}

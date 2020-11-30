@@ -1,0 +1,41 @@
+.underTableButton {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonIcons {
+  font-size: 35px;
+}
+
+.buttonLinks {
+  color: black;
+  font-size: 16px;
+}
+
+.positionBtn {
+  margin-right: 5px;
+}
+
+.popoverLinks {
+  display: flex;
+  flex-direction: column;
+  a {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+.marginLinks {
+  margin-right: 20px;
+}
+
+.titleHeader {
+  font-size: 45px;
+}
+
+.descriptionHeader {
+  font-size: 20px;
+  color: grey;
+}

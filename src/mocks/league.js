@@ -3,6 +3,8 @@ import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/L
 import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
 import { LEAGUES_QUERY } from '../layouts/Dashboard/containers/Leagues/LeaguesList';
 import { USER_ROLE } from '../configs/mock';
+import { SUPER_ADMIN_LEAGUE } from '../layouts/Dashboard/containers/SpecificLeague/components/SuperAdminLeague/SuperAdminLeague';
+import { permissions } from '../configs/app';
 
 const league = {
   id: 1,
@@ -114,8 +116,39 @@ const leaguesList = {
   },
 };
 
+const leagueDashboardForSuperAdmin = {
+  request: {
+    query: SUPER_ADMIN_LEAGUE,
+    variables: {
+      leagueId: 'superAdminLeagueId',
+    },
+  },
+  result: {
+    data: {
+      league: {
+        ...league,
+        users: generate((item, index) => {
+          const gender = faker.random.number({
+            min: 0,
+            max: 1,
+          });
+          return ({
+            id: `_${index + 1}`,
+            firstName: faker.name.firstName(gender),
+            lastName: faker.name.lastName(gender),
+            email: faker.internet.email(),
+            phone: faker.phone.phoneNumberFormat(),
+            role: permissions.roles.LEAGUE_ADMIN,
+          });
+        })(100),
+      },
+    },
+  },
+};
+
 export default [
   leagueInfoMock,
   leagueDashboardMock,
+  leagueDashboardForSuperAdmin,
   leaguesList,
 ];
