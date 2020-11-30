@@ -4,6 +4,7 @@ import dashboardMocks from './dashboard';
 import coachMock from './coach';
 import { DELAY } from '../configs/mock';
 import teamMock from './team';
+import licenses from './licenses';
 
 const mocks = [
   ...authMocks,
@@ -11,6 +12,7 @@ const mocks = [
   ...leagueMocks,
   ...coachMock,
   ...teamMock,
+  ...licenses,
 ].map((mock) => ({
   delay: DELAY,
   ...mock,

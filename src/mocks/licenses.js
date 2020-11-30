@@ -41,9 +41,9 @@ const adminLicensesMock = {
   request: {
     query: LICENSES_QUERY,
   },
-  result: () => ({
+  result: {
     data: createData(),
-  }),
+  },
 };
 
 export default [adminLicensesMock];

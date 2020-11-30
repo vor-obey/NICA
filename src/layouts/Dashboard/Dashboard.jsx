@@ -24,6 +24,7 @@ import SpecificLeague from './containers/SpecificLeague';
 import DashboardHeader from './components/DashboardHeader';
 import LeaguesList from './containers/Leagues';
 import Admin from './containers/Admin';
+import Licenses from './containers/Licenses/Licenses';
 
 const { roles: ROLES } = permissions;
 const {
@@ -107,7 +108,7 @@ const Dashboard = () => {
             <PrivateRoute
               exact
               path="/licenses"
-              component={() => 'Licenses'}
+              component={Licenses}
               roles={{
                 exclude: [ROLES.COACH],
               }}
