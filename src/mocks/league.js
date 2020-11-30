@@ -2,6 +2,7 @@ import faker from 'faker/locale/en';
 import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/LeagueTitle';
 import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
 import { LEAGUES_QUERY } from '../layouts/Dashboard/containers/Leagues/LeaguesList';
+import { USER_ROLE } from '../configs/mock';
 
 const league = {
   id: 1,
@@ -75,11 +76,12 @@ const leagueDashboardMock = {
         updatedAt: faker.date.past()
           .toISOString(),
         admins: generateAdmins(faker.random.number({
-          min: 6,
-          max: 16,
+          min: 10,
+          max: 30,
         })),
         statistics: generateStatistics(3),
       },
+      role: USER_ROLE,
     },
   }),
 };

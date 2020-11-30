@@ -2,9 +2,9 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import {
-  Button, Col, Modal,
+  Button, Modal,
 } from 'antd';
-import { ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import TableWidget from '../../components/TableWidget';
 
 export const LEAGUES_QUERY = gql`
@@ -35,7 +35,7 @@ const columns = [
     dataIndex: 'edit',
     fixed: 'right',
     width: 100,
-    render: () => <Button>Edit</Button>,
+    render: () => <Button icon={<EditOutlined />}>Edit</Button>,
   },
   {
     title: 'Deactivate league',
@@ -55,11 +55,9 @@ const LeaguesList = () => {
   });
 
   const createLeagueBtn = () => (
-    <Col>
-      <Button icon={<PlusOutlined />} type="link">
-        Create league
-      </Button>
-    </Col>
+    <Button icon={<PlusOutlined />} type="link">
+      Create league
+    </Button>
   );
 
   return (
