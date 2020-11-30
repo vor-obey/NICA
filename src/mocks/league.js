@@ -1,6 +1,7 @@
 import faker from 'faker/locale/en';
 import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/LeagueTitle';
 import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
+import { LEAGUES_QUERY } from '../layouts/Dashboard/containers/Leagues/LeaguesList';
 
 const league = {
   id: 1,
@@ -40,6 +41,13 @@ const generateAdmins = generate((item, index) => {
     email: faker.internet.email(),
   });
 });
+
+const generateLeagues = generate((item, index) => (
+  {
+    id: index,
+    league: faker.commerce.productName(),
+  }
+));
 
 const leagueDashboardMock = {
   request: {
@@ -90,7 +98,22 @@ const leagueInfoMock = {
   },
 };
 
+const leaguesList = {
+  request: {
+    query: LEAGUES_QUERY,
+    variables: {
+      leagueId: 1,
+    },
+  },
+  result: {
+    data: {
+      leagues: generateLeagues(20),
+    },
+  },
+};
+
 export default [
   leagueInfoMock,
   leagueDashboardMock,
+  leaguesList,
 ];
