@@ -18,32 +18,32 @@ const loginMock = {
     query: LOGIN_USER,
     variables: _.pick(testUser, ['email', 'password']),
   },
-  result: {
+  result: () => ({
     data: {
       user: {
         id: 1,
-        role: USER_ROLE,
+        role: localStorage.getItem('role'),
         ...testUser,
       },
       token: 'access token',
     },
-  },
+  }),
 };
 const signUpMock = {
   request: {
     query: SIGN_UP_USER,
     variables: testUser,
   },
-  result: {
+  result: () => ({
     data: {
       user: {
         id: 1,
-        role: USER_ROLE,
+        role: localStorage.getItem('role'),
         ...testUser,
       },
     },
     token: 'access token',
-  },
+  }),
 };
 const currentUserMock = {
   request: {
@@ -60,7 +60,7 @@ const currentUserMock = {
         lastName: faker.name.lastName(),
         image: faker.image.people(),
         email: faker.internet.email(),
-        role: USER_ROLE,
+        role: localStorage.getItem('role'),
         __typename: 'User',
       },
     },

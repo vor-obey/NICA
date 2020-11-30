@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Menu, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 import styles from './NavBar.module.scss';
 import getNavItems from './helpers/getNavItems';
+import RoleContext from '../../../../roleContext';
 
 export const DASHBOARD_NAVBAR_QUERY = gql`
     query navParams($id: ID!){
@@ -19,8 +20,8 @@ export const DASHBOARD_NAVBAR_QUERY = gql`
         }
     }`;
 
-const reduceOptions = (data) => {
-  const { user: { role, myLeague, myLicense } } = data;
+const reduceOptions = (data, role) => {
+  const { user: { myLeague, myLicense } } = data;
   return {
     role,
     params: {
@@ -31,6 +32,7 @@ const reduceOptions = (data) => {
 };
 
 const NavBar = (props) => {
+  const { role } = useContext(RoleContext);
   const { data, loading } = useQuery(DASHBOARD_NAVBAR_QUERY, {
     variables: {
       id: 1,
@@ -38,9 +40,9 @@ const NavBar = (props) => {
   });
 
   const navItems = useMemo(() => {
-    if (data) return getNavItems(reduceOptions(data));
+    if (data) return getNavItems(reduceOptions(data, role));
     return [];
-  }, [data]);
+  }, [data, role]);
 
   return (
     <Skeleton

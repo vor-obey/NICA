@@ -1,6 +1,5 @@
 import faker from 'faker/locale/en';
 import { COACH_QUERY } from '../layouts/Dashboard/containers/Coaches/Coaches';
-import { USER_ROLE } from '../configs/mock';
 
 const generateCoaches = (length) => [...new Array(length)].map((item, index) => (
   {
@@ -22,14 +21,14 @@ const pageTeamMock = {
       teamId: 1,
     },
   },
-  result: {
+  result: () => ({
     data: {
       coaches: {
         coach: generateCoaches(20),
-        role: USER_ROLE,
+        role: localStorage.getItem('role'),
       },
     },
-  },
+  }),
 };
 
 export default [pageTeamMock];

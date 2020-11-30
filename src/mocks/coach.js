@@ -37,7 +37,7 @@ const coachMock = {
       coachId: 1,
     },
   },
-  result: {
+  result: () => ({
     data: {
       coach: {
         id: faker.random.number(100),
@@ -47,7 +47,8 @@ const coachMock = {
         },
         email: faker.internet.email(),
         gender: faker.name.gender(),
-        birthday: faker.date.recent().toISOString(),
+        birthday: faker.date.recent()
+          .toISOString(),
         phone: {
           cellPhone: faker.phone.phoneNumberFormat(),
           homePhone: faker.phone.phoneNumberFormat(),
@@ -66,10 +67,10 @@ const coachMock = {
         },
         __typename: 'User',
         league,
-        role: USER_ROLE,
+        role: localStorage.getItem('role'),
       },
     },
-  },
+  }),
 };
 
 const licenseMock = {
@@ -79,11 +80,11 @@ const licenseMock = {
       coachId: 1,
     },
   },
-  result: {
+  result: () => ({
     data: {
       license: generateCoachesLicense(20),
     },
-  },
+  }),
 };
 
 export default [coachMock, licenseMock];

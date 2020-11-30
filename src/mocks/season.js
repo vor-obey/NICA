@@ -191,7 +191,7 @@ const seasonEditMock = {
       seasonId: 1,
     },
   },
-  result: {
+  result: () => ({
     data: {
       season: {
         // general information
@@ -342,7 +342,7 @@ const seasonEditMock = {
         __typename: 'Season',
       },
     },
-  },
+  }),
 };
 
 export default [seasonMock, seasonEditMock];

@@ -10,7 +10,7 @@ const dashboardNavBarMock = {
     data: {
       user: {
         id: 1,
-        role: USER_ROLE,
+        role: localStorage.getItem('role'),
         myLeague: {
           id: 1,
         },

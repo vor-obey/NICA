@@ -83,7 +83,7 @@ const leagueDashboardMock = {
         })),
         statistics: generateStatistics(3),
       },
-      role: USER_ROLE,
+      role: localStorage.getItem('role'),
     },
   }),
 };
@@ -95,11 +95,11 @@ const leagueInfoMock = {
       leagueId: 1,
     },
   },
-  result: {
+  result: () => ({
     data: {
       league,
     },
-  },
+  }),
 };
 
 const leaguesList = {
@@ -109,11 +109,11 @@ const leaguesList = {
       leagueId: 1,
     },
   },
-  result: {
+  result: () => ({
     data: {
       leagues: generateLeagues(20),
     },
-  },
+  }),
 };
 
 const leagueDashboardForSuperAdmin = {
@@ -123,7 +123,7 @@ const leagueDashboardForSuperAdmin = {
       leagueId: 'superAdminLeagueId',
     },
   },
-  result: {
+  result: () => ({
     data: {
       league: {
         ...league,
@@ -138,12 +138,12 @@ const leagueDashboardForSuperAdmin = {
             lastName: faker.name.lastName(gender),
             email: faker.internet.email(),
             phone: faker.phone.phoneNumberFormat(),
-            role: permissions.roles.LEAGUE_ADMIN,
+            role: localStorage.getItem('role'),
           });
         })(100),
       },
     },
-  },
+  }),
 };
 
 export default [
