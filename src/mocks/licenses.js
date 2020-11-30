@@ -33,10 +33,7 @@ const generateLicenses = (length) => [...new Array(length)].map((item, index) =>
 }));
 
 const createData = () => ({
-  licenses: generateLicenses(faker.random.number({
-    min: 10,
-    max: 200,
-  })),
+  licenses: generateLicenses(100),
   leagues,
 });
 

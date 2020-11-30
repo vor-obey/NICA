@@ -33,7 +33,7 @@ const prepareDefaultPagination = ({ page = 1, results = 10 }) => ({
   defaultCurrent: +page,
   defaultPageSize: +results,
 });
-const prepareDefaultFilteredValue = (sort) => {
+const prepareDefaultFilteredValue = ({ sort = {} }) => {
   const mapItem = (item) => (item[0] === '-' ? { [item.slice(1)]: 'descend' } : { [item]: 'ascend' });
   if (_.isArray(sort)) {
     return sort.reduce((accumulator, item) => ({
@@ -51,7 +51,7 @@ const parseDefaultProps = (value) => {
   return {
     defaultPagination: prepareDefaultPagination(_.pick(values, PAGINATION_KEYS)),
     defaultFilteredValue: _.omit(values, [...PAGINATION_KEYS, ...SORT_KEYS]),
-    defaultSortOrder: prepareDefaultFilteredValue(_.pick(values, SORT_KEYS).sort),
+    defaultSortOrder: prepareDefaultFilteredValue(_.pick(values, SORT_KEYS)),
   };
 };
 
