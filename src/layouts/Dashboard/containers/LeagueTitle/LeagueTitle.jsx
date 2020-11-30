@@ -24,7 +24,6 @@ export const LEAGUE_INFO_QUERY = gql`
 `;
 
 const LeagueTitle = () => {
-  const { leagueId } = useParams();
   const { data, loading } = useQuery(LEAGUE_INFO_QUERY, {
     variables: {
       leagueId: 1,
@@ -37,12 +36,7 @@ const LeagueTitle = () => {
           loading={loading}
           avatar={data?.league?.image}
           title={`${data?.league?.name?.short ?? ''} league`}
-          description={(
-            <Link to={`/seasons/${data?.league?.season?.id}`}>
-              {`Season ${data?.league?.season?.name ?? ''} `}
-              <SettingFilled />
-            </Link>
-          )}
+          description={`Season ${data?.league?.season?.name ?? ''}`}
         />
       </Col>
     </Row>

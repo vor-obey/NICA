@@ -6,6 +6,7 @@ const generateCoaches = (length) => [...new Array(length)].map((item, index) => 
   {
     id: index,
     league: faker.commerce.productName(),
+    image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
     name: faker.name.findName(),
     email: faker.internet.email(),
     level: faker.random.number(20),

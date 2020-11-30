@@ -1,9 +1,10 @@
 import React from 'react';
-import { Col } from 'antd';
+import { Button, Col } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import TableWidget from '../../components/TableWidget';
-import styles from './Admins.module.scss';
+import { permissions } from '../../../../configs/app';
 
 export const LEAGUE_DASHBOARD_QUERY = gql`
     query leagueDashboard($leagueId: ID!){
@@ -33,7 +34,8 @@ export const LEAGUE_DASHBOARD_QUERY = gql`
                 lastName
                 email
             }
-        }
+        },
+        role,
     }
 `;
 
@@ -64,14 +66,21 @@ const Admins = () => {
       leagueId: 1,
     },
   });
+
+  const inviteAdmin = () => (
+    data?.role === permissions.roles.LEAGUE_ADMIN && <Button type="link" icon={<PlusOutlined />} style={{ fontSize: 18 }}>Invite Administrator</Button>
+  );
+
   return (
     <Col span={24}>
       <TableWidget
+        pagination={{ pageSize: 10 }}
         rowKey="id"
         columns={adminColumns}
         loading={loading}
         title="League admins"
         dataSource={data?.leagueDashboard?.admins}
+        buttons={inviteAdmin}
       />
     </Col>
   );

@@ -15,14 +15,14 @@ const tableProps = {
 };
 
 const TableWidget = ({
-  title, columns, buttons, footer, ...props
+  title, columns, buttons, footer, loading, ...props
 }) => {
   const renderTitle = useCallback(() => (
     <Row className={styles.tableTitleRow} justify="space-between" align="middle">
       <Title level={2} className={styles.tableTitle}>{title}</Title>
       {buttons && buttons()}
     </Row>
-  ), [title]);
+  ), [loading, title]);
 
   const columnsWithClassName = useMemo(
     () => columns.map((cn) => ({ className: styles.tableColumn, ...cn })),
@@ -31,6 +31,7 @@ const TableWidget = ({
 
   return (
     <Table
+      loading={loading}
       {...tableProps}
       title={renderTitle}
       columns={columnsWithClassName}
