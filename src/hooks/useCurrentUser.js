@@ -14,7 +14,7 @@ export const CURRENT_USER_QUERY = gql`
 
 const useCurrentUser = () => useQuery(CURRENT_USER_QUERY, {
   variables: {
-    userId: '1',
+    userId: 1,
   },
 });
 
