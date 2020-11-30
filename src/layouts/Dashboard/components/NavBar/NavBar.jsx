@@ -6,32 +6,36 @@ import styles from './NavBar.module.scss';
 import getNavItems from './helpers/getNavItems';
 
 export const DASHBOARD_NAVBAR_QUERY = gql`
-    query navParams{
-        user{
+    query navParams($id: ID!){
+        user(id: $id){
             id
             role
             myLeague{
                 id
             }
-            myLicence{
+            myLicense{
                 id
             }
         }
     }`;
 
 const reduceOptions = (data) => {
-  const { user: { role, myLeague, myLicence } } = data;
+  const { user: { role, myLeague, myLicense } } = data;
   return {
     role,
     params: {
       leagueId: myLeague.id,
-      licenceId: myLicence.id,
+      licenseId: myLicense.id,
     },
   };
 };
 
 const NavBar = (props) => {
-  const { data, loading } = useQuery(DASHBOARD_NAVBAR_QUERY);
+  const { data, loading } = useQuery(DASHBOARD_NAVBAR_QUERY, {
+    variables: {
+      id: 1,
+    },
+  });
 
   const navItems = useMemo(() => {
     if (data) return getNavItems(reduceOptions(data));

@@ -27,8 +27,8 @@ const navItems = [
     icon: TeamOutlined,
   },
   {
-    name: 'Licences',
-    to: () => '/licences',
+    name: 'Licenses',
+    to: () => '/licenses',
     icon: FileDoneOutlined,
     roles: [ROLES.SUPER_ADMIN, ROLES.LEAGUE_ADMIN],
   },
@@ -39,8 +39,8 @@ const navItems = [
     roles: [ROLES.COACH, ROLES.LEAGUE_ADMIN],
   },
   {
-    name: 'My Licences',
-    to: ({ licenceId }) => `/licenses/${licenceId}`,
+    name: 'My Licenses',
+    to: ({ licenseId }) => `/licenses/${licenseId}`,
     icon: HomeOutlined,
     roles: [ROLES.COACH],
   },

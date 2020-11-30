@@ -4,8 +4,10 @@ import dashboardMocks from './dashboard';
 import coachMock from './coach';
 import { DELAY } from '../configs/mock';
 import teamMock from './team';
+import licensesMocks from './licenses';
 
 const mocks = [
+  ...licensesMocks,
   ...authMocks,
   ...dashboardMocks,
   ...leagueMocks,

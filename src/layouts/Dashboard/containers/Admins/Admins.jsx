@@ -61,7 +61,7 @@ const adminColumns = [
 const Admins = () => {
   const { data, loading } = useQuery(LEAGUE_DASHBOARD_QUERY, {
     variables: {
-      leagueId: '1',
+      leagueId: 1,
     },
   });
   return (

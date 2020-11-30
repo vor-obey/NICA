@@ -13,7 +13,7 @@ import CoachReleases from './CoachReleases';
 import CoachAdmin from './CoachAdmin';
 import styles from './Coach.module.scss';
 import OrderHistory from '../../components/OrderHistory/OrderHistory';
-import LicenseStatus from '../Licenses';
+import LicenseStatus from '../LicenseStatus';
 
 const { Panel } = Collapse;
 

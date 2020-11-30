@@ -35,7 +35,7 @@ const seasonMock = {
   request: {
     query: SEASON_PROPS_QUERY,
     variables: {
-      seasonId: '1',
+      seasonId: 1,
     },
   },
   result: () => ({
@@ -188,14 +188,14 @@ const seasonEditMock = {
   request: {
     query: SEASON_EDIT_PROPS_QUERY,
     variables: {
-      seasonId: '1',
+      seasonId: 1,
     },
   },
   result: {
     data: {
       season: {
         // general information
-        id: '1',
+        id: 1,
         name: '2020',
         startedAt: faker.date.soon()
           .toISOString(),

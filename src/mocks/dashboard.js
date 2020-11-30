@@ -6,16 +6,17 @@ import { DASHBOARD_NAVBAR_QUERY } from '../layouts/Dashboard/components/NavBar/N
 const dashboardMock = {
   request: {
     query: DASHBOARD_USER_QUERY,
-    variables: { userId: '1' },
+    variables: { userId: 1 },
   },
   result: () => ({
     data: {
       user: {
-        id: '1',
+        id: 1,
         firstName: faker.name.firstName(0),
         lastName: faker.name.lastName(0),
         image: faker.image.avatar(),
         role: USER_ROLE,
+        __typename: 'User',
       },
     },
   }),
@@ -23,18 +24,22 @@ const dashboardMock = {
 const dashboardNavMock = {
   request: {
     query: DASHBOARD_NAVBAR_QUERY,
+    variables: {
+      id: 1,
+    },
   },
   result: () => ({
     data: {
       user: {
-        id: '1',
+        id: 1,
         role: USER_ROLE,
         myLeague: {
-          id: '1',
+          id: 1,
         },
-        myLicence: {
-          id: '1',
+        myLicense: {
+          id: 1,
         },
+        __typename: 'User',
       },
     },
   }),

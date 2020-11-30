@@ -12,16 +12,17 @@ import {
 } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 
+import Index from './containers/Index';
 import Logo from '../../components/Logo';
+import Coaches from './containers/Coaches';
+import Licenses from './containers/Licenses';
 import styles from './Dashboard.module.scss';
-import NavBar from './components/NavBar/NavBar';
 import { permissions } from '../../configs/app';
+import NavBar from './components/NavBar/NavBar';
+import LicenseStatus from './containers/LicenseStatus';
+import League from './containers/Leagues/League/League';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
-import Index from './containers/Index';
-import League from './containers/Leagues/League/League';
-import LicenseStatus from './containers/Licenses';
-import Coaches from './containers/Coaches';
 
 const { roles: ROLES } = permissions;
 const {
@@ -54,7 +55,7 @@ const Dashboard = () => {
 
   const { loading, data } = useQuery(DASHBOARD_USER_QUERY, {
     variables: {
-      userId: '1',
+      userId: 1,
     },
   });
   return (
@@ -104,8 +105,8 @@ const Dashboard = () => {
             />
             <PrivateRoute
               exact
-              path="/licences"
-              component={() => 'Component'}
+              path="/licenses"
+              component={Licenses}
               roles={{
                 exclude: [ROLES.COACH],
               }}
@@ -115,7 +116,7 @@ const Dashboard = () => {
               component={League}
             />
             <PrivateRoute
-              path="/licences/:licenceId"
+              path="/licenses/:licenseId"
               component={LicenseStatus}
             />
           </Switch>

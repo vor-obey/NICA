@@ -3,9 +3,9 @@ import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/L
 import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
 
 const league = {
-  id: '1',
+  id: 1,
   season: {
-    id: '1',
+    id: 1,
     name: '2020',
     __typename: 'Season',
   },
@@ -45,7 +45,7 @@ const leagueDashboardMock = {
   request: {
     query: LEAGUE_DASHBOARD_QUERY,
     variables: {
-      leagueId: '1',
+      leagueId: 1,
     },
   },
   result: () => ({
@@ -80,7 +80,7 @@ const leagueInfoMock = {
   request: {
     query: LEAGUE_INFO_QUERY,
     variables: {
-      leagueId: '1',
+      leagueId: 1,
     },
   },
   result: {

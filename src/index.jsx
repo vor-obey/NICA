@@ -7,11 +7,9 @@ import mocks from './mocks';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <App />
-    </MockedProvider>
-  </React.StrictMode>,
+  <MockedProvider mocks={mocks} addTypename={false}>
+    <App />
+  </MockedProvider>,
   document.getElementById('root'),
 );
 

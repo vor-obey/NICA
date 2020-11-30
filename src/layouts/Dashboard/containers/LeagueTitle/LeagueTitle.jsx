@@ -27,7 +27,7 @@ const LeagueTitle = () => {
   const { leagueId } = useParams();
   const { data, loading } = useQuery(LEAGUE_INFO_QUERY, {
     variables: {
-      leagueId: '1',
+      leagueId: 1,
     },
   });
   return (

@@ -1,12 +1,12 @@
 import faker from 'faker/locale/en';
 import { DASHBOARD_COACH_QUERY } from '../layouts/Dashboard/containers/Coach/Coach';
-import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/Licenses/Licenses';
+import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/LicenseStatus/LicenseStatus';
 import { USER_ROLE } from '../configs/mock';
 
 const league = {
-  id: '1',
+  id: 1,
   season: {
-    id: '1',
+    id: 1,
     name: '2020',
     __typename: 'Season',
   },

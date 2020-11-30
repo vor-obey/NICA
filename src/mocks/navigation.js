@@ -9,13 +9,13 @@ const dashboardNavBarMock = {
   result: () => ({
     data: {
       user: {
-        id: '1',
+        id: 1,
         role: USER_ROLE,
         myLeague: {
-          id: '1',
+          id: 1,
         },
-        myLicence: {
-          id: '1',
+        myLicense: {
+          id: 1,
         },
       },
     },

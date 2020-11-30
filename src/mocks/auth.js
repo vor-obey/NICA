@@ -49,13 +49,13 @@ const currentUserMock = {
   request: {
     query: CURRENT_USER_QUERY,
     variables: {
-      userId: '1',
+      userId: 1,
     },
   },
   result: () => ({
     data: {
       user: {
-        id: '1',
+        id: 1,
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         image: faker.image.people(),
