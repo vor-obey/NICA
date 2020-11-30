@@ -38,7 +38,6 @@ const Licenses = () => {
     onTableChange] = useTableQueryParams();
   const { loading, data } = useQuery(LICENSES_QUERY);
 
-  // create license, edit license,  delete license
   const renderTableTitle = useCallback(() => (
     <Row gutter={[20, 20]} justify="space-between" align="middle">
       <Col>
