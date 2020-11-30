@@ -15,7 +15,6 @@ import { gql, useQuery } from '@apollo/client';
 import Index from './containers/Index';
 import Logo from '../../components/Logo';
 import Coaches from './containers/Coaches';
-import Licenses from './containers/Licenses';
 import styles from './Dashboard.module.scss';
 import { permissions } from '../../configs/app';
 import NavBar from './components/NavBar/NavBar';
@@ -23,6 +22,8 @@ import LicenseStatus from './containers/LicenseStatus';
 import League from './containers/Leagues/League/League';
 import PrivateRoute from '../../components/PrivateRoute';
 import DashboardHeader from './components/DashboardHeader';
+import LeaguesList from './containers/Leagues';
+import Admin from './containers/Admin';
 
 const { roles: ROLES } = permissions;
 const {
@@ -90,7 +91,7 @@ const Dashboard = () => {
             <PrivateRoute
               exact
               path="/leagues"
-              component={() => 'Leagues Component'}
+              component={LeaguesList}
               roles={[ROLES.SUPER_ADMIN]}
             />
             <PrivateRoute
@@ -106,18 +107,25 @@ const Dashboard = () => {
             <PrivateRoute
               exact
               path="/licenses"
-              component={Licenses}
+              component={() => 'Licenses'}
               roles={{
                 exclude: [ROLES.COACH],
               }}
             />
             <PrivateRoute
+              exact
               path="/leagues/:leagueId"
               component={League}
             />
             <PrivateRoute
+              exact
               path="/licenses/:licenseId"
               component={LicenseStatus}
+            />
+            <PrivateRoute
+              exact
+              path="/admins/:adminId"
+              component={Admin}
             />
           </Switch>
         </Content>
