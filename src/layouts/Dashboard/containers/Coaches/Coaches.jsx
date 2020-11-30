@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Button, Col, Popover, Row,
+  Button, Col, Modal, Row,
 } from 'antd';
-import { DownloadOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import styles from '../Leagues/League/League.module.scss';
@@ -14,6 +14,7 @@ export const COACH_QUERY = gql`
             coach {
                 id,
                 league,
+                image,
                 name,
                 level,
                 email,
@@ -23,6 +24,16 @@ export const COACH_QUERY = gql`
             role,
         },
     }`;
+
+function confirm() {
+  Modal.confirm({
+    title: 'Deactivate',
+    icon: <ExclamationCircleOutlined />,
+    content: 'Deactivate coach?',
+    okText: 'Yes',
+    cancelText: 'No',
+  });
+}
 
 const columns = {
   COACH: [{
@@ -96,6 +107,12 @@ const columns = {
       title: 'TTC Hours',
       dataIndex: 'hours',
     },
+    {
+      title: 'Deactivate coach',
+      key: 'operation',
+      fixed: 'right',
+      render: () => <Button onClick={confirm}>Deactivate</Button>,
+    },
   ],
   LEAGUE_ADMIN: [{
     key: 'name',
@@ -140,31 +157,8 @@ const Coaches = () => {
 
   const role = data?.coaches?.role;
 
-  // const renderButtonCoach = () => (
-  //   <Row>
-  //     <Popover
-  //       placement="left"
-  //       content={(
-  //         <div className={styles.popoverLinks}>
-  //           <a target="_blank" rel="noopener noreferrer" href="/#">Export Coaches CSV</a>
-  //           <a target="_blank" rel="noopener noreferrer" href="/#">Emergency Contacts CSV</a>
-  //         </div>
-  //       )}
-  //       trigger="click"
-  //     >
-  //       <DownloadOutlined className={styles.buttonIcons} />
-  //     </Popover>
-  //   </Row>
-  // );
-
-  const SAdminButtons = () => (
+  const inviteCoaches = () => (
     <div className={styles.marginLinks}>
-      <Row align="end">
-        <Button type="link" className={styles.buttonLinks}>
-          <MinusOutlined className={styles.positionBtn} />
-          Deactivate coach
-        </Button>
-      </Row>
       <Row align="end">
         <Button type="link" className={styles.buttonLinks}>
           <PlusOutlined className={styles.positionBtn} />
@@ -174,19 +168,7 @@ const Coaches = () => {
     </div>
   );
 
-  const LAdminButtons = () => (
-    <Row align="end">
-      <Button type="link" className={styles.buttonLinks}>
-        <PlusOutlined className={styles.positionBtn} />
-        Invite New Coaches
-      </Button>
-    </Row>
-  );
-
-  const SUPER_ADMIN = role === 'SUPER_ADMIN';
-  const LEAGUE_ADMIN = role === 'LEAGUE_ADMIN';
   // eslint-disable-next-line no-nested-ternary
-  const access = SUPER_ADMIN ? SAdminButtons : LEAGUE_ADMIN ? LAdminButtons : '';
   return (
     <Col span={24} style={{ marginBottom: 50, marginTop: 50 }}>
       <TableWidget
@@ -196,7 +178,7 @@ const Coaches = () => {
         loading={loading}
         title="Coaches"
         dataSource={data?.coaches?.coach}
-        footer={access}
+        buttons={inviteCoaches}
       />
     </Col>
   );
