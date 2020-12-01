@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Button, Col, Modal, Row,
+  Button, Col,
 } from 'antd';
-import { ExclamationCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import styles from './Coaches.module.scss';
 import TableWidget from '../../components/TableWidget';
+import { permissions } from '../../../../configs/app';
 
 export const COACH_QUERY = gql`
     query teamData($teamId: ID!){
@@ -19,26 +19,16 @@ export const COACH_QUERY = gql`
                 level,
                 email,
                 phone,
-                hours
+                hours,
             },
             role,
         },
     }`;
 
-function confirm() {
-  Modal.confirm({
-    title: 'Deactivate',
-    icon: <ExclamationCircleOutlined />,
-    content: 'Deactivate coach?',
-    okText: 'Yes',
-    cancelText: 'No',
-  });
-}
-
 const columns = {
-  COACH: [{
+  [permissions.roles.COACH]: [{
     key: 'name',
-    title: 'Coach Name',
+    title: 'UserProfile Name',
     ellipsis: true,
     dataIndex: 'name',
     render: (text, record) => <Link to={`/coaches/${record.id}`}>{text}</Link>,
@@ -48,6 +38,7 @@ const columns = {
     key: 'level',
     title: 'Level',
     dataIndex: 'level',
+    align: 'center',
   },
   {
     ellipsis: true,
@@ -66,9 +57,10 @@ const columns = {
     key: 'TTCHours',
     title: 'TTC Hours',
     dataIndex: 'hours',
+    width: 70,
   },
   ],
-  SUPER_ADMIN: [
+  [permissions.roles.SUPER_ADMIN]: [
     {
       key: 'league',
       title: 'Leagues',
@@ -78,7 +70,7 @@ const columns = {
     },
     {
       key: 'name',
-      title: 'Coach Name',
+      title: 'UserProfile Name',
       ellipsis: true,
       dataIndex: 'name',
       render: (text, record) => <Link to={`/coaches/${record.id}`}>{text}</Link>,
@@ -88,6 +80,7 @@ const columns = {
       key: 'level',
       title: 'Level',
       dataIndex: 'level',
+      align: 'center',
     },
     {
       ellipsis: true,
@@ -106,17 +99,13 @@ const columns = {
       key: 'TTCHours',
       title: 'TTC Hours',
       dataIndex: 'hours',
-    },
-    {
-      title: 'Deactivate coach',
-      key: 'operation',
-      fixed: 'right',
-      render: () => <Button onClick={confirm}>Deactivate</Button>,
+      align: 'center',
+      width: 70,
     },
   ],
-  LEAGUE_ADMIN: [{
+  [permissions.roles.LEAGUE_ADMIN]: [{
     key: 'name',
-    title: 'Coach Name',
+    title: 'UserProfile Name',
     ellipsis: true,
     dataIndex: 'name',
     render: (text, record) => <Link to={`/coaches/${record.id}`}>{text}</Link>,
@@ -126,6 +115,7 @@ const columns = {
     key: 'level',
     title: 'Level',
     dataIndex: 'level',
+    align: 'center',
   },
   {
     ellipsis: true,
@@ -144,6 +134,8 @@ const columns = {
     key: 'TTCHours',
     title: 'TTC Hours',
     dataIndex: 'hours',
+    width: 70,
+    align: 'center',
   },
   ],
 };
@@ -158,24 +150,15 @@ const Coaches = () => {
   const role = data?.coaches?.role;
 
   const inviteCoaches = () => (
-    <div className={styles.marginLinks}>
-      <Row align="end">
-        <Button type="link" className={styles.buttonLinks}>
-          <PlusOutlined className={styles.positionBtn} />
-          Invite New Coaches
-        </Button>
-      </Row>
-    </div>
+    <Button type="primary" icon={<PlusOutlined />}>
+      Invite New Coaches
+    </Button>
   );
 
   // eslint-disable-next-line no-nested-ternary
   return (
     <Col
       span={24}
-      style={{
-        marginBottom: 50,
-        marginTop: 50,
-      }}
     >
       <TableWidget
         rowKey="id"
