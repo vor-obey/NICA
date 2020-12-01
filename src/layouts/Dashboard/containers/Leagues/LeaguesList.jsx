@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import {
   Button, Modal,
 } from 'antd';
-import { ExclamationCircleOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  ExclamationCircleOutlined, PlusOutlined, EditOutlined, DeleteOutlined,
+} from '@ant-design/icons';
 import TableWidget from '../../components/TableWidget';
 
 export const LEAGUES_QUERY = gql`
     query leagues($leagueId: ID!){
-        leagues
+        leagues {
+            name,
+            id,
+        }
     }`;
 
 function confirm() {
@@ -25,25 +30,23 @@ function confirm() {
 const columns = [
   {
     title: 'Leagues name',
+    key: 'league',
     ellipsis: true,
-    dataIndex: 'league',
+    dataIndex: 'name',
     render: (text, record) => <Link to={`/leagues/${record.id}`}>{text}</Link>,
   },
   {
-    title: 'Edit league',
+    title: 'Actions',
+    key: 'actions',
     ellipsis: true,
-    dataIndex: 'edit',
-    fixed: 'right',
-    width: 100,
-    render: () => <Button icon={<EditOutlined />}>Edit</Button>,
-  },
-  {
-    title: 'Deactivate league',
-    ellipsis: true,
-    dataIndex: 'league',
-    fixed: 'right',
-    width: 170,
-    render: () => <Button onClick={confirm} danger>Deactivate</Button>,
+    width: 150,
+    align: 'center',
+    render: () => (
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button icon={<EditOutlined />} />
+        <Button onClick={confirm} danger icon={<DeleteOutlined />} />
+      </div>
+    ),
   },
 ];
 
@@ -55,13 +58,14 @@ const LeaguesList = () => {
   });
 
   const createLeagueBtn = () => (
-    <Button icon={<PlusOutlined />} type="link">
+    <Button icon={<PlusOutlined />} type="primary">
       Create league
     </Button>
   );
 
   return (
     <TableWidget
+      rowKey="id"
       title="Leagues"
       pagination={{ pageSize: 15 }}
       loading={loading}
