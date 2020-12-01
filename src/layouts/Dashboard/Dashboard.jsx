@@ -23,8 +23,8 @@ import PrivateRoute from '../../components/PrivateRoute';
 import SpecificLeague from './containers/SpecificLeague';
 import DashboardHeader from './components/DashboardHeader';
 import LeaguesList from './containers/Leagues';
-import Admin from './containers/Admin';
 import Licenses from './containers/Licenses/Licenses';
+import UserProfile from './containers/User/UserProfile';
 import DashboardFooter from './components/DashboardFooter';
 
 const { roles: ROLES } = permissions;
@@ -104,6 +104,11 @@ const Dashboard = () => {
             <PrivateRoute
               exact
               path="/coaches/:coachId"
+              component={UserProfile}
+            />
+            <PrivateRoute
+              exact
+              path="/leagues/:leagueId/admins/:adminId"
               component={Index}
             />
             <PrivateRoute
@@ -122,11 +127,6 @@ const Dashboard = () => {
               exact
               path="/licenses/:licenseId"
               component={LicenseStatus}
-            />
-            <PrivateRoute
-              exact
-              path="/admins/:adminId"
-              component={Admin}
             />
           </Switch>
         </Content>
