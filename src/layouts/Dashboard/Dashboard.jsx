@@ -23,8 +23,8 @@ import PrivateRoute from '../../components/PrivateRoute';
 import SpecificLeague from './containers/SpecificLeague';
 import DashboardHeader from './components/DashboardHeader';
 import LeaguesList from './containers/Leagues';
-import Licenses from './containers/Licenses/Licenses';
-import UserProfile from './containers/User/UserProfile';
+import Licenses from './containers/Licenses';
+import UserProfile from './containers/UserProfile';
 import DashboardFooter from './components/DashboardFooter';
 
 const { roles: ROLES } = permissions;

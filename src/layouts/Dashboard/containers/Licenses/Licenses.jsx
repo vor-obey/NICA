@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import {
   Table, Row, Col, Button, Typography,
 } from 'antd';
@@ -7,6 +7,11 @@ import React, { useCallback, useMemo } from 'react';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from './Licenses.module.scss';
 import useAntTableQueryParams from '../../../../hooks/useAntTableQueryParams';
+import useAuthQuery from '../../../../hooks/useAuthQuery';
+import Permissions from '../../../../components/Permissions';
+import { permissions } from '../../../../configs/app';
+
+const { roles: ROLES } = permissions;
 
 const { Title } = Typography;
 
@@ -36,7 +41,7 @@ const Licenses = () => {
   const [
     { defaultPagination, defaultFilteredValue, defaultSortOrder },
     onTableChange] = useAntTableQueryParams();
-  const { loading, data } = useQuery(LICENSES_QUERY);
+  const { loading, data } = useAuthQuery(LICENSES_QUERY);
 
   const renderTableTitle = useCallback(() => (
     <Row gutter={[20, 20]} justify="space-between" align="middle">
@@ -50,8 +55,7 @@ const Licenses = () => {
           icon={<PlusOutlined />}
           className={styles.tableFooterBtn}
         >
-          create
-          license
+          create license
         </Button>
       </Col>
     </Row>
@@ -90,16 +94,10 @@ const Licenses = () => {
           )
         }
         <Col>
-          <Button icon={<EditOutlined />} className={styles.tableFooterBtn}>
-            edit
-            license
-          </Button>
+          <Button icon={<EditOutlined />} className={styles.tableFooterBtn} />
         </Col>
         <Col>
-          <Button danger icon={<DeleteOutlined />} className={styles.tableFooterBtn}>
-            delete
-            license
-          </Button>
+          <Button danger icon={<DeleteOutlined />} className={styles.tableFooterBtn} />
         </Col>
       </Row>
     );

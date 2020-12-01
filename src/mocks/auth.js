@@ -4,6 +4,16 @@ import { CURRENT_USER_QUERY } from '../hooks/useCurrentUser';
 import { LOGIN_USER } from '../layouts/Auth/containers/Login';
 import { SIGN_UP_USER } from '../layouts/Auth/containers/SignUp';
 
+const generateUser = () => ({
+  id: 1,
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
+  image: faker.image.people(),
+  email: faker.internet.email(),
+  role: localStorage.getItem('role'),
+  __typename: 'User',
+});
+
 export const testUser = {
   firstName: 'Name',
   lastName: 'Surname',
@@ -51,20 +61,12 @@ const currentUserMock = {
       userId: 1,
     },
   },
-  result: () => ({
+  newData: () => ({
     data: {
-      user: {
-        id: 1,
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        image: faker.image.people(),
-        email: faker.internet.email(),
-        role: localStorage.getItem('role'),
-        __typename: 'User',
-      },
+      user: generateUser(),
     },
   }),
-  delay: 10,
+  delay: 0,
 };
 
 const authMocks = [loginMock, signUpMock, currentUserMock];

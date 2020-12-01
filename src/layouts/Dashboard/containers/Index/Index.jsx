@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfile from '../User/UserProfile';
+import UserProfile from '../UserProfile/UserProfile';
 
 const Index = () => (
   <UserProfile />

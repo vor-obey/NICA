@@ -8,6 +8,7 @@ import {
   Link, useParams,
 } from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
+import Statistics from '../../components/Statistics';
 
 export const LEAGUE_INFO_QUERY = gql`
     query leagueInfo($leagueId: ID!){
@@ -18,6 +19,10 @@ export const LEAGUE_INFO_QUERY = gql`
             season{
                 id
                 name
+            }
+            statistics{
+                title
+                value
             }
         }
     }
@@ -38,6 +43,9 @@ const LeagueTitle = () => {
           title={`${data?.league?.name?.short ?? ''} league`}
           description={`Season ${data?.league?.season?.name ?? ''}`}
         />
+      </Col>
+      <Col span={24}>
+        <Statistics statistics={data?.league?.statistics} loading={loading} />
       </Col>
     </Row>
   );

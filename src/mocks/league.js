@@ -2,7 +2,7 @@ import faker from 'faker/locale/en';
 import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/LeagueTitle';
 import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
 import { LEAGUES_QUERY } from '../layouts/Dashboard/containers/Leagues/LeaguesList';
-import { ADMIN_LEAGUE } from '../layouts/Dashboard/containers/SpecificLeague/components/LeagueForAdmin/LeagueForAdmin';
+import { LEAGUE_ADMINS_QUERY } from '../layouts/Dashboard/containers/SpecificLeague/components/LeagueAdmins/LeagueAdmins';
 
 const league = {
   id: 1,
@@ -93,9 +93,12 @@ const leagueInfoMock = {
       leagueId: 1,
     },
   },
-  result: () => ({
+  newData: () => ({
     data: {
-      league,
+      league: {
+        ...league,
+        statistics: generateStatistics(3),
+      },
     },
   }),
 };
@@ -107,7 +110,7 @@ const leaguesList = {
       leagueId: 1,
     },
   },
-  result: () => ({
+  newData: () => ({
     data: {
       leagues: generateLeagues(20),
     },
@@ -116,7 +119,7 @@ const leaguesList = {
 
 const leagueDashboardForAdmin = {
   request: {
-    query: ADMIN_LEAGUE,
+    query: LEAGUE_ADMINS_QUERY,
     variables: {
       leagueId: 'superAdminLeagueId',
     },
@@ -124,9 +127,8 @@ const leagueDashboardForAdmin = {
   result: () => ({
     data: {
       league: {
-        ...league,
-        statistics: generateStatistics(3),
-        users: generate((item, index) => {
+        id: 'superAdminLeagueId',
+        admins: generate((item, index) => {
           const gender = faker.random.number({
             min: 0,
             max: 1,

@@ -1,6 +1,6 @@
 import faker from 'faker/locale/en';
 import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/LicenseStatus/LicenseStatus';
-import { USER_QUERY } from '../layouts/Dashboard/containers/User/UserProfile';
+import { USER_QUERY } from '../layouts/Dashboard/containers/UserProfile/UserProfile';
 
 const league = {
   id: 1,
@@ -36,7 +36,7 @@ const coachMock = {
       coachId: 1,
     },
   },
-  result: () => ({
+  newData: () => ({
     data: {
       coach: {
         id: faker.random.number(100),

@@ -1,26 +1,21 @@
-import React, { useMemo } from 'react';
-import { Skeleton } from 'antd';
+import React from 'react';
+import Coaches from '../Coaches';
+import LeagueTitle from '../LeagueTitle';
+import LeagueAdmins from './components/LeagueAdmins';
+import Permissions from '../../../../components/Permissions';
 import { permissions } from '../../../../configs/app';
-import LeagueForAdmin from './components/LeagueForAdmin';
-import useCurrentUser from '../../../../hooks/useCurrentUser';
-import CoachLeague from './components/CoachLeague/CoachLeague';
 
-const { roles } = permissions;
+const { roles: ROLES } = permissions;
 
-const components = {
-  [roles.COACH]: CoachLeague,
-  [roles.LEAGUE_ADMIN]: LeagueForAdmin,
-  [roles.SUPER_ADMIN]: LeagueForAdmin,
-};
+const SpecificLeague = () => (
+  <>
+    <LeagueTitle />
+    <Coaches />
+    <Permissions roles={[ROLES.SUPER_ADMIN, ROLES.LEAGUE_ADMIN]}>
+      <LeagueAdmins />
+    </Permissions>
+  </>
 
-const SpecificLeague = () => {
-  const { loading, data, error } = useCurrentUser();
-  const LeagueComponent = useMemo(() => components[data?.user?.role], [data]);
-  return (
-    <Skeleton loading={loading} active>
-      {LeagueComponent && <LeagueComponent />}
-    </Skeleton>
-  );
-};
+);
 
 export default SpecificLeague;

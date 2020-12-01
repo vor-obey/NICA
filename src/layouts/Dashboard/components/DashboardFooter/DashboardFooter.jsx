@@ -27,7 +27,7 @@ const rowGutter = [20, {
 const DashboardFooter = (props) => (
   <Footer
     style={{
-      backgroundColor: '#f0f0f0',
+      backgroundColor: '#d9d9d9',
       boxShadow: '4px 1px 0 rgba(0, 21, 41, 0.08)',
     }}
     {...props}
@@ -42,27 +42,45 @@ const DashboardFooter = (props) => (
       >
         <div style={{
           height: '80px',
-          backgroundColor: '#d9d9d9',
+          backgroundColor: '#f0f0f0',
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        />
+        >
+          FOOTER CONTENT #1
+        </div>
       </Col>
       <Col
         {...colLayout}
       >
         <div style={{
           height: '80px',
-          backgroundColor: '#d9d9d9',
+          backgroundColor: '#f0f0f0',
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        />
+        >
+          FOOTER CONTENT #2
+        </div>
       </Col>
       <Col
         {...colLayout}
       >
         <div style={{
           height: '80px',
-          backgroundColor: '#d9d9d9',
+          backgroundColor: '#f0f0f0',
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        />
+        >
+          FOOTER CONTENT #3
+        </div>
       </Col>
     </Row>
   </Footer>

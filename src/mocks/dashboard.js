@@ -27,7 +27,7 @@ const dashboardNavMock = {
       id: 1,
     },
   },
-  result: () => ({
+  newData: () => ({
     data: {
       user: {
         id: 1,

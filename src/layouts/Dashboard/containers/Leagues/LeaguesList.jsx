@@ -8,6 +8,7 @@ import {
   ExclamationCircleOutlined, PlusOutlined, EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
 import TableWidget from '../../components/TableWidget';
+import useAuthQuery from '../../../../hooks/useAuthQuery';
 
 export const LEAGUES_QUERY = gql`
     query leagues($leagueId: ID!){
@@ -51,7 +52,7 @@ const columns = [
 ];
 
 const LeaguesList = () => {
-  const { loading, data } = useQuery(LEAGUES_QUERY, {
+  const { loading, data } = useAuthQuery(LEAGUES_QUERY, {
     variables: {
       leagueId: 1,
     },

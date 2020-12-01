@@ -1,12 +1,32 @@
 import React, { useCallback } from 'react';
 import {
-  Button, Col, Row, Table, Typography,
+  Row, Col, Table, Button, Typography,
 } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { gql, useQuery } from '@apollo/client';
+import { Link, useParams } from 'react-router-dom';
+import { permissions } from '../../../../../../configs/app';
+import Permissions from '../../../../../../components/Permissions';
 import useAntTableQueryParams from '../../../../../../hooks/useAntTableQueryParams';
 
+const { roles: ROLES } = permissions;
 const { Title } = Typography;
+
+export const LEAGUE_ADMINS_QUERY = gql`
+    query specificLeagueInfoForSuperAdmin($leagueId: ID!){
+        league(id: $leagueId){
+            id
+            admins{
+                id
+                firstName
+                lastName
+                email
+                phone
+                role
+            }
+        }
+    }
+`;
 
 const alphabetSort = (a, b) => {
   if (a > b) return 1;
@@ -14,21 +34,31 @@ const alphabetSort = (a, b) => {
   return 0;
 };
 
-const AdminsTable = ({ loading, admins }) => {
-  const location = useLocation();
+const LeagueAdmins = () => {
+  const { leagueId } = useParams();
+  const { data, loading } = useQuery(LEAGUE_ADMINS_QUERY, {
+    variables: {
+      leagueId: 'superAdminLeagueId',
+    },
+  });
+
   const [
     { defaultSortOrder, defaultPagination },
     onChangeTableHandle] = useAntTableQueryParams();
+
   const renderAdminTableTitle = useCallback(() => (
     <Row justify="space-between" align="middle">
       <Col>
         <Title style={{ margin: 0 }}>League Admins</Title>
       </Col>
       <Col>
-        <Button icon={<PlusCircleOutlined />} type="primary">Invite League Admin</Button>
+        <Permissions roles={[ROLES.SUPER_ADMIN]}>
+          <Button icon={<PlusCircleOutlined />} type="primary">Invite League Admin</Button>
+        </Permissions>
       </Col>
     </Row>
   ), []);
+
   return (
     <Table
       scroll={{
@@ -36,9 +66,10 @@ const AdminsTable = ({ loading, admins }) => {
       }}
       rowKey="id"
       loading={loading}
+      pagination={defaultPagination}
       title={renderAdminTableTitle}
       onChange={onChangeTableHandle}
-      dataSource={admins}
+      dataSource={data?.league?.admins}
     >
       <Table.Column
         title="ID"
@@ -93,7 +124,7 @@ const AdminsTable = ({ loading, admins }) => {
       <Table.Column
         title="Profile"
         render={(text, { id }) => (
-          <Link to={`${location.pathname}/admins/${id}`}>
+          <Link to={`/leagues/${leagueId}/admins/${id}`}>
             View profile
           </Link>
         )}
@@ -113,4 +144,4 @@ const AdminsTable = ({ loading, admins }) => {
   );
 };
 
-export default AdminsTable;
+export default LeagueAdmins;

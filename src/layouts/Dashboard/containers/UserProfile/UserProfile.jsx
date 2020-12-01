@@ -7,6 +7,7 @@ import PageTitle from '../../components/PageTitle';
 import PersonalInformation from './PersonalInformation';
 
 import styles from './UserProfile.module.scss';
+import useAuthQuery from '../../../../hooks/useAuthQuery';
 
 export const USER_QUERY = gql`
     query dashboardCoach($coachId: ID!){
@@ -24,7 +25,7 @@ export const USER_QUERY = gql`
     }`;
 
 const UserProfile = () => {
-  const { data, loading } = useQuery(USER_QUERY, {
+  const { data, loading } = useAuthQuery(USER_QUERY, {
     variables: {
       coachId: 1,
     },

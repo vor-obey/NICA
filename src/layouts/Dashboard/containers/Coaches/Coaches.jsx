@@ -7,6 +7,8 @@ import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import TableWidget from '../../components/TableWidget';
 import { permissions } from '../../../../configs/app';
+import Permissions from '../../../../components/Permissions';
+import useAuthQuery from '../../../../hooks/useAuthQuery';
 
 export const COACH_QUERY = gql`
     query teamData($teamId: ID!){
@@ -141,7 +143,7 @@ const columns = {
 };
 
 const Coaches = () => {
-  const { loading, data } = useQuery(COACH_QUERY, {
+  const { loading, data } = useAuthQuery(COACH_QUERY, {
     variables: {
       teamId: 1,
     },
@@ -150,9 +152,11 @@ const Coaches = () => {
   const role = data?.coaches?.role;
 
   const inviteCoaches = () => (
-    <Button type="primary" icon={<PlusOutlined />}>
-      Invite New Coaches
-    </Button>
+    <Permissions roles={[permissions.roles.LEAGUE_ADMIN, permissions.roles.SUPER_ADMIN]}>
+      <Button type="primary" icon={<PlusOutlined />}>
+        Invite New Coaches
+      </Button>
+    </Permissions>
   );
 
   // eslint-disable-next-line no-nested-ternary
@@ -166,7 +170,7 @@ const Coaches = () => {
         columns={columns[role] || []}
         loading={loading}
         title="Coaches"
-        dataSource={data?.coaches?.coach}
+        dataSource={loading ? null : data?.coaches?.coach}
         buttons={inviteCoaches}
       />
     </Col>

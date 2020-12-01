@@ -11,9 +11,7 @@ const Dashboard = lazy(() => import('./layouts/Dashboard'));
 
 function App() {
   const [role, setRole] = useState(localStorage.getItem('role') ?? permissions.roles.SUPER_ADMIN);
-  useEffect(() => {
-    localStorage.setItem('role', role);
-  }, [role]);
+
   return (
     <RoleContext.Provider value={{
       role,

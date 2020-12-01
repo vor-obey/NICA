@@ -29,7 +29,6 @@ const menu = (
 const DashboardHeader = ({ user, loading }) => {
   const { role, setRole } = useContext(RoleContext);
   return (
-
     <Header className={styles.header}>
       <Row justify="end">
         <Col>
@@ -40,6 +39,7 @@ const DashboardHeader = ({ user, loading }) => {
             }}
             defaultValue={role}
             onChange={(v) => {
+              localStorage.setItem('role', v);
               setRole(v);
             }}
           >

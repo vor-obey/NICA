@@ -21,7 +21,7 @@ const pageTeamMock = {
       teamId: 1,
     },
   },
-  result: () => ({
+  newData: () => ({
     data: {
       coaches: {
         coach: generateCoaches(20),
