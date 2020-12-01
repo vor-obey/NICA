@@ -4,11 +4,12 @@ import {
   Skeleton, Card, Image, Avatar, Typography,
 } from 'antd';
 import { CrownOutlined } from '@ant-design/icons';
+import styles from './PageTitle.module.scss';
 
 const { Title, Text } = Typography;
 
 const imageProps = {
-  width: 200,
+  width: 250,
 };
 
 const reduceAvatarSize = (maxSize) => ({
@@ -43,11 +44,12 @@ const PageTitle = ({
   );
   const titleValue = typeof title === 'string' ? <Title>{title}</Title> : title;
   const descriptionValue = typeof description === 'string'
-    ? <Text type="secondary">{description}</Text> : description;
+    ? <Text type="secondary" className={styles.descriptionSize}>{description}</Text> : description;
 
   return (
     <Skeleton {...skeletonProps} loading={loading}>
       <Card.Meta
+        className={styles.cardAlign}
         avatar={avatarImg}
         title={titleValue}
         description={descriptionValue}
