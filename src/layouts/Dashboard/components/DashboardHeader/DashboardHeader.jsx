@@ -38,7 +38,7 @@ const DashboardHeader = ({ user, loading }) => {
               width: 200,
               marginRight: 40,
             }}
-            defaultValue={localStorage.getItem('role') ?? permissions.roles.SUPER_ADMIN}
+            defaultValue={role}
             onChange={(v) => {
               setRole(v);
             }}

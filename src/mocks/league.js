@@ -2,9 +2,7 @@ import faker from 'faker/locale/en';
 import { LEAGUE_INFO_QUERY } from '../layouts/Dashboard/containers/LeagueTitle/LeagueTitle';
 import { LEAGUE_DASHBOARD_QUERY } from '../layouts/Dashboard/containers/Admins/Admins';
 import { LEAGUES_QUERY } from '../layouts/Dashboard/containers/Leagues/LeaguesList';
-import { USER_ROLE } from '../configs/mock';
-import { SUPER_ADMIN_LEAGUE } from '../layouts/Dashboard/containers/SpecificLeague/components/SuperAdminLeague/SuperAdminLeague';
-import { permissions } from '../configs/app';
+import { ADMIN_LEAGUE } from '../layouts/Dashboard/containers/SpecificLeague/components/LeagueForAdmin/LeagueForAdmin';
 
 const league = {
   id: 1,
@@ -116,9 +114,9 @@ const leaguesList = {
   }),
 };
 
-const leagueDashboardForSuperAdmin = {
+const leagueDashboardForAdmin = {
   request: {
-    query: SUPER_ADMIN_LEAGUE,
+    query: ADMIN_LEAGUE,
     variables: {
       leagueId: 'superAdminLeagueId',
     },
@@ -127,6 +125,7 @@ const leagueDashboardForSuperAdmin = {
     data: {
       league: {
         ...league,
+        statistics: generateStatistics(3),
         users: generate((item, index) => {
           const gender = faker.random.number({
             min: 0,
@@ -149,6 +148,6 @@ const leagueDashboardForSuperAdmin = {
 export default [
   leagueInfoMock,
   leagueDashboardMock,
-  leagueDashboardForSuperAdmin,
+  leagueDashboardForAdmin,
   leaguesList,
 ];

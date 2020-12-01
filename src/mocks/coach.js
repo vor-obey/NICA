@@ -1,7 +1,6 @@
 import faker from 'faker/locale/en';
 import { DASHBOARD_COACH_QUERY } from '../layouts/Dashboard/containers/Coach/Coach';
 import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/LicenseStatus/LicenseStatus';
-import { USER_ROLE } from '../configs/mock';
 
 const league = {
   id: 1,

@@ -115,7 +115,6 @@ const Dashboard = () => {
               }}
             />
             <PrivateRoute
-              exact
               path="/leagues/:leagueId"
               component={SpecificLeague}
             />
