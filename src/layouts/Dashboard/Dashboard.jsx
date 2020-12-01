@@ -25,6 +25,7 @@ import DashboardHeader from './components/DashboardHeader';
 import LeaguesList from './containers/Leagues';
 import Admin from './containers/Admin';
 import Licenses from './containers/Licenses/Licenses';
+import DashboardFooter from './components/DashboardFooter';
 
 const { roles: ROLES } = permissions;
 const {
@@ -130,6 +131,7 @@ const Dashboard = () => {
             />
           </Switch>
         </Content>
+        <DashboardFooter />
         <Drawer
           closable
           key="right"
