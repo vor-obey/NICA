@@ -7,17 +7,22 @@ import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import PageTitle from '../../../../components/PageTitle';
 import useAntTableQueryParams from '../../../../../../hooks/useAntTableQueryParams';
+import Statistics from '../../../../components/Statistics';
 
 const { Title } = Typography;
 
-export const SUPER_ADMIN_LEAGUE = gql`
+export const ADMIN_LEAGUE = gql`
     query specificLeagueInfoForSuperAdmin($leagueId: ID!){
         league(id: $leagueId){
             id
             name
             image
             season
-            users(role: "LEAGUE_ADMIN"){
+            statistics{
+                title
+                value
+            }
+            users{
                 id
                 firstName
                 lastName
@@ -29,9 +34,15 @@ export const SUPER_ADMIN_LEAGUE = gql`
     }
 `;
 
-const SuperAdminLeague = () => {
-  const { leagueId } = useParams();
-  const { data, loading } = useQuery(SUPER_ADMIN_LEAGUE, {
+const alphabetSort = (a, b) => {
+  if (a > b) return 1;
+  if (a < b) return -1;
+  return 0;
+};
+
+const LeagueForAdmin = () => {
+  const { leagueId, adminId } = useParams();
+  const { data, loading } = useQuery(ADMIN_LEAGUE, {
     variables: {
       leagueId: 'superAdminLeagueId',
     },
@@ -41,19 +52,13 @@ const SuperAdminLeague = () => {
     { defaultSortOrder, defaultPagination },
     onChangeTableHandle] = useAntTableQueryParams();
 
-  const alphabetSort = (a, b) => {
-    if (a > b) return 1;
-    if (a < b) return -1;
-    return 0;
-  };
-
   const renderAdminTableTitle = useCallback(() => (
     <Row justify="space-between" align="middle">
       <Col>
         <Title style={{ margin: 0 }}>League Admins</Title>
       </Col>
       <Col>
-        <Button icon={<PlusCircleOutlined />} type="primary">Invite Admin League</Button>
+        <Button icon={<PlusCircleOutlined />} type="primary">Invite League Admin</Button>
       </Col>
     </Row>
   ), []);
@@ -68,6 +73,9 @@ const SuperAdminLeague = () => {
           title={data?.league?.name?.short ?? 'League name'}
           description={`Season ${data?.league?.season?.name}`}
         />
+      </Col>
+      <Col span={24}>
+        <Statistics statistics={data?.league?.statistics ?? []} loading={loading} />
       </Col>
       <Col span={24}>
         <Table
@@ -131,6 +139,14 @@ const SuperAdminLeague = () => {
             }}
           />
           <Table.Column
+            title="Profile"
+            render={(text, { id }) => (
+              <Link to={`/leagues/${leagueId}/admins/${id}`}>
+                View profile
+              </Link>
+            )}
+          />
+          <Table.Column
             key="actions"
             title="Actions"
             render={() => (
@@ -147,4 +163,4 @@ const SuperAdminLeague = () => {
   );
 };
 
-export default SuperAdminLeague;
+export default LeagueForAdmin;
