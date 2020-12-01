@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
+import useAuthQuery from './useAuthQuery';
 
 export const CURRENT_USER_QUERY = gql`
     query currentUser($userId: ID!){
@@ -12,7 +13,7 @@ export const CURRENT_USER_QUERY = gql`
         }
     }`;
 
-const useCurrentUser = () => useQuery(CURRENT_USER_QUERY, {
+const useCurrentUser = () => useAuthQuery(CURRENT_USER_QUERY, {
   variables: {
     userId: 1,
   },
