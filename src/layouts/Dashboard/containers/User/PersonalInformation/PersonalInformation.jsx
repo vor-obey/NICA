@@ -1,12 +1,11 @@
 import React from 'react';
 import { Descriptions, Button, Typography } from 'antd';
-import { permissions } from '../../../../../configs/app';
 
 const { Title } = Typography;
 
 const PersonalInformation = ({ data }) => {
   const {
-    email, name, gender, birthday, phone, address, role,
+    email, name, gender, birthday, phone, address,
   } = data;
 
   return (
@@ -15,7 +14,7 @@ const PersonalInformation = ({ data }) => {
       title={<Title>Personal information</Title>}
       bordered
       column={1}
-      extra={role === permissions.roles.LEAGUE_ADMIN && <Button danger>Deactivate coach</Button>}
+      extra={<Button danger>Deactivate</Button>}
     >
       <Descriptions.Item label="Email">{email}</Descriptions.Item>
       <Descriptions.Item label="First name">{name.firstName}</Descriptions.Item>
