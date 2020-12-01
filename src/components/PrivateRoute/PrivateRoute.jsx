@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
@@ -11,6 +11,7 @@ import checkPermission from './helpers/checkPermissions';
 
 const PrivateRoute = ({ roles, ...props }) => {
   const { data, loading } = useCurrentUser();
+
   if (loading) {
     return <Spin size="large" />;
   }
