@@ -1,14 +1,9 @@
 import _ from 'lodash';
-import queryString from 'query-string';
 import { useCallback, useMemo } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import useQueryParams from './useQueryParams';
 
-const PAGINATION_KEYS = ['page', 'results'];
 const SORT_KEYS = ['sort'];
-
-const queryStringOptions = {
-  arrayFormat: 'comma',
-};
+const PAGINATION_KEYS = ['page', 'results'];
 
 const preparePagination = (pagination) => ({
   page: pagination.current,
@@ -46,29 +41,22 @@ const prepareDefaultFilteredValue = ({ sort = {} }) => {
   }
   return sort;
 };
-const parseDefaultProps = (value) => {
-  const values = queryString.parse(value, queryStringOptions);
-  return {
-    defaultPagination: prepareDefaultPagination(_.pick(values, PAGINATION_KEYS)),
-    defaultFilteredValue: _.omit(values, [...PAGINATION_KEYS, ...SORT_KEYS]),
-    defaultSortOrder: prepareDefaultFilteredValue(_.pick(values, SORT_KEYS)),
-  };
-};
+const parseDefaultProps = (params) => ({
+  defaultPagination: prepareDefaultPagination(_.pick(params, PAGINATION_KEYS)),
+  defaultFilteredValue: _.omit(params, [...PAGINATION_KEYS, ...SORT_KEYS]),
+  defaultSortOrder: prepareDefaultFilteredValue(_.pick(params, SORT_KEYS)),
+});
 
-const useTableQueryParams = () => {
-  const location = useLocation();
-  const history = useHistory();
-  const defaultProps = useMemo(() => parseDefaultProps(location.search), []);
-  // eslint-disable-next-line no-void
-  const onTableChange = useCallback((pagination, filters, sorter) => void history.push({
-    pathname: location.pathname,
-    search: queryString.stringify({
-      ...preparePagination(pagination),
-      ...prepareSorter(sorter),
-      ...prepareFilters(filters),
-    }, queryStringOptions),
+const useAntTableQueryParams = () => {
+  const [params, setParams] = useQueryParams();
+  const defaultProps = useMemo(() => parseDefaultProps(params), []);
+
+  const onTableChange = useCallback((pagination, filters, sorter) => setParams({
+    ...preparePagination(pagination),
+    ...prepareSorter(sorter),
+    ...prepareFilters(filters),
   }), []);
   return [defaultProps, onTableChange];
 };
 
-export default useTableQueryParams;
+export default useAntTableQueryParams;

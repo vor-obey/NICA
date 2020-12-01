@@ -2,11 +2,11 @@ import {
   Row, Col, Table, Button, Typography,
 } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
 import PageTitle from '../../../../components/PageTitle';
-import useTableQueryParams from '../../../../../../hooks/useTableQueryParams';
+import useAntTableQueryParams from '../../../../../../hooks/useAntTableQueryParams';
 
 const { Title } = Typography;
 
@@ -39,7 +39,7 @@ const SuperAdminLeague = () => {
 
   const [
     { defaultSortOrder, defaultPagination },
-    onChangeTableHandle] = useTableQueryParams();
+    onChangeTableHandle] = useAntTableQueryParams();
 
   const alphabetSort = (a, b) => {
     if (a > b) return 1;

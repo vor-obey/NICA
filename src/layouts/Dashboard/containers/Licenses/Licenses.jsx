@@ -6,7 +6,7 @@ import {
 import React, { useCallback, useMemo } from 'react';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from './Licenses.module.scss';
-import useTableQueryParams from '../../../../hooks/useTableQueryParams';
+import useAntTableQueryParams from '../../../../hooks/useAntTableQueryParams';
 
 const { Title } = Typography;
 
@@ -35,7 +35,7 @@ export const LICENSES_QUERY = gql`
 const Licenses = () => {
   const [
     { defaultPagination, defaultFilteredValue, defaultSortOrder },
-    onTableChange] = useTableQueryParams();
+    onTableChange] = useAntTableQueryParams();
   const { loading, data } = useQuery(LICENSES_QUERY);
 
   const renderTableTitle = useCallback(() => (
