@@ -46,7 +46,7 @@ const generateAdmins = generate((item, index) => {
 const generateLeagues = generate((item, index) => (
   {
     id: index,
-    league: faker.commerce.productName(),
+    name: faker.commerce.productName(),
   }
 ));
 

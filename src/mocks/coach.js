@@ -1,6 +1,6 @@
 import faker from 'faker/locale/en';
-import { DASHBOARD_COACH_QUERY } from '../layouts/Dashboard/containers/Coach/Coach';
 import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/LicenseStatus/LicenseStatus';
+import { USER_QUERY } from '../layouts/Dashboard/containers/User/UserProfile';
 
 const league = {
   id: 1,
@@ -31,7 +31,7 @@ const generateCoachesLicense = (length) => [...new Array(length)].map((item, ind
 
 const coachMock = {
   request: {
-    query: DASHBOARD_COACH_QUERY,
+    query: USER_QUERY,
     variables: {
       coachId: 1,
     },
