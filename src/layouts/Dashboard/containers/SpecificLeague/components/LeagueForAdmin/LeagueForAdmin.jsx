@@ -1,7 +1,7 @@
 import {
   Row, Col, Table, Button, Typography,
 } from 'antd';
-import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import React, { useCallback } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
@@ -149,11 +149,10 @@ const LeagueForAdmin = () => {
           <Table.Column
             key="actions"
             title="Actions"
+            align="center"
             render={() => (
-              <Row gutter={[10, 10]}>
-                <Col>
-                  <Button icon={<MinusCircleOutlined />} danger>Deactivate admin</Button>
-                </Col>
+              <Row justify="center">
+                <Button icon={<DeleteOutlined />} danger />
               </Row>
             )}
           />
