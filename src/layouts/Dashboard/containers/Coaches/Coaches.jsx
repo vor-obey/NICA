@@ -81,7 +81,7 @@ const Coaches = ({ columns }) => {
     },
   });
 
-  const filteredColumns = useColumnsPermissionsFilter(columns);
+  const filteredColumns = useColumnsPermissionsFilter(tableColumns);
 
   const inviteCoaches = () => (
     <Permissions roles={[permissions.roles.LEAGUE_ADMIN, permissions.roles.SUPER_ADMIN]}>
@@ -99,7 +99,7 @@ const Coaches = ({ columns }) => {
       <TableWidget
         rowKey="id"
         pagination={{ pageSize: 15 }}
-        columns={filteredColumns}
+        columns={columns || filteredColumns}
         loading={loading}
         title="Coaches"
         dataSource={loading ? null : data?.coaches?.coach}
@@ -107,10 +107,6 @@ const Coaches = ({ columns }) => {
       />
     </Col>
   );
-};
-
-Coaches.defaultProps = {
-  columns: tableColumns,
 };
 
 export default Coaches;
