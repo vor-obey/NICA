@@ -103,12 +103,12 @@ const Dashboard = () => {
             />
             <PrivateRoute
               exact
-              path="/coaches/:coachId"
+              path="/coaches/:userId"
               component={UserProfile}
             />
             <PrivateRoute
               exact
-              path="/leagues/:leagueId/admins/:adminId"
+              path="/leagues/:leagueId/admins/:userId"
               component={Index}
             />
             <PrivateRoute
