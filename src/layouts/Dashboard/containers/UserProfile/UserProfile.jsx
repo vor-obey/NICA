@@ -2,9 +2,10 @@ import React from 'react';
 import {
   Row, Card, Skeleton,
 } from 'antd';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import PageTitle from '../../components/PageTitle';
 import PersonalInformation from './PersonalInformation';
+import { permissions } from '../../../../configs/app';
 
 import styles from './UserProfile.module.scss';
 import useAuthQuery from '../../../../hooks/useAuthQuery';
@@ -31,14 +32,21 @@ const UserProfile = () => {
     },
   });
 
-  const renderTitle = `Coach: ${data?.coach?.name?.firstName} ${data?.coach?.name?.lastName}`;
+  const roleTitle = `${data?.coach?.name?.firstName} ${data?.coach?.name?.lastName}`;
+  const role = data?.coach?.role;
+
+  const renderTitle = {
+    [permissions.roles.COACH]: `Coach: ${roleTitle}`,
+    [permissions.roles.LEAGUE_ADMIN]: `Admin: ${roleTitle}`,
+    [permissions.roles.SUPER_ADMIN]: `Super Admin: ${roleTitle}`,
+  };
 
   return (
     <>
       <Row className={styles.logoHeader}>
         <PageTitle
           loading={loading}
-          title={renderTitle}
+          title={renderTitle[role] || ''}
           avatar={data?.coach?.league.image}
           description={`${data?.coach?.league?.name?.short ?? ''} league`}
         />
