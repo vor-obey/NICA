@@ -1,5 +1,6 @@
 import React from 'react';
-import LoginForm from '../../screens/Auth/components/LoginForm';
+import 'antd/dist/antd.css';
+import LoginForm from '../../layouts/Auth/components/LoginForm';
 
 export default {
   title: 'LoginForm',

@@ -1,9 +1,14 @@
 import React from 'react';
-import SignUpForm from '../../screens/Auth/components/SignUpForm';
+import 'antd/dist/antd.css';
+import SignUpForm from '../../layouts/Auth/components/SignUpForm';
 
 export default {
   title: 'SignUpForm',
   components: SignUpForm,
 };
 
-export const Template = () => <SignUpForm onSubmit={() => {}} />;
+export const Template = () => (
+  <SignUpForm onSubmit={() => {
+  }}
+  />
+);
