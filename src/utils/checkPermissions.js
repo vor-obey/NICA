@@ -1,7 +1,7 @@
 /**
  *
  * @param {string} role
- * @param {Array<string>} roles
+ * @param {Array<string> | Object} roles
  * @returns {boolean}
  */
 const checkPermissions = (role, roles) => {

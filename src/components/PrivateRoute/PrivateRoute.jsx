@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { permissions } from '../../configs/app';
 import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
-import checkPermission from './helpers/checkPermissions';
+import checkPermission from '../../utils/checkPermissions';
 
 // If the "roles" prop are not defined, only checks authorization.
 // If the "roles" prop are defined, checks authorization and access rights.
