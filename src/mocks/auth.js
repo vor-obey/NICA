@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import faker from 'faker';
-import { CURRENT_USER_QUERY } from '../hooks/useCurrentUser';
+import { CURRENT_USER_QUERY } from '../hooks/useCurrentUserQuery';
 import { LOGIN_USER } from '../layouts/Auth/containers/Login';
 import { SIGN_UP_USER } from '../layouts/Auth/containers/SignUp';
 

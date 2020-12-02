@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { permissions } from '../../configs/app';
-import useCurrentUser from '../../hooks/useCurrentUser';
+import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
 
 const Permissions = ({ roles, children }) => {
-  const { data } = useCurrentUser();
+  const { data } = useCurrentUserQuery();
   if (roles.includes(data?.user?.role)) {
     return children;
   }

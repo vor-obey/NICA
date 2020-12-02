@@ -13,10 +13,10 @@ export const CURRENT_USER_QUERY = gql`
         }
     }`;
 
-const useCurrentUser = () => useAuthQuery(CURRENT_USER_QUERY, {
+const useCurrentUserQuery = () => useAuthQuery(CURRENT_USER_QUERY, {
   variables: {
     userId: 1,
   },
 });
 
-export default useCurrentUser;
+export default useCurrentUserQuery;

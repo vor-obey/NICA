@@ -3,14 +3,14 @@ import { Spin } from 'antd';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { permissions } from '../../configs/app';
-import useCurrentUser from '../../hooks/useCurrentUser';
+import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
 import checkPermission from './helpers/checkPermissions';
 
 // If the "roles" prop are not defined, only checks authorization.
 // If the "roles" prop are defined, checks authorization and access rights.
 
 const PrivateRoute = ({ roles, ...props }) => {
-  const { data, loading } = useCurrentUser();
+  const { data, loading } = useCurrentUserQuery();
 
   if (loading) {
     return <Spin size="large" />;
