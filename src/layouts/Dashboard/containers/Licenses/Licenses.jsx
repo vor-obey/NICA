@@ -8,8 +8,9 @@ import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from './Licenses.module.scss';
 import useAntTableQueryParams from '../../../../hooks/useAntTableQueryParams';
 import useAuthQuery from '../../../../hooks/useAuthQuery';
-import Permissions from '../../../../components/Permissions';
 import { permissions } from '../../../../configs/app';
+import { checkPermission } from '../../../../components/PrivateRoute';
+import useCurrentUserQuery from '../../../../hooks/useCurrentUserQuery';
 
 const { roles: ROLES } = permissions;
 
@@ -42,7 +43,7 @@ const Licenses = () => {
     { defaultPagination, defaultFilteredValue, defaultSortOrder },
     onTableChange] = useAntTableQueryParams();
   const { loading, data } = useAuthQuery(LICENSES_QUERY);
-
+  const { data: userData } = useCurrentUserQuery();
   const renderTableTitle = useCallback(() => (
     <Row gutter={[20, 20]} justify="space-between" align="middle">
       <Col>
@@ -116,14 +117,16 @@ const Licenses = () => {
       pagination={defaultPagination}
       dataSource={data?.licenses ?? []}
     >
-      <Table.Column
-        ellipsis
-        width={150}
-        dataIndex="id"
-        title="License ID"
-        textWrap="word-break"
-        render={renderLicenseId}
-      />
+      {checkPermission(userData?.user?.role, [ROLES.SUPER_ADMIN]) && (
+        <Table.Column
+          ellipsis
+          width={150}
+          dataIndex="id"
+          title="License ID"
+          textWrap="word-break"
+          render={renderLicenseId}
+        />
+      )}
       <Table.Column
         ellipsis
         width={150}
