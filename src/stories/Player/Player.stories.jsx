@@ -1,34 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
-import { Col } from 'antd';
+import React from 'react';
+import { message } from 'antd';
+import Player from '../../components/Player/Player';
 
 export default {
   title: 'Player',
+  component: Player,
 };
 
-export const Player = () => {
-  const [progress, setProgress] = useState(0);
-  const [durationVideo, setDurationVideo] = useState(0);
+const onStart = () => (
+  message.info('Video started')
+);
 
-  useEffect(() => {
-    const percent = durationVideo / 10;
-    if (durationVideo - progress <= percent) {
-      console.log('success');
-    }
-  }, [progress]);
+const onFinish = () => (
+  message.info('Video finished')
+);
 
-  console.log(durationVideo);
-  console.log(progress);
-  return (
-    <Col style={{ display: 'flex', justifyContent: 'center' }}>
-      <ReactPlayer
-        url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-        onStart={() => console.log('Ready')}
-        onEnded={() => console.log('end')}
-        controls
-        onProgress={(state) => setProgress(state.playedSeconds)}
-        onDuration={(duration) => setDurationVideo(duration)}
-      />
-    </Col>
-  );
-};
+export const Example = () => <Player onStart={onStart} onFinish={onFinish} />;
