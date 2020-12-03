@@ -1,12 +1,23 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Descriptions, Button, Typography } from 'antd';
+import Permissions from '../../../../../components/Permissions';
+import { permissions } from '../../../../../configs/app';
 
+const { roles: ROLES } = permissions;
 const { Title } = Typography;
 
 const PersonalInformation = ({ data }) => {
+  const { userId } = useParams();
   const {
     email, name, gender, birthday, phone, address,
   } = data;
+
+  const deactivate = userId && (
+    <Permissions roles={[ROLES.SUPER_ADMIN, ROLES.LEAGUE_ADMIN]}>
+      <Button danger>Deactivate</Button>
+    </Permissions>
+  );
 
   return (
     <Descriptions
@@ -14,7 +25,7 @@ const PersonalInformation = ({ data }) => {
       title={<Title>Personal information</Title>}
       bordered
       column={1}
-      extra={<Button danger>Deactivate</Button>}
+      extra={deactivate}
     >
       <Descriptions.Item label="Email">{email}</Descriptions.Item>
       <Descriptions.Item label="First name">{name.firstName}</Descriptions.Item>
