@@ -6,15 +6,20 @@ import PropTypes from 'prop-types';
 import {
   Card, Carousel, Form, Button, Space, Typography, Steps,
 } from 'antd';
-import Question, { AnswerPropType } from './Question';
+import Question, { QuestPropType } from './components/Question';
 
-const { Title } = Typography;
 const { Step } = Steps;
+const { Title, Paragraph } = Typography;
 
-const Quiz = ({ quiz }) => {
+const Quiz = ({
+  quiz, onSubmit,
+}) => {
   const [step, setStep] = useState(0);
   const { questions, description, title } = quiz;
-
+  const [stepsStatuses, setStepStatuses] = useState(questions.reduce((acc, item) => ({
+    ...acc,
+    [item.id]: 'wait',
+  }), {}));
   const carousel = useRef();
 
   useEffect(() => {
@@ -24,20 +29,41 @@ const Quiz = ({ quiz }) => {
   return (
     <Form
       layout="vertical"
-      onFinish={(values) => {
-        console.group('SUBMIT');
-        console.log(values);
-        console.groupEnd();
+      onFinishFailed={({ values }) => {
+        setStepStatuses(Object.keys(values)
+          .reduce((acc, item) => ({
+            ...acc,
+            [item]: values[item] ? acc[item] : 'error',
+          }), stepsStatuses));
       }}
+      onValuesChange={(changedValues, values) => {
+        setStepStatuses(Object.keys(values)
+          .reduce((acc, item) => ({
+            ...acc,
+            [item]: values[item] ? 'finish' : acc[item],
+          }), stepsStatuses));
+      }}
+      onFinish={onSubmit}
     >
-      <Card title={<Title level={2}>{title}</Title>}>
+      <Card title={(
+        <div>
+          <Title level={2} ellipsis>{title}</Title>
+          <Paragraph
+            ellipsis
+            type="secondary"
+          >
+            {description}
+          </Paragraph>
+        </div>
+      )}
+      >
         <Form.Item>
           <Carousel
             afterChange={setStep}
             ref={carousel}
           >
             {
-              questions.map((item, index, array) => (
+              questions.map((item) => (
                 <div key={item.id} style={{ display: 'flex' }}>
                   <Question question={item} />
                 </div>
@@ -46,13 +72,20 @@ const Quiz = ({ quiz }) => {
           </Carousel>
         </Form.Item>
         <Form.Item>
-          <Steps size="small" current={step}>
+          <Steps
+            size="default"
+            current={step}
+            direction="horizontal"
+            onChange={(current) => {
+              setStep(current);
+            }}
+          >
             {
-              questions.map((item, index, array) => (
+              questions.map((item, index) => (
                 <Step
                   key={item.id}
+                  status={step === index ? 'process' : stepsStatuses[item.id]}
                   onClick={() => setStep(index)}
-                  title={`${index + 1}/${array.length}`}
                 />
               ))
             }
@@ -89,14 +122,8 @@ const Quiz = ({ quiz }) => {
         </Form.Item>
       </Card>
     </Form>
-
   );
 };
-
-export const QuestPropType = PropTypes.shape({
-  question: PropTypes.string.isRequired,
-  answers: PropTypes.arrayOf(AnswerPropType).isRequired,
-});
 
 Quiz.propTypes = {
   quiz: PropTypes.shape({
@@ -104,6 +131,7 @@ Quiz.propTypes = {
     description: PropTypes.string,
     questions: PropTypes.arrayOf(QuestPropType).isRequired,
   }).isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Quiz;

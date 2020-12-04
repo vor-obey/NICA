@@ -1,22 +1,11 @@
 import React from 'react';
 import {
-  Card, Form, Radio, Button, Row, Col, Space, Typography,
+  Card, Form, Radio, Space, Typography,
 } from 'antd';
 import PropTypes from 'prop-types';
+import Answer, { AnswerPropType } from './Answer';
 
-const { Title, Text } = Typography;
-
-const Answer = (props) => {
-  const { answer: { id, text } } = props;
-  return (
-    <Radio
-      name="answers"
-      value={id}
-    >
-      {text}
-    </Radio>
-  );
-};
+const { Title } = Typography;
 
 const Question = ({
   question,
@@ -47,20 +36,14 @@ const Question = ({
   );
 };
 
-export const IdPropType = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
-
-export const AnswerPropType = PropTypes.shape({
-  id: IdPropType.isRequired,
-  text: PropTypes.string.isRequired,
+export const QuestPropType = PropTypes.shape({
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  question: PropTypes.string.isRequired,
+  answers: PropTypes.arrayOf(AnswerPropType).isRequired,
 });
 
 Question.propTypes = {
-  question: PropTypes.shape({
-    id: IdPropType.isRequired,
-    question: PropTypes.string.isRequired,
-    answers: PropTypes.arrayOf(AnswerPropType).isRequired,
-
-  }).isRequired,
+  question: QuestPropType.isRequired,
 };
 
 export default Question;
