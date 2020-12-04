@@ -8,13 +8,15 @@ import styles from './ScrolledTextArea.module.scss';
 
 const { Text } = Typography;
 
-const ScrolledTextArea = ({ onScrollEnd, children }) => {
+const ScrolledTextArea = ({
+  onFinish, children, height,
+}) => {
   const [isFinish, setIsFinish] = useState(false);
   const endElem = useRef();
   const container = useRef();
   useEffect(() => {
     if (isFinish) {
-      onScrollEnd();
+      onFinish();
     }
   }, [isFinish]);
 
@@ -22,7 +24,7 @@ const ScrolledTextArea = ({ onScrollEnd, children }) => {
     const { current: currentEnd } = endElem;
     const { current: currentContainer } = container;
     if (currentEnd && currentContainer && !isFinish) {
-      const intersectionObserver = new IntersectionObserver(([entry], observer) => {
+      const intersectionObserver = new IntersectionObserver(([entry]) => {
         setIsFinish(entry.isIntersecting);
       }, {
         root: currentContainer,
@@ -39,6 +41,9 @@ const ScrolledTextArea = ({ onScrollEnd, children }) => {
   return (
     <div
       ref={container}
+      style={{
+        height,
+      }}
       className={classNames('ant-card', 'ant-card-bordered', styles.container)}
     >
       <div className="ant-card-body">
@@ -54,8 +59,13 @@ const ScrolledTextArea = ({ onScrollEnd, children }) => {
 };
 
 ScrolledTextArea.propTypes = {
-  onScrollEnd: PropTypes.func.isRequired,
+  onFinish: PropTypes.func.isRequired,
   children: PropTypes.string.isRequired,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+ScrolledTextArea.defaultProps = {
+  height: 200,
 };
 
 export default ScrolledTextArea;
