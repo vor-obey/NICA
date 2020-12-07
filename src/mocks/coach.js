@@ -20,11 +20,12 @@ const league = {
 const generateCoachesLicense = (length) => [...new Array(length)].map((item, index) => (
   {
     id: index,
-    licenseRequirement: faker.commerce.productName(),
-    currentStatus: faker.finance.transactionType(),
-    licenseLevel1: Math.random() > 0.5,
-    licenseLevel2: Math.random() > 0.5,
-    licenseLevel3: Math.random() > 0.5,
+    license: faker.commerce.productName(),
+    level: faker.random.number({ min: 1, max: 6 }),
+    progress: faker.random.number(80),
+    completed: false,
+    access: false,
+    image: 'https://i.pinimg.com/originals/33/b8/69/33b869f90619e81763dbf1fccc896d8d.jpg',
     __typename: 'License',
   }
 ));
@@ -81,7 +82,7 @@ const licenseMock = {
   },
   result: () => ({
     data: {
-      license: generateCoachesLicense(20),
+      license: generateCoachesLicense(8),
     },
   }),
 };
