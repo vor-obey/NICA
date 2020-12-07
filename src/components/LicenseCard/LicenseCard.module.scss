@@ -1,0 +1,38 @@
+.licenseCard {
+  width: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  border: 1px solid #e0e0e0;
+}
+
+.cardImg {
+  background: grey;
+  color: white;
+  height: 300px;
+}
+
+.notAvailable {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid #bbbbbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbbbbb;
+  font-size: 32px;
+}
+
+.overlay {
+  background: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: .3;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+}
