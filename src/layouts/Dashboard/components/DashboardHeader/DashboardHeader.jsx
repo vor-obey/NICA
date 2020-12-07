@@ -9,12 +9,14 @@ import {
   Row,
   Col,
   Select,
+  Button,
 } from 'antd';
 import { Link } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import styles from './DashboardHeader.module.scss';
 import { permissions } from '../../../../configs/app';
 import RoleContext from '../../../../roleContext';
+import Logo from '../../../../components/Logo';
 
 const { Header } = Layout;
 
@@ -26,11 +28,17 @@ const menu = (
   </Menu>
 );
 
-const DashboardHeader = ({ user, loading }) => {
+const DashboardHeader = ({
+  user, siderTrigger, loading, ...props
+}) => {
   const { role, setRole } = useContext(RoleContext);
+
   return (
-    <Header className={styles.header}>
-      <Row justify="end">
+    <Header className={styles.header} {...props}>
+      <Row justify="space-between">
+        <Col>
+          {siderTrigger}
+        </Col>
         <Col>
           <Select
             style={{

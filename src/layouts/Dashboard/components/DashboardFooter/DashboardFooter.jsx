@@ -27,7 +27,8 @@ const rowGutter = [20, {
 const DashboardFooter = (props) => (
   <Footer
     style={{
-      backgroundColor: '#d9d9d9',
+      backgroundColor: 'black',
+      color: 'white',
       boxShadow: '4px 1px 0 rgba(0, 21, 41, 0.08)',
     }}
     {...props}
@@ -42,7 +43,6 @@ const DashboardFooter = (props) => (
       >
         <div style={{
           height: '80px',
-          backgroundColor: '#f0f0f0',
           textAlign: 'center',
           display: 'flex',
           justifyContent: 'center',
@@ -57,7 +57,6 @@ const DashboardFooter = (props) => (
       >
         <div style={{
           height: '80px',
-          backgroundColor: '#f0f0f0',
           textAlign: 'center',
           display: 'flex',
           justifyContent: 'center',
@@ -72,7 +71,6 @@ const DashboardFooter = (props) => (
       >
         <div style={{
           height: '80px',
-          backgroundColor: '#f0f0f0',
           textAlign: 'center',
           display: 'flex',
           justifyContent: 'center',
