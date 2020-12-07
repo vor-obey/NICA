@@ -49,7 +49,7 @@ const LeagueAdmins = () => {
   const renderAdminTableTitle = useCallback(() => (
     <Row justify="space-between" align="middle">
       <Col>
-        <Title style={{ margin: 0 }}>League Admins</Title>
+        <Title>League Admins</Title>
       </Col>
       <Col>
         <Permissions roles={[ROLES.SUPER_ADMIN]}>

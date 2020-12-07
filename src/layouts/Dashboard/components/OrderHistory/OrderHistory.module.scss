@@ -1,0 +1,66 @@
+$danger: red;
+$success: #22aa22;
+$primary: #1890ff;
+
+.iconSuccess {
+  font-size: 40px;
+  color: $success;
+  margin-right: 20px;
+}
+
+.iconNotification {
+  font-size: 40px;
+  color: $primary;
+  margin-right: 20px;
+}
+
+.paragraphStyles {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1px solid $primary;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.resultSuccess {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1px solid $success;
+  padding: 10px;
+  border-radius: 5px;
+  color: $success;
+}
+
+.resultDanger {
+  background: none;
+  border: 1px solid $danger;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  color: $danger;
+}
+
+.iconDanger {
+  font-size: 40px;
+  color: $danger;
+  margin-right: 20px;
+}
+
+.dividerRight {
+  color: #1890ff;
+}
+
+.orderHistoryWrap {
+  margin-bottom: 80px;
+  .row {
+    padding: 20px;
+  }
+  .caretIcon {
+    margin-right: 10px;
+  }
+}
+

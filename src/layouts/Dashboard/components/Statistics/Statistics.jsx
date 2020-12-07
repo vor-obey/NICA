@@ -17,7 +17,7 @@ const colLayout = {
 };
 
 const Statistics = ({ statistics, loading }) => (
-  <Row gutter={[20, 10]} style={{ alignItems: 'stretch' }}>
+  <Row gutter={[20, 10]} className={styles.statisticsRow}>
     {
       loading
         ? [...new Array(3)].map((item, index) => (

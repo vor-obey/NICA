@@ -3,6 +3,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Row } from 'antd';
 import { Link } from 'react-router-dom';
 import LicenseCard from '../../../../components/LicenseCard/LicenseCard';
+import styles from './Licenses.module.scss';
 
 export const COACH_LICENSE_QUERY = gql`
     query dashboardLicenseCoach($coachId: ID!){
@@ -18,14 +19,14 @@ export const COACH_LICENSE_QUERY = gql`
     }`;
 
 const LicenseStatus = () => {
-  const { data, loading } = useQuery(COACH_LICENSE_QUERY, {
+  const { data } = useQuery(COACH_LICENSE_QUERY, {
     variables: {
       coachId: 1,
     },
   });
 
   return (
-    <Row style={{ width: '100%' }}>
+    <Row className={styles.licensesRow}>
       {data?.license.map((card) => {
         const {
           progress, level, license, id, access, image,

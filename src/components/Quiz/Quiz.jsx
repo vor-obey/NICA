@@ -7,6 +7,7 @@ import {
   Card, Carousel, Form, Button, Space, Typography, Steps,
 } from 'antd';
 import Question, { QuestPropType } from './components/Question';
+import styles from './Quiz.module.scss';
 
 const { Step } = Steps;
 const { Title, Paragraph } = Typography;
@@ -64,7 +65,7 @@ const Quiz = ({
           >
             {
               questions.map((item) => (
-                <div key={item.id} style={{ display: 'flex' }}>
+                <div key={item.id} className={styles.quiz}>
                   <Question question={item} />
                 </div>
               ))

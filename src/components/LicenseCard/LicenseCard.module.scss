@@ -6,6 +6,9 @@
   justify-content: space-between;
   position: relative;
   border: 1px solid #e0e0e0;
+  .progress {
+    margin-bottom: 20px;
+  }
 }
 
 .cardImg {
@@ -36,3 +39,4 @@
   width: 100%;
   height: 100%;
 }
+

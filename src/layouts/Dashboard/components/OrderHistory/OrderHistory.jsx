@@ -5,7 +5,7 @@ import {
 import {
   CheckCircleOutlined, CreditCardOutlined, CloseCircleOutlined, CaretRightOutlined,
 } from '@ant-design/icons';
-import styles from '../../containers/Index/Index.module.scss';
+import styles from './OrderHistory.module.scss'
 
 const { Text } = Typography;
 
@@ -35,11 +35,11 @@ const orderHistoryCol = [
 
 const OrderHistory = ({ orders, name }) => {
   const renderOrders = orders.map((order) => (
-    <div key={order.id} style={{ marginBottom: 80 }}>
-      <Divider orientation="left" style={{ color: '#1890ff' }}>
+    <div key={order.id} className={styles.orderHistoryWrap}>
+      <Divider orientation="left" className={styles.dividerRight}>
         {`Order ${order.id}`}
       </Divider>
-      <Row style={{ padding: 20 }}>
+      <Row className={styles.row}>
         <Text>
           {`Placed on ${order.date} EDT by ${name}`}
         </Text>
@@ -67,7 +67,7 @@ const OrderHistory = ({ orders, name }) => {
             renderItem={(item) => (
               <List.Item>
                 <Typography.Text>
-                  <CaretRightOutlined style={{ marginRight: 10 }} />
+                  <CaretRightOutlined className={styles.caretIcon} />
                 </Typography.Text>
                 {`Paid ${item.price} with Check on ${order.date}`}
               </List.Item>

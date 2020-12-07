@@ -1,12 +1,8 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { SettingFilled } from '@ant-design/icons';
 import {
   Row, Col,
 } from 'antd';
-import {
-  Link, useParams,
-} from 'react-router-dom';
 import PageTitle from '../../components/PageTitle';
 import Statistics from '../../components/Statistics';
 

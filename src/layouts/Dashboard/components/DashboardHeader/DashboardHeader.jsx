@@ -9,14 +9,12 @@ import {
   Row,
   Col,
   Select,
-  Button,
 } from 'antd';
 import { Link } from 'react-router-dom';
-import { UserOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import styles from './DashboardHeader.module.scss';
 import { permissions } from '../../../../configs/app';
 import RoleContext from '../../../../roleContext';
-import Logo from '../../../../components/Logo';
 
 const { Header } = Layout;
 
@@ -65,16 +63,12 @@ const DashboardHeader = ({
             }}
             loading={loading}
             active
-            title={{ width: 160 }}
             paragraph={false}
           >
             <Dropdown
               trigger={['click', 'hover']}
               overlay={menu}
-              style={{
-                maxWidth: 250,
-                overflow: 'hidden',
-              }}
+              className={styles.dropDown}
             >
               <Card.Meta
                 className={styles.userItem}

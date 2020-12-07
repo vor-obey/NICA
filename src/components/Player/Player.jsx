@@ -15,22 +15,20 @@ const Player = ({ onStart, onFinish }) => {
   const [ended, setEnded] = useState(false);
 
   return (
-    <Col style={{ display: 'flex', justifyContent: 'center' }}>
-      <ReactPlayer
-        config={config}
-        url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-        onStart={() => onStart()}
-        onEnded={() => onFinish()}
-        onProgress={(state) => {
-          const percent = durationVideo / 10;
-          if (state.playedSeconds >= durationVideo - percent && !ended) {
-            setEnded(true);
-            onFinish();
-          }
-        }}
-        onDuration={(duration) => setDurationVideo(duration)}
-      />
-    </Col>
+    <ReactPlayer
+      config={config}
+      url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+      onStart={() => onStart()}
+      onEnded={() => onFinish()}
+      onProgress={(state) => {
+        const percent = durationVideo / 10;
+        if (state.playedSeconds >= durationVideo - percent && !ended) {
+          setEnded(true);
+          onFinish();
+        }
+      }}
+      onDuration={(duration) => setDurationVideo(duration)}
+    />
   );
 };
 

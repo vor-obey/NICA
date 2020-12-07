@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
+import styles from './DashboardFooter.module.scss';
 
 const { Footer } = Layout;
 
@@ -26,11 +27,7 @@ const rowGutter = [20, {
 
 const DashboardFooter = (props) => (
   <Footer
-    style={{
-      backgroundColor: 'black',
-      color: 'white',
-      boxShadow: '4px 1px 0 rgba(0, 21, 41, 0.08)',
-    }}
+    className={styles.footerDashboard}
     {...props}
   >
     <Row
@@ -41,42 +38,21 @@ const DashboardFooter = (props) => (
       <Col
         {...colLayout}
       >
-        <div style={{
-          height: '80px',
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        >
+        <div className={styles.section}>
           FOOTER CONTENT #1
         </div>
       </Col>
       <Col
         {...colLayout}
       >
-        <div style={{
-          height: '80px',
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        >
+        <div className={styles.section}>
           FOOTER CONTENT #2
         </div>
       </Col>
       <Col
         {...colLayout}
       >
-        <div style={{
-          height: '80px',
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        >
+        <div className={styles.section}>
           FOOTER CONTENT #3
         </div>
       </Col>

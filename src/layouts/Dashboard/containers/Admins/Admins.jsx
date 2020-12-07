@@ -5,6 +5,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import TableWidget from '../../components/TableWidget';
 import { permissions } from '../../../../configs/app';
+import styles from './Admins.module.scss';
 
 export const LEAGUE_DASHBOARD_QUERY = gql`
     query leagueDashboard($leagueId: ID!){
@@ -68,7 +69,7 @@ const Admins = () => {
   });
 
   const inviteAdmin = () => (
-    data?.role === permissions.roles.LEAGUE_ADMIN && <Button type="link" icon={<PlusOutlined />} style={{ fontSize: 18 }}>Invite Administrator</Button>
+    data?.role === permissions.roles.LEAGUE_ADMIN && <Button type="link" icon={<PlusOutlined />} className={styles.fSize}>Invite Administrator</Button>
   );
 
   return (

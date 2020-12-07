@@ -8,7 +8,6 @@ const { Title } = Typography;
 
 const tableProps = {
   size: 'small',
-
   tableLayout: 'auto',
   scroll: { x: true },
   pagination: { pageSize: 6 },

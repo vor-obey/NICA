@@ -1,5 +1,5 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import {
   Button, Modal,

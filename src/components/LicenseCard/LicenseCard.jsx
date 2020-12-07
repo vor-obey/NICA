@@ -3,7 +3,7 @@ import {
   Card, Col, Image, Progress, Row, Typography,
 } from 'antd';
 
-import { ExclamationOutlined } from '@ant-design/icons';
+import { QuestionOutlined } from '@ant-design/icons';
 import styles from './LicenseCard.module.scss';
 
 const { Meta } = Card;
@@ -16,7 +16,7 @@ const LicenseCard = ({
     !access
       ? (
         <div className={styles.notAvailable}>
-          <ExclamationOutlined />
+          <QuestionOutlined />
         </div>
       )
       : <Progress type="circle" percent={progress} width={70} status={progress !== 100 && 'exception'} />
@@ -32,7 +32,7 @@ const LicenseCard = ({
     >
       <div className={!access && styles.overlay} />
 
-      <Row style={{ marginBottom: 20 }}>
+      <Row className={styles.progress}>
         <Progress percent={progress} status="active" />
       </Row>
 

@@ -31,7 +31,7 @@ const AuthContainer = ({ children }) => (
       size="large"
       layout="vertical"
     >
-      <img src={LogoType} style={{ width: '100%' }} alt="ops" />
+      <img src={LogoType} width="100%" alt="ops" />
       {children}
     </Form>
   </Col>
