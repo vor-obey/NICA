@@ -1,3 +1,5 @@
+@import "./vars";
+
 $siderWidth: 270px;
 $siderCollapsedWidth: 80px;
 $headerHeight: 80px;
@@ -9,25 +11,29 @@ $headerHeight: 80px;
 }
 
 .layout {
+  display: flex;
   min-height: 100vh;
   position: relative;
-  margin-left: $siderWidth;
 }
 
 .sider {
-  position: fixed;
-  height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  left: 0;
-  z-index: 1;
+  .ant-layout-sider-children {
+    position: sticky;
+    left: 0;
+    top: $header-height * 2;
+    height: auto;
+  }
+
+  z-index: 99;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
+.siderInnerWrapper {
+  position: sticky;
+  top: 0;
+}
+
+.layoutInner {
+  overflow: initial !important;
 }
 
 .headerItem {
