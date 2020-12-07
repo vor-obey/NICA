@@ -1,68 +1,20 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Skeleton } from 'antd';
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import TableWidget from '../../components/TableWidget';
-
-const resultIconS = {
-  color: 'green',
-  fontSize: 20,
-};
-
-const resultIconF = {
-  color: 'red',
-  fontSize: 20,
-};
-
-const renderIconsResult = (v) => (
-  v ? <CheckCircleOutlined style={resultIconS} />
-    : <CloseCircleOutlined style={resultIconF} />);
-
-const columns = [
-  {
-    title: 'License Requirement',
-    ellipsis: true,
-    dataIndex: 'licenseRequirement',
-  },
-  {
-    title: 'Current Status',
-    ellipsis: true,
-    dataIndex: 'currentStatus',
-  },
-  {
-    title: 'License Level: 1',
-    ellipsis: true,
-    dataIndex: 'licenseLevel1',
-    render: renderIconsResult,
-  },
-  {
-    title: 'License Level: 2',
-    ellipsis: true,
-    dataIndex: 'licenseLevel2',
-    render: renderIconsResult,
-  },
-  {
-    title: 'License Level: 3',
-    ellipsis: true,
-    dataIndex: 'licenseLevel3',
-    render: renderIconsResult,
-  },
-];
+import { Row } from 'antd';
+import { Link } from 'react-router-dom';
+import LicenseCard from '../../../../components/LicenseCard/LicenseCard';
 
 export const COACH_LICENSE_QUERY = gql`
     query dashboardLicenseCoach($coachId: ID!){
         license (id: $coachId) {
             id,
-            licenseRequirement,
-            currentStatus,
-            licenseLevel1,
-            licenseLevel2,
-            licenseLevel3,
-        }
+            license,
+            level,
+            progress,
+            completed,
+            access,
+            image,
+        }, 
     }`;
 
 const LicenseStatus = () => {
@@ -72,30 +24,37 @@ const LicenseStatus = () => {
     },
   });
 
-  const renderBtn = () => (
-    <a href=" ">
-      <QuestionCircleOutlined style={{
-        marginRight: 10,
-        fontSize: 18,
-      }}
-      />
-      Learn mo about the Coaches License
-    </a>
-  );
-
   return (
-    <>
-      <Skeleton loading={loading} active>
-        <TableWidget
-          rowKey="id"
-          pagination={false}
-          columns={columns}
-          dataSource={data?.license}
-          title="License level: 3"
-          buttons={renderBtn}
-        />
-      </Skeleton>
-    </>
+    <Row style={{ width: '100%' }}>
+      {data?.license.map((card) => {
+        const {
+          progress, level, license, id, access, image,
+        } = card;
+        return (
+          access
+            ? (
+              <Link to="/quiz">
+                <LicenseCard
+                  key={id}
+                  progress={progress}
+                  level={level}
+                  license={license}
+                  image={image}
+                />
+              </Link>
+            )
+            : (
+              <LicenseCard
+                key={id}
+                progress={progress}
+                level={level}
+                license={license}
+                image={image}
+              />
+            )
+        );
+      })}
+    </Row>
   );
 };
 
