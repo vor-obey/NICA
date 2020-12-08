@@ -28,6 +28,7 @@ import SpecificLeague from './containers/SpecificLeague';
 import DashboardHeader from './components/DashboardHeader';
 import DashboardFooter from './components/DashboardFooter';
 import Logo from '../../components/Logo';
+import LicenseSteps from './containers/LicenseStatus/LicenseSteps';
 
 const { roles: ROLES } = permissions;
 const {
@@ -147,6 +148,12 @@ const Dashboard = () => {
                 exact
                 path="/licenses/:licenseId"
                 component={LicenseStatus}
+              />
+              <PrivateRoute
+                exact
+                path="/license/step/:stepId"
+                component={LicenseSteps}
+                roles={[ROLES.COACH]}
               />
             </Switch>
           </Content>
