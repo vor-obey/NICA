@@ -1,0 +1,7 @@
+const QUESTION_TYPE = {
+  VIDEO: 'VIDEO',
+  FILE_UPLOAD: 'FILE_UPLOAD',
+  AGREEMENT: 'AGREEMENT',
+};
+
+export default QUESTION_TYPE;
