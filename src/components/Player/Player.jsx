@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
-import { Col } from 'antd';
 
-const config = {
-  youtube: {
-    playerVars: {
-      disablekb: 1,
-    },
-  },
-};
-
-const Player = ({ onStart, onFinish }) => {
+const Player = ({ onStart, onFinish, url }) => {
   const [durationVideo, setDurationVideo] = useState(0);
   const [ended, setEnded] = useState(false);
 
   return (
     <ReactPlayer
-      config={config}
-      url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+      width="70%"
+      height="60%"
+      controls
+      url={url}
       onStart={() => onStart()}
       onEnded={() => onFinish()}
       onProgress={(state) => {
