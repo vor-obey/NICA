@@ -21,7 +21,7 @@ const generateCoachesLicense = (length) => [...new Array(length)].map((item, ind
   {
     id: index,
     license: faker.commerce.productName(),
-    level: faker.random.number({ min: 1, max: 6 }),
+    level: index,
     progress: faker.random.number(80),
     completed: false,
     access: false,
@@ -82,7 +82,7 @@ const licenseMock = {
   },
   result: () => ({
     data: {
-      license: generateCoachesLicense(8),
+      license: generateCoachesLicense(3),
     },
   }),
 };
