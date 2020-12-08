@@ -1,14 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import PropTypes from 'prop-types';
-import { SendOutlined } from '@ant-design/icons';
+import { SendOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import {
-  Carousel, Steps, Row, Col, Button, Typography, Divider,
+  Steps, Row, Col, Divider,
 } from 'antd';
 import React, {
-  useMemo, useRef, useState, Children, useCallback,
+  useMemo, useState,
 } from 'react';
-
-const { Text } = Typography;
+import { Link } from 'react-router-dom';
 
 const LicenseProgressStep = () => (
   <>
@@ -22,9 +21,15 @@ const LicenseProgress = ({
   const [stepIndex, setStepIndex] = useState(
     currentStepIndex ?? steps.findIndex((item) => !item.done),
   );
+
   const stepsProgress = useMemo(
-    () => (steps.map(({ title, description }) => (
-      <Steps.Step key={title} title={title} description={description} />))),
+    () => (steps.map(({ title, description, id }) => (
+      <Steps.Step
+        key={title}
+        title={<Link to={`${id}`}>{title}</Link>}
+        description={<Link to={`${id}`}>{description}</Link>}
+      />
+    ))),
     [steps, stepIndex],
   );
 
@@ -35,12 +40,7 @@ const LicenseProgress = ({
           status="process"
           current={stepIndex}
           direction={layout}
-          onChange={(current) => {
-            if (steps[current]?.done || steps[current - 1]?.done) {
-              setStepIndex(current);
-            }
-            setStepIndex((v) => v);
-          }}
+          onChange={(current) => setStepIndex(current)}
         >
           {stepsProgress}
           <Steps.Step

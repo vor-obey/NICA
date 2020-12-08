@@ -2,6 +2,7 @@ import React from 'react';
 import LicenseProgress from '../../components/LicenseProgress';
 import Quiz from '../../components/Quiz';
 import { createQuiz } from '../Quiz/Quiz.stories';
+import QUESTION_TYPE from '../../utils/constants';
 
 export default {
   title: 'License progress steps',
@@ -34,20 +35,20 @@ Default.args = {
       id: 1,
       title: 'First license step',
       description: 'First license step description',
-      done: true,
+      type: QUESTION_TYPE.VIDEO,
     },
     {
       id: 2,
       title: 'Second license step',
       description: 'Second license step description',
-      done: false,
+      type: QUESTION_TYPE.FILE_UPLOAD,
     },
     {
       id: 3,
       title: 'Third license step',
       description: 'Third license step description',
-      done: false,
+      type: QUESTION_TYPE.AGREEMENT,
     },
   ],
-  layout: 'horizontal',
+  layout: 'vertical',
 };
