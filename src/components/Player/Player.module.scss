@@ -1,5 +1,6 @@
 .playerWrapper {
   position: relative;
+  height: 70%;
 }
 
 .playerWrapper:hover .playBtn {
@@ -8,12 +9,12 @@
 
 .playBtn {
   font-size: 100px;
-  color: white;
+  color: grey;
   position: absolute;
-  opacity: 0;
+  right: 50%;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(50%, -50%);
+  opacity: 0;
   z-index: 20;
   transition: opacity .5s;
 }

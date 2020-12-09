@@ -3,6 +3,15 @@ import ReactPlayer from 'react-player';
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 import styles from './Player.module.scss';
 
+const config = {
+  youtube: {
+    playerVars: {
+      modestbranding: 1,
+      disablekb: 0,
+    },
+  },
+};
+
 const Player = ({ onStart, onFinish, url }) => {
   const [durationVideo, setDurationVideo] = useState(0);
   const [ended, setEnded] = useState(false);
@@ -18,11 +27,11 @@ const Player = ({ onStart, onFinish, url }) => {
       : <CaretRightOutlined onClick={onPlaying} className={styles.playBtn} />
   );
 
-  const _onStart = useCallback(() => {
+  const onStartHandle = useCallback(() => {
     if (onStart) onStart();
   }, [onStart]);
 
-  const _onFinish = useCallback(() => {
+  const onFinishHandle = useCallback(() => {
     if (onFinish) onFinish();
   }, [onFinish]);
 
@@ -30,12 +39,13 @@ const Player = ({ onStart, onFinish, url }) => {
     <div className={styles.playerWrapper}>
       {renderButton}
       <ReactPlayer
+        controls
         playing={play}
         width="100%"
-        height="60%"
+        height="100%"
         url={url}
-        onStart={() => onStart()}
-        onEnded={() => onFinish()}
+        onStart={onStartHandle}
+        onEnded={onFinishHandle}
         onProgress={(state) => {
           const percent = durationVideo / 10;
           if (state.playedSeconds >= durationVideo - percent && !ended) {
@@ -44,24 +54,9 @@ const Player = ({ onStart, onFinish, url }) => {
           }
         }}
         onDuration={(duration) => setDurationVideo(duration)}
+        config={config}
       />
     </div>
-    <ReactPlayer
-      width="70%"
-      height="60%"
-      controls
-      url={url}
-      onStart={_onStart}
-      onEnded={_onFinish}
-      onProgress={(state) => {
-        const percent = durationVideo / 10;
-        if (state.playedSeconds >= durationVideo - percent && !ended) {
-          setEnded(true);
-          onFinish();
-        }
-      }}
-      onDuration={(duration) => setDurationVideo(duration)}
-    />
   );
 };
 

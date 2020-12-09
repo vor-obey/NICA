@@ -15,6 +15,7 @@ const onFinish = () => (
   message.info('Video finished')
 );
 
-const url = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+// const url = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+const url = 'https://www.youtube.com/watch?v=ysz5S6PUM-U';
 
 export const Example = () => <Player url={url} onStart={onStart} onFinish={onFinish} />;
