@@ -126,12 +126,14 @@ const Quiz = ({
   );
 };
 
+export const QuizPropType = PropTypes.shape({
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  questions: PropTypes.arrayOf(QuestPropType).isRequired,
+});
+
 Quiz.propTypes = {
-  quiz: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    questions: PropTypes.arrayOf(QuestPropType).isRequired,
-  }).isRequired,
+  quiz: QuizPropType.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

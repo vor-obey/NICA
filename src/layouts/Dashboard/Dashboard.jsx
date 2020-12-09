@@ -22,13 +22,13 @@ import LeaguesList from './containers/Leagues';
 import { permissions } from '../../configs/app';
 import NavBar from './components/NavBar/NavBar';
 import UserProfile from './containers/UserProfile';
-import LicenseStatus from './containers/LicenseStatus';
+import CoachLicense from './containers/CoachLicense';
 import PrivateRoute from '../../components/PrivateRoute';
 import SpecificLeague from './containers/SpecificLeague';
 import DashboardHeader from './components/DashboardHeader';
 import DashboardFooter from './components/DashboardFooter';
 import Logo from '../../components/Logo';
-import LicenseSteps from './containers/LicenseStatus/LicenseSteps';
+import LicenseSteps from './containers/LicenseSteps';
 
 const { roles: ROLES } = permissions;
 const {
@@ -147,11 +147,11 @@ const Dashboard = () => {
               <PrivateRoute
                 exact
                 path="/licenses/:licenseId"
-                component={LicenseStatus}
+                component={CoachLicense}
               />
               <PrivateRoute
                 exact
-                path="/license/step/:stepId"
+                path="/licenses/:licenseId/step/:index"
                 component={LicenseSteps}
                 roles={[ROLES.COACH]}
               />

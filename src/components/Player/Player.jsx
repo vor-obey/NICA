@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 import styles from './Player.module.scss';
@@ -17,6 +17,14 @@ const Player = ({ onStart, onFinish, url }) => {
       ? <PauseOutlined onClick={onPlaying} className={styles.playBtn} />
       : <CaretRightOutlined onClick={onPlaying} className={styles.playBtn} />
   );
+
+  const _onStart = useCallback(() => {
+    if (onStart) onStart();
+  }, [onStart]);
+
+  const _onFinish = useCallback(() => {
+    if (onFinish) onFinish();
+  }, [onFinish]);
 
   return (
     <div className={styles.playerWrapper}>
@@ -38,6 +46,22 @@ const Player = ({ onStart, onFinish, url }) => {
         onDuration={(duration) => setDurationVideo(duration)}
       />
     </div>
+    <ReactPlayer
+      width="70%"
+      height="60%"
+      controls
+      url={url}
+      onStart={_onStart}
+      onEnded={_onFinish}
+      onProgress={(state) => {
+        const percent = durationVideo / 10;
+        if (state.playedSeconds >= durationVideo - percent && !ended) {
+          setEnded(true);
+          onFinish();
+        }
+      }}
+      onDuration={(duration) => setDurationVideo(duration)}
+    />
   );
 };
 

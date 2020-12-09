@@ -1,17 +1,14 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { Col } from 'antd';
-import LicenseProgress from '../../../../../components/LicenseProgress';
-import QUESTION_TYPE from '../../../../../utils/constants';
-import UploadFile from '../../../../../components/Upload/UploadFile';
-import PlayerWrapper from '../../PlayerWrapper';
-import ScrolledTextAreaWrapper from '../../ScrolledTextAreaWrapper';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import LicenseProgress from '../../../../components/LicenseProgress';
+import QUESTION_TYPE from '../../../../utils/constants';
+import LicenseStepContainer from '../../components/LicenseStepContainer';
 
 const steps = [
   {
     id: 1,
-    title: 'First license step',
-    description: 'First license step description',
+    title: 'Introduction video',
+    description: 'See the video to understand our goals',
     type: QUESTION_TYPE.VIDEO,
     data: {
       url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
@@ -19,18 +16,18 @@ const steps = [
   },
   {
     id: 2,
-    title: 'Second license step',
-    description: 'Second license step description',
+    title: 'Upload first aid Certificate',
+    description: 'Document upload',
     type: QUESTION_TYPE.FILE_UPLOAD,
     data: {},
   },
   {
     id: 3,
-    title: 'Third license step',
-    description: 'Third license step description',
+    title: 'Coach agreement',
+    description: 'Read and confirm the document',
     type: QUESTION_TYPE.AGREEMENT,
     data: {
-      children: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. '
+      document: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. '
         + 'Ad, cum dolorem ducimus impedit incidunt quasi quod totam? '
         + 'Aspernatur atque, autem consectetur dolore eos et exercitationem, '
         + 'expedita ipsum iste minima nisi odit omnis quidem sint tempore velit '
@@ -79,28 +76,31 @@ const steps = [
   },
 ];
 
-const stepComponents = {
-  [QUESTION_TYPE.VIDEO]: PlayerWrapper,
-  [QUESTION_TYPE.FILE_UPLOAD]: UploadFile,
-  [QUESTION_TYPE.AGREEMENT]: ScrolledTextAreaWrapper,
-};
+const LicenseSteps = () => {
+  const history = useHistory();
+  const { licenseId, index } = useParams();
 
-const LicenseSteps = () => (
-  <LicenseProgress steps={steps}>
-    {steps.map((item) => {
-      const Component = stepComponents[item.type];
-      return (
-        <Col style={{ background: 'white', height: '100vh' }}>
-          <Route
-            path={`/license/step/${item.id}`}
-            render={() => (
-              <Component {...item.data} />
-            )}
-          />
-        </Col>
-      );
-    })}
-  </LicenseProgress>
-);
+  const currentIndex = useMemo(() => parseInt(index, 10), [index]);
+
+  useEffect(() => {
+    history.push(`/licenses/${licenseId}/step/0`);
+  }, []);
+
+  const setCurrentStep = useCallback((nextStep) => {
+    if (!steps[nextStep]) return;
+
+    history.push(`/licenses/${licenseId}/step/${nextStep}`);
+  }, [history]);
+
+  const goNext = useCallback(() => {
+    setCurrentStep(currentIndex + 1);
+  }, [setCurrentStep, currentIndex]);
+
+  return (
+    <LicenseProgress steps={steps} setCurrentStep={setCurrentStep} currentStepIndex={currentIndex}>
+      <LicenseStepContainer step={steps[currentIndex]} goNext={goNext} />
+    </LicenseProgress>
+  );
+};
 
 export default LicenseSteps;
