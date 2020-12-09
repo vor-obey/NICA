@@ -43,6 +43,7 @@ const ScrolledTextArea = ({
       ref={container}
       style={{
         height,
+        marginBottom: 10,
       }}
       className={classNames('ant-card', 'ant-card-bordered', styles.container)}
     >
