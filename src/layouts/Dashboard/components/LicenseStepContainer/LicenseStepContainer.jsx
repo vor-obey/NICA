@@ -11,9 +11,9 @@ import {
   Row,
 } from 'antd';
 import QUESTION_TYPE from '../../../../utils/constants';
-import Player from '../../../../components/Player/Player';
-import UploadFile from '../../../../components/Upload/UploadFile';
-import ScrolledTextArea from '../../../../components/ScrolledTextArea';
+import ScrolledTextAreaWrapper from '../../containers/ScrolledTextAreaWrapper';
+import PlayerWrapper from '../../containers/PlayerWrapper';
+import UploadFileWrapper from '../../containers/UploadFileWrapper';
 
 const LicenseStepContainer = memo(({ step, goNext }) => {
   const [isDone, setDone] = useState(false);
@@ -26,13 +26,13 @@ const LicenseStepContainer = memo(({ step, goNext }) => {
   const renderComponent = useCallback(() => {
     switch (step.type) {
       case QUESTION_TYPE.VIDEO: {
-        return <Player onFinish={onFinish} url={step.data.url} />;
+        return <PlayerWrapper onFinish={onFinish} url={step.data.url} />;
       }
       case QUESTION_TYPE.AGREEMENT: {
-        return <ScrolledTextArea document={step.data.document} onFinish={onFinish} />;
+        return <ScrolledTextAreaWrapper document={step.data.document} onFinish={onFinish} />;
       }
       case QUESTION_TYPE.FILE_UPLOAD: {
-        return <UploadFile />;
+        return <UploadFileWrapper onFinish={onFinish} />;
       }
       default:
         return null;
