@@ -9,7 +9,7 @@ import styles from './ScrolledTextArea.module.scss';
 const { Text } = Typography;
 
 const ScrolledTextArea = ({
-  onFinish, children, height,
+  onFinish, document, height,
 }) => {
   const [isFinish, setIsFinish] = useState(false);
   const endElem = useRef();
@@ -48,9 +48,7 @@ const ScrolledTextArea = ({
     >
       <div className="ant-card-body">
         <Text>
-          {
-            children
-          }
+          {document}
         </Text>
         <div ref={endElem} />
       </div>
@@ -60,7 +58,7 @@ const ScrolledTextArea = ({
 
 ScrolledTextArea.propTypes = {
   onFinish: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
+  document: PropTypes.string.isRequired,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

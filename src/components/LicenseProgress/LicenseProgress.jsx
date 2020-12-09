@@ -5,6 +5,7 @@ import {
   Steps, Row, Col, Divider,
 } from 'antd';
 import React, {
+  useEffect,
   useMemo, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
@@ -18,16 +19,20 @@ const LicenseProgress = ({
   steps, currentStepIndex, children, layout,
 }) => {
   const childrenArray = React.Children.toArray(children);
-  const [stepIndex, setStepIndex] = useState(
-    currentStepIndex ?? steps.findIndex((item) => !item.done),
-  );
+  const [stepIndex, setStepIndex] = useState(currentStepIndex || 0);
+
+  useEffect(() => {
+    if (currentStepIndex !== stepIndex) {
+      setStepIndex(currentStepIndex);
+    }
+  }, [currentStepIndex]);
 
   const stepsProgress = useMemo(
-    () => (steps.map(({ title, description, id }) => (
+    () => (steps.map(({ title, description, id }, index) => (
       <Steps.Step
         key={title}
-        title={<Link to={`${id}`}>{title}</Link>}
-        description={<Link to={`${id}`}>{description}</Link>}
+        title={<Link to={`${index}`}>{title}</Link>}
+        description={<Link to={`${index}`}>{description}</Link>}
       />
     ))),
     [steps, stepIndex],

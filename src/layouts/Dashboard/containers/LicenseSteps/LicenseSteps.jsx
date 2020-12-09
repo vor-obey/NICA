@@ -1,64 +1,59 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { message, Col } from 'antd';
-import LicenseProgress from '../../../../../components/LicenseProgress';
-import QUESTION_TYPE from '../../../../../utils/constants';
-import Player from '../../../../../components/Player/Player';
-import UploadFile from '../../../../../components/Upload/UploadFile';
-import ScrolledTextArea from '../../../../../components/ScrolledTextArea';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Route, useHistory } from 'react-router-dom';
+import LicenseProgress from '../../../../components/LicenseProgress';
+import QUESTION_TYPE from '../../../../utils/constants';
+import LicenseStepContainer from '../../components/LicenseStepContainer';
 
 const steps = [
   {
     id: 1,
-    title: 'First license step',
-    description: 'First license step description',
+    title: 'Introduction video',
+    description: 'See the video to understand our goals',
     type: QUESTION_TYPE.VIDEO,
     data: {
       url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      onStart: () => message.info('Video started'),
-      onFinish: () => message.info('Video finished'),
     },
   },
   {
     id: 2,
-    title: 'Second license step',
-    description: 'Second license step description',
+    title: 'Upload first aid Certificate',
+    description: 'Document upload',
     type: QUESTION_TYPE.FILE_UPLOAD,
     data: {
-      type: ['png', 'txt'],
-      size: 250000,
-      name: 'file',
-      multiple: true,
-      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-      progress: {
-        strokeColor: {
-          '0%': '#108ee9',
-          '100%': '#87d068',
-        },
-        strokeWidth: 3,
-        format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
-      },
-      onChange(info) {
-        const { status } = info.file;
-        if (status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-          message.error(`${info.file.name} has incorrect data format or exceeded the allowed file size.`);
-        }
-      },
+      // type: ['png', 'txt'],
+      // size: 250000,
+      // name: 'file',
+      // multiple: true,
+      // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+      // progress: {
+      //   strokeColor: {
+      //     '0%': '#108ee9',
+      //     '100%': '#87d068',
+      //   },
+      //   strokeWidth: 3,
+      //   format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
+      // },
+      // onChange(info) {
+      //   const { status } = info.file;
+      //   if (status !== 'uploading') {
+      //     console.log(info.file, info.fileList);
+      //   }
+      //   if (status === 'done') {
+      //     message.success(`${info.file.name} file uploaded successfully.`);
+      //   } else if (status === 'error') {
+      //     message.error(`${info.file.name}
+      //     has incorrect data format or exceeded the allowed file size.`);
+      //   }
+      // },
     },
   },
   {
     id: 3,
-    title: 'Third license step',
-    description: 'Third license step description',
+    title: 'Coach agreement',
+    description: 'Read and confirm the document',
     type: QUESTION_TYPE.AGREEMENT,
     data: {
-      onFinish: () => message.success('Document has been read!'),
-      children: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. '
+      document: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. '
         + 'Ad, cum dolorem ducimus impedit incidunt quasi quod totam? '
         + 'Aspernatur atque, autem consectetur dolore eos et exercitationem, '
         + 'expedita ipsum iste minima nisi odit omnis quidem sint tempore velit '
@@ -103,33 +98,33 @@ const steps = [
         + 'nobis non optio perspiciatis porro quisquam quos vitae? Aut error'
         + ' ex facere mollitia nulla odio optio perferendis sint? Alias eos maxime'
         + ' praesentium totam!',
-      height: '100%',
     },
   },
 ];
 
-const stepComponents = {
-  [QUESTION_TYPE.VIDEO]: Player,
-  [QUESTION_TYPE.FILE_UPLOAD]: UploadFile,
-  [QUESTION_TYPE.AGREEMENT]: ScrolledTextArea,
-};
+const LicenseSteps = () => {
+  const [currentStep, setCurrentStep] = useState(0);
 
-const LicenseSteps = () => (
-  <LicenseProgress steps={steps}>
-    {steps.map((item) => {
-      const Component = stepComponents[item.type];
-      return (
-        <Col align="center" style={{ background: 'white', height: '100vh' }}>
-          <Route
-            path={`/license/step/${item.id}`}
-            render={() => (
-              <Component {...item.data} />
-            )}
-          />
-        </Col>
-      );
-    })}
-  </LicenseProgress>
-);
+  const goNext = useCallback(() => {
+    setCurrentStep(currentStep + 1);
+  }, [currentStep]);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    history.push(`/license/step/${currentStep}`);
+  }, [currentStep]);
+
+  return (
+    <LicenseProgress steps={steps} setCurrentStep={setCurrentStep} currentStepIndex={currentStep}>
+      <Route
+        path="/license/step/:index"
+        render={({ match: { params: { index } } }) => (
+          <LicenseStepContainer step={steps[index]} goNext={goNext} />
+        )}
+      />
+    </LicenseProgress>
+  );
+};
 
 export default LicenseSteps;

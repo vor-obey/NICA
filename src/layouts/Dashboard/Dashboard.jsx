@@ -28,7 +28,7 @@ import SpecificLeague from './containers/SpecificLeague';
 import DashboardHeader from './components/DashboardHeader';
 import DashboardFooter from './components/DashboardFooter';
 import Logo from '../../components/Logo';
-import LicenseSteps from './containers/LicenseStatus/LicenseSteps';
+import LicenseSteps from './containers/LicenseSteps';
 
 const { roles: ROLES } = permissions;
 const {
