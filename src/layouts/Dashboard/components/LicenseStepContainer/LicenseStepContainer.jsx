@@ -50,12 +50,10 @@ const LicenseStepContainer = memo(({ step, goNext }) => {
       <Row>
         {renderComponent()}
       </Row>
-      <Row>
-        <Col align="center">
-          <Button disabled={!isDone} onClick={goNext}>
-            Next Step
-          </Button>
-        </Col>
+      <Row justify="end">
+        <Button disabled={!isDone} onClick={goNext}>
+          Next Step
+        </Button>
       </Row>
     </Card>
   );
