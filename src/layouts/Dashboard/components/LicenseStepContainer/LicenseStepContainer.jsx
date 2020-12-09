@@ -1,4 +1,9 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Button,
   Card,
@@ -13,6 +18,10 @@ import ScrolledTextArea from '../../../../components/ScrolledTextArea';
 const LicenseStepContainer = memo(({ step, goNext }) => {
   const [isDone, setDone] = useState(false);
   const onFinish = useCallback(() => setDone(true), []);
+
+  useEffect(() => {
+    setDone(false);
+  }, [step]);
 
   const renderComponent = useCallback(() => {
     switch (step.type) {
