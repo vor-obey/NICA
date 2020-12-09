@@ -5,6 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { permissions } from '../../configs/app';
 import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
 import checkPermission from '../../utils/checkPermissions';
+import Forbidden from './components/Forbidden';
 
 // If the "roles" prop are not defined, only checks authorization.
 // If the "roles" prop are defined, checks authorization and access rights.
@@ -20,6 +21,7 @@ const PrivateRoute = ({ roles, ...props }) => {
     if (!roles || checkPermission(data?.user?.role, roles)) {
       return <Route {...props} />;
     }
+    return <Route {...props} component={Forbidden} />;
   }
 
   return (
