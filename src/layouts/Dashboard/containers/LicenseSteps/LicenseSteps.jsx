@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import LicenseProgress from '../../../../components/LicenseProgress';
 import QUESTION_TYPE from '../../../../utils/constants';
 import LicenseStepContainer from '../../components/LicenseStepContainer';
@@ -103,26 +103,28 @@ const steps = [
 ];
 
 const LicenseSteps = () => {
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const goNext = useCallback(() => {
-    setCurrentStep(currentStep + 1);
-  }, [currentStep]);
-
   const history = useHistory();
+  const { licenseId, index } = useParams();
+
+  const currentIndex = useMemo(() => parseInt(index, 10), [index]);
 
   useEffect(() => {
-    history.push(`/license/step/${currentStep}`);
-  }, [currentStep]);
+    history.push(`/licenses/${licenseId}/step/0`);
+  }, []);
+
+  const setCurrentStep = useCallback((nextStep) => {
+    if (!steps[nextStep]) return;
+
+    history.push(`/licenses/${licenseId}/step/${nextStep}`);
+  }, [history]);
+
+  const goNext = useCallback(() => {
+    setCurrentStep(currentIndex + 1);
+  }, [setCurrentStep, currentIndex]);
 
   return (
-    <LicenseProgress steps={steps} setCurrentStep={setCurrentStep} currentStepIndex={currentStep}>
-      <Route
-        path="/license/step/:index"
-        render={({ match: { params: { index } } }) => (
-          <LicenseStepContainer step={steps[index]} goNext={goNext} />
-        )}
-      />
+    <LicenseProgress steps={steps} setCurrentStep={setCurrentStep} currentStepIndex={currentIndex}>
+      <LicenseStepContainer step={steps[currentIndex]} goNext={goNext} />
     </LicenseProgress>
   );
 };

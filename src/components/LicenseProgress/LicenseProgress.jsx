@@ -1,41 +1,23 @@
 /* eslint-disable react/no-array-index-key */
 import PropTypes from 'prop-types';
-import { SendOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { SendOutlined } from '@ant-design/icons';
 import {
   Steps, Row, Col, Divider,
 } from 'antd';
-import React, {
-  useEffect,
-  useMemo, useState,
-} from 'react';
-import { Link } from 'react-router-dom';
-
-const LicenseProgressStep = () => (
-  <>
-  </>
-);
+import React, { useMemo } from 'react';
 
 const LicenseProgress = ({
-  steps, currentStepIndex, children, layout,
+  steps, currentStepIndex, children, layout, setCurrentStep,
 }) => {
-  const childrenArray = React.Children.toArray(children);
-  const [stepIndex, setStepIndex] = useState(currentStepIndex || 0);
-
-  useEffect(() => {
-    if (currentStepIndex !== stepIndex) {
-      setStepIndex(currentStepIndex);
-    }
-  }, [currentStepIndex]);
-
   const stepsProgress = useMemo(
     () => (steps.map(({ title, description, id }, index) => (
       <Steps.Step
         key={title}
-        title={<Link to={`${index}`}>{title}</Link>}
-        description={<Link to={`${index}`}>{description}</Link>}
+        title={title}
+        description={description}
       />
     ))),
-    [steps, stepIndex],
+    [steps, currentStepIndex],
   );
 
   return (
@@ -43,9 +25,9 @@ const LicenseProgress = ({
       <Col span={layout === 'vertical' ? 4 : 24}>
         <Steps
           status="process"
-          current={stepIndex}
+          current={currentStepIndex}
           direction={layout}
-          onChange={(current) => setStepIndex(current)}
+          onChange={setCurrentStep}
         >
           {stepsProgress}
           <Steps.Step
@@ -59,7 +41,7 @@ const LicenseProgress = ({
         <Divider type={layout} />
       </Col>
       <Col span={layout === 'vertical' ? 19 : 24}>
-        {childrenArray[stepIndex]}
+        {children}
       </Col>
     </Row>
   );
@@ -69,7 +51,6 @@ export const StepPropType = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  done: PropTypes.bool.isRequired,
 }).isRequired;
 
 LicenseProgress.propTypes = {

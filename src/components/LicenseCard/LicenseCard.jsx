@@ -30,8 +30,6 @@ const LicenseCard = ({
       style={{ margin: 10 }}
       cover={<Image src={image} />}
     >
-      <div className={!access && styles.overlay} />
-
       <Row className={styles.progress}>
         <Progress percent={progress} status="active" />
       </Row>
@@ -43,8 +41,7 @@ const LicenseCard = ({
               <Title level={3}>
                 {`License ${level}`}
               </Title>
-
-)}
+            )}
             description={license}
           />
         </Col>

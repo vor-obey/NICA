@@ -1,5 +1,5 @@
 import faker from 'faker/locale/en';
-import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/LicenseStatus/LicenseStatus';
+import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/CoachLicense/CoachLicense';
 import { USER_QUERY } from '../layouts/Dashboard/containers/UserProfile/UserProfile';
 
 const league = {
