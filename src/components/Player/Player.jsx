@@ -39,7 +39,6 @@ const Player = ({ onStart, onFinish, url }) => {
     <div className={styles.playerWrapper}>
       {renderButton}
       <ReactPlayer
-        controls
         playing={play}
         width="100%"
         height="100%"
