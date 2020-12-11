@@ -1,5 +1,8 @@
 import faker from 'faker';
 import { LICENSES_QUERY } from '../layouts/Dashboard/containers/Licenses/Licenses';
+import { LICENSE_STEPS_QUERY } from '../layouts/Dashboard/containers/LicenseSteps/LicenseSteps';
+import QUESTION_TYPE from '../utils/constants';
+import { createQuiz } from '../stories/Quiz/Quiz.stories';
 
 const statuses = ['signed', 'paid', 'passed'];
 const generateLeagues = (length) => [...new Array(length)].map((item, index) => ({
@@ -46,4 +49,46 @@ const adminLicensesMock = {
   }),
 };
 
-export default [adminLicensesMock];
+const licenseStepsMock = {
+  request: {
+    query: LICENSE_STEPS_QUERY,
+    variables: {
+      licenseId: 1,
+    },
+  },
+  newData: () => ({
+    data: {
+      steps: [{
+        id: 1,
+        title: 'Introduction video',
+        description: 'See the video to understand our goals',
+        type: QUESTION_TYPE.VIDEO,
+        data: {
+          url: 'https://player.vimeo.com/video/454825064',
+        },
+        quiz: createQuiz(),
+      },
+      {
+        id: 2,
+        title: 'Upload first aid Certificate',
+        description: 'Document upload',
+        type: QUESTION_TYPE.FILE_UPLOAD,
+        data: {},
+        quiz: '',
+      },
+      {
+        id: 3,
+        title: 'Coach agreement',
+        description: 'Read and confirm the document',
+        type: QUESTION_TYPE.AGREEMENT,
+        data: {
+          document: faker.lorem.words(1000),
+        },
+        quiz: '',
+      },
+      ],
+    },
+  }),
+};
+
+export default [adminLicensesMock, licenseStepsMock];
