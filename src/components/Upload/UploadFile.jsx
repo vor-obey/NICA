@@ -5,8 +5,8 @@ import { Col, Upload } from 'antd';
 const { Dragger } = Upload;
 
 const edit = {
-  type: ['png', 'txt'],
-  size: 2500000,
+  type: 'image/png',
+  size: 250000,
   name: 'file',
   multiple: true,
   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
