@@ -29,6 +29,7 @@ import DashboardHeader from './components/DashboardHeader';
 import DashboardFooter from './components/DashboardFooter';
 import Logo from '../../components/Logo';
 import LicenseSteps from './containers/LicenseSteps';
+import LicenseStatus from './containers/LicenseStatus/LicenseStatus';
 
 const { roles: ROLES } = permissions;
 const {
@@ -153,6 +154,12 @@ const Dashboard = () => {
                 exact
                 path="/licenses/:licenseId/step/:index"
                 component={LicenseSteps}
+                roles={[ROLES.COACH]}
+              />
+              <PrivateRoute
+                exact
+                path="/licenses/0/steps"
+                component={LicenseStatus}
                 roles={[ROLES.COACH]}
               />
             </Switch>
