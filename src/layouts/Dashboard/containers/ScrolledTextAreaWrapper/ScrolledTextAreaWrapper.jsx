@@ -6,7 +6,7 @@ import styles from './ScrolledTextAreaWrapper.module.scss';
 const ScrolledTextAreaWrapper = ({ document, onFinish }) => {
   const [checked, setChecked] = useState(false);
   const [disable, setDisable] = useState(true);
-  const height = 300;
+  const height = 500;
 
   const onFinishHandle = () => {
     setDisable(false);
@@ -25,7 +25,7 @@ const ScrolledTextAreaWrapper = ({ document, onFinish }) => {
   return (
     <>
       <ScrolledTextArea onFinish={onFinishHandle} height={height} document={document} />
-      <Row className={styles.checkboxPosition}>
+      <Row>
         <Checkbox
           checked={checked}
           disabled={disable}
