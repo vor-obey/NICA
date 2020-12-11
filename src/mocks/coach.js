@@ -20,7 +20,8 @@ const league = {
 const generateCoachesLicense = (length) => [...new Array(length)].map((item, index) => (
   {
     id: index,
-    license: faker.commerce.productName(),
+    name: faker.commerce.productName(),
+    step: faker.random.number({ min: 1, max: 4 }),
     level: index,
     progress: faker.random.number(80),
     completed: false,
