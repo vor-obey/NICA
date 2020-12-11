@@ -19,7 +19,11 @@ import Quiz from '../../../../components/Quiz';
 
 const LicenseStepContainer = memo(({ step, goNext, loading }) => {
   const [isDone, setDone] = useState(false);
+  const [viewed, setViewed] = useState(false);
+  const [visible, setVisible] = useState(false);
   const onFinish = useCallback(() => setDone(true), []);
+  const activeQuizBtn = useCallback(() => setViewed(true), []);
+  const showQuiz = useCallback(() => setVisible(true), []);
 
   useEffect(() => {
     setDone(false);
@@ -30,9 +34,9 @@ const LicenseStepContainer = memo(({ step, goNext, loading }) => {
       case QUESTION_TYPE.VIDEO: {
         return (
           <>
-            <PlayerWrapper onFinish={onFinish} url={step?.data?.url} />
-            <Row justify="end">
-              <Button disabled={!isDone} style={{ marginTop: 20 }}>
+            <PlayerWrapper onFinish={activeQuizBtn} url={step?.data?.url} />
+            <Row>
+              <Button disabled={!viewed} onClick={showQuiz} style={{ marginTop: 20 }}>
                 Show quiz
               </Button>
             </Row>
@@ -48,7 +52,7 @@ const LicenseStepContainer = memo(({ step, goNext, loading }) => {
       default:
         return null;
     }
-  }, [step, isDone]);
+  }, [step, isDone, viewed, visible]);
 
   return (
     <Skeleton loading={loading}>
@@ -64,16 +68,19 @@ const LicenseStepContainer = memo(({ step, goNext, loading }) => {
         </Row>
       </Card>
 
-      {step?.quiz && (
+      {step?.quiz && visible && (
         <div style={{ width: '100%' }}>
-          <Quiz onSubmit={() => {}} quiz={step?.quiz} />
+          <Quiz onSubmit={onFinish} quiz={step?.quiz} />
         </div>
       )}
 
       <Row justify="end">
+        {visible && (
         <Button disabled={!isDone} onClick={goNext} style={{ marginTop: 20 }}>
           Next Step
         </Button>
+        )}
+
       </Row>
     </Skeleton>
   );

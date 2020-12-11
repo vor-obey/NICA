@@ -10,16 +10,10 @@ const { Meta } = Card;
 const { Title } = Typography;
 
 const LicenseCard = ({
-  progress, level, license, access, image,
+  progress, level, license, access, image, step,
 }) => {
   const renderProgress = () => (
-    !access
-      ? (
-        <div className={styles.notAvailable}>
-          <QuestionOutlined />
-        </div>
-      )
-      : <Progress type="circle" percent={progress} width={70} status={progress !== 100 && 'exception'} />
+    <Progress type="circle" percent={progress} width={70} status={progress !== 100 && 'exception'} format={() => <div style={{ fontSize: 25 }}>{step}</div>} />
   );
 
   return (
@@ -28,7 +22,7 @@ const LicenseCard = ({
       bordered={false}
       className={styles.licenseCard}
       style={{ margin: 10 }}
-      cover={<Image src={image} />}
+      cover={<Image src={image} style={{ padding: 1 }} />}
     >
       <Row className={styles.progress}>
         <Progress percent={progress} status="active" />
