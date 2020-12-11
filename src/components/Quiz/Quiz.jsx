@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Card, Carousel, Form, Button, Space, Typography, Steps,
+  Card, Form, Button, Space, Typography, Steps,
 } from 'antd';
 import Question, { QuestPropType } from './components/Question';
 
@@ -21,12 +21,9 @@ const Quiz = ({
   }), {}));
   const carousel = useRef();
 
-  useEffect(() => {
-    carousel.current.goTo(step);
-  }, [step]);
-
   return (
     <Form
+      preserve
       layout="vertical"
       onFinishFailed={({ values }) => {
         setStepStatuses(Object.keys(values)
@@ -58,18 +55,7 @@ const Quiz = ({
       )}
       >
         <Form.Item>
-          <Carousel
-            afterChange={setStep}
-            ref={carousel}
-          >
-            {
-              questions.map((item) => (
-                <div key={item.id} className={styles.quiz}>
-                  <Question question={item} />
-                </div>
-              ))
-            }
-          </Carousel>
+          <Question question={questions[step]} />
         </Form.Item>
         <Form.Item>
           <Steps
@@ -97,7 +83,7 @@ const Quiz = ({
               ghost
               type="primary"
               onClick={() => {
-                carousel.current.prev();
+                setStep((v) => (v - 1 + questions.length) % questions.length);
               }}
             >
               Prev Question
@@ -106,7 +92,7 @@ const Quiz = ({
               ghost
               type="primary"
               onClick={() => {
-                carousel.current.next();
+                setStep((v) => (v + 1) % questions.length);
               }}
             >
               Next Question
