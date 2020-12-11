@@ -1,5 +1,4 @@
 import React, {
-  useEffect,
   useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +6,6 @@ import {
   Card, Carousel, Form, Button, Space, Typography, Steps,
 } from 'antd';
 import Question, { QuestPropType } from './components/Question';
-import styles from './Quiz.module.scss';
 
 const { Step } = Steps;
 const { Title, Paragraph } = Typography;
@@ -46,16 +44,17 @@ const Quiz = ({
       }}
       onFinish={onSubmit}
     >
-      <Card title={(
-        <div>
-          <Title level={2} ellipsis>{title}</Title>
-          <Paragraph
-            ellipsis
-            type="secondary"
-          >
-            {description}
-          </Paragraph>
-        </div>
+      <Card
+        title={(
+          <div>
+            <Title level={2} ellipsis>{title}</Title>
+            <Paragraph
+              ellipsis
+              type="secondary"
+            >
+              {description}
+            </Paragraph>
+          </div>
       )}
       >
         <Form.Item>
