@@ -1,16 +1,21 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Row } from 'antd';
+import {
+  Card, Row, Typography, Skeleton,
+} from 'antd';
 import { Link } from 'react-router-dom';
 import LicenseCard from '../../../../components/LicenseCard/LicenseCard';
 import styles from './Licenses.module.scss';
+
+const { Title } = Typography;
 
 export const COACH_LICENSE_QUERY = gql`
     query dashboardLicenseCoach($coachId: ID!){
         license (id: $coachId) {
             id,
-            license,
+            name,
             level,
+            step,
             progress,
             completed,
             access,
@@ -19,32 +24,38 @@ export const COACH_LICENSE_QUERY = gql`
     }`;
 
 const CoachLicense = () => {
-  const { data } = useQuery(COACH_LICENSE_QUERY, {
+  const { data, loading } = useQuery(COACH_LICENSE_QUERY, {
     variables: {
       coachId: 1,
     },
   });
 
   return (
-    <Row className={styles.licensesRow}>
-      {data?.license.map(({
-        progress,
-        level,
-        license,
-        id,
-        image,
-      }) => (
-        <Link to="/licenses/0/step/0" key={id}>
-          <LicenseCard
-            key={id}
-            progress={progress}
-            level={level}
-            license={license}
-            image={image}
-          />
-        </Link>
-      ))}
-    </Row>
+    <Card title={<Title>Licenses</Title>}>
+      <Skeleton loading={loading}>
+        <Row className={styles.licensesRow}>
+          {data?.license.map(({
+            progress,
+            level,
+            name,
+            id,
+            image,
+            step,
+          }) => (
+            <Link to="/licenses/0/steps" key={id}>
+              <LicenseCard
+                key={id}
+                progress={progress}
+                level={level}
+                name={name}
+                image={image}
+                step={step}
+              />
+            </Link>
+          ))}
+        </Row>
+      </Skeleton>
+    </Card>
   );
 };
 
