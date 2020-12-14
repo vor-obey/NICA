@@ -1,22 +1,25 @@
 import { Steps } from 'antd';
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { SendOutlined } from '@ant-design/icons';
+import { renderIconsResult } from '../../layouts/Dashboard/containers/LicenseStatus/LicenseStatus';
 
 const ProgressSteps = ({
   steps, current, onChange, direction,
 }) => {
   const stepsProgress = useMemo(
-    () => (steps.map(({ title, description, id }) => (
+    () => (steps.map(({
+      title, description, id, status,
+    }) => (
       <Steps.Step
+        icon={renderIconsResult[status]}
         key={title}
-        title={<Link to={`${id}`}>{title}</Link>}
-        description={<Link to={`${id}`}>{description}</Link>}
+        title={title}
+        description={description}
       />
     ))),
     [steps, current],
   );
+
   return (
     <Steps
       status="process"
@@ -25,11 +28,6 @@ const ProgressSteps = ({
       onChange={onChange}
     >
       {stepsProgress}
-      <Steps.Step
-        icon={<SendOutlined />}
-        title="Approve"
-        description="Confirmation"
-      />
     </Steps>
   );
 };
