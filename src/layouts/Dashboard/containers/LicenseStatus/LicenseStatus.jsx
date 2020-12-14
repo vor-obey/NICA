@@ -5,53 +5,67 @@ import { CheckCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined } from
 import { Link } from 'react-router-dom';
 import TableWidget from '../../components/TableWidget';
 import useAuthQuery from '../../../../hooks/useAuthQuery';
+import { RESPONSE_TYPE } from '../../../../utils/constants';
 
 const resultIconS = {
   color: 'green',
-  fontSize: 20,
+  fontSize: 30,
 };
 
-const resultIconF = {
+const resultIconR = {
   color: 'red',
-  fontSize: 20,
+  fontSize: 30,
 };
 
-const renderIconsResult = (v) => (
-  v ? <CheckCircleOutlined style={resultIconS} />
-    : <CloseCircleOutlined style={resultIconF} />);
+const resultIconI = {
+  color: 'grey',
+  fontSize: 30,
+};
+const resultIconP = {
+  color: '#1890ff',
+  fontSize: 30,
+};
+
+export const renderIconsResult = {
+  [RESPONSE_TYPE.INITIAL]: <CloseCircleOutlined style={resultIconI} />,
+  [RESPONSE_TYPE.PENDING]: <CloseCircleOutlined style={resultIconP} />,
+  [RESPONSE_TYPE.APPROVED]: <CheckCircleOutlined style={resultIconS} />,
+  [RESPONSE_TYPE.REJECTED]: <CloseCircleOutlined style={resultIconR} />,
+};
 
 const columns = [
   {
     title: 'License Requirement',
     ellipsis: true,
     dataIndex: 'title',
-    render: (text, record) => <Link to={`/licenses/0/step/${record.id}`}>{text}</Link>,
+    render: (text, record) => (
+      <Link to={`/licenses/0/step/${record.id}`}>
+        {text}
+      </Link>
+    ),
   },
   {
     title: 'Current Status',
     ellipsis: true,
-    dataIndex: 'currentStatus',
+    dataIndex: 'status',
   },
   {
     title: 'License Level: 1',
     ellipsis: true,
-    dataIndex: 'licenseLevel1',
     align: 'center',
-    render: renderIconsResult,
+    render: (record) => renderIconsResult[record.status],
   },
   {
     title: 'License Level: 2',
     ellipsis: true,
-    dataIndex: 'licenseLevel2',
     align: 'center',
-    render: renderIconsResult,
+    render: (record) => renderIconsResult[record.status],
   },
   {
     title: 'License Level: 3',
     ellipsis: true,
-    dataIndex: 'licenseLevel3',
     align: 'center',
-    render: renderIconsResult,
+    render: (record) => renderIconsResult[record.status],
   },
 ];
 
@@ -64,10 +78,11 @@ export const LICENSE_STEPS_QUERY = gql`
             type,
             data,
             quiz,
+            status,
         },
     }`;
 
-const LicenseStatus = () => {
+export const LicenseStatus = () => {
   const { loading, data } = useAuthQuery(LICENSE_STEPS_QUERY, {
     variables: {
       licenseId: 1,
@@ -94,5 +109,3 @@ const LicenseStatus = () => {
     </Skeleton>
   );
 };
-
-export default LicenseStatus;
