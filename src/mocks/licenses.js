@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { LICENSES_QUERY } from '../layouts/Dashboard/containers/Licenses/Licenses';
 import { LICENSE_STEPS_QUERY } from '../layouts/Dashboard/containers/LicenseSteps/LicenseSteps';
-import QUESTION_TYPE from '../utils/constants';
+import { QUESTION_TYPE, RESPONSE_TYPE } from '../utils/constants';
 import { createQuiz } from '../stories/Quiz/Quiz.stories';
 
 const statuses = ['signed', 'paid', 'passed'];
@@ -67,6 +67,7 @@ const licenseStepsMock = {
           url: 'https://player.vimeo.com/video/454825064',
         },
         quiz: createQuiz(),
+        status: RESPONSE_TYPE.INITIAL,
       },
       {
         id: 2,
@@ -75,6 +76,7 @@ const licenseStepsMock = {
         type: QUESTION_TYPE.FILE_UPLOAD,
         data: {},
         quiz: '',
+        status: RESPONSE_TYPE.PENDING,
       },
       {
         id: 3,
@@ -85,6 +87,7 @@ const licenseStepsMock = {
           document: faker.lorem.words(1000),
         },
         quiz: '',
+        status: RESPONSE_TYPE.APPROVED,
       },
       ],
     },
