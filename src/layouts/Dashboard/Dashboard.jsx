@@ -29,7 +29,7 @@ import DashboardHeader from './components/DashboardHeader';
 import DashboardFooter from './components/DashboardFooter';
 import Logo from '../../components/Logo';
 import LicenseSteps from './containers/LicenseSteps';
-import LicenseStatus from './containers/LicenseStatus/LicenseStatus';
+import { LicenseStatus } from './containers/LicenseStatus/LicenseStatus';
 
 const { roles: ROLES } = permissions;
 const {
