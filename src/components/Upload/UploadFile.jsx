@@ -5,7 +5,7 @@ import { Col, Upload } from 'antd';
 const { Dragger } = Upload;
 
 const edit = {
-  type: 'image/png',
+  type: '.png',
   size: 250000,
   name: 'file',
   multiple: true,
