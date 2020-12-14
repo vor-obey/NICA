@@ -11,7 +11,7 @@ import {
   Row,
   Skeleton,
 } from 'antd';
-import QUESTION_TYPE from '../../../../utils/constants';
+import { QUESTION_TYPE } from '../../../../utils/constants';
 import ScrolledTextAreaWrapper from '../../containers/ScrolledTextAreaWrapper';
 import PlayerWrapper from '../../containers/PlayerWrapper';
 import UploadFileWrapper from '../../containers/UploadFileWrapper';
@@ -75,11 +75,9 @@ const LicenseStepContainer = memo(({ step, goNext, loading }) => {
       )}
 
       <Row justify="end">
-        {visible && (
         <Button disabled={!isDone} onClick={goNext} style={{ marginTop: 20 }}>
           Next Step
         </Button>
-        )}
 
       </Row>
     </Skeleton>
