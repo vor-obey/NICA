@@ -14,6 +14,7 @@ export const LICENSE_STEPS_QUERY = gql`
             type,
             data,
             quiz,
+            status,
         },
     }`;
 
