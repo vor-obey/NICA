@@ -33,7 +33,7 @@ const DashboardHeader = ({
 
   return (
     <Header className={styles.header} {...props}>
-      <Row justify="space-between">
+      <Row justify="space-between" wrap={false}>
         <Col>
           {siderTrigger}
         </Col>
