@@ -3,11 +3,13 @@ import {
   Layout,
   Button,
   Drawer,
+  BackTop,
 } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import {
   Switch,
@@ -183,6 +185,14 @@ const Dashboard = () => {
           />
         )}
       />
+      <BackTop>
+        <Button
+          size="large"
+          title="To top"
+          shape="circle"
+          icon={<VerticalAlignTopOutlined />}
+        />
+      </BackTop>
     </Layout>
   );
 };
