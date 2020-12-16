@@ -11,7 +11,7 @@ import {
   Row,
   Skeleton,
 } from 'antd';
-import { QUESTION_TYPE } from '../../../../utils/constants';
+import { LICENSE_LEVEL_STEP_TYPE } from '../../../../utils/constants';
 import ScrolledTextAreaWrapper from '../../containers/ScrolledTextAreaWrapper';
 import PlayerWrapper from '../../containers/PlayerWrapper';
 import UploadFileWrapper from '../../containers/UploadFileWrapper';
@@ -31,7 +31,7 @@ const LicenseStepContainer = memo(({ step, goNext, loading }) => {
 
   const renderComponent = useCallback(() => {
     switch (step.type) {
-      case QUESTION_TYPE.VIDEO: {
+      case LICENSE_LEVEL_STEP_TYPE.VIDEO: {
         return (
           <>
             <PlayerWrapper onFinish={activeQuizBtn} url={step?.data?.url} />
@@ -43,10 +43,10 @@ const LicenseStepContainer = memo(({ step, goNext, loading }) => {
           </>
         );
       }
-      case QUESTION_TYPE.AGREEMENT: {
+      case LICENSE_LEVEL_STEP_TYPE.AGREEMENT: {
         return <ScrolledTextAreaWrapper document={step.data.document} onFinish={onFinish} />;
       }
-      case QUESTION_TYPE.FILE_UPLOAD: {
+      case LICENSE_LEVEL_STEP_TYPE.FILE_UPLOAD: {
         return <UploadFileWrapper onFinish={onFinish} />;
       }
       default:

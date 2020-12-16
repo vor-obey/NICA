@@ -31,6 +31,7 @@ import DashboardHeader from './components/DashboardHeader';
 import DashboardFooter from './components/DashboardFooter';
 import Logo from '../../components/Logo';
 import LicenseSteps from './containers/LicenseSteps';
+import CreateLicense from './containers/CreateLicense';
 import { LicenseStatus } from './containers/LicenseStatus/LicenseStatus';
 
 const { roles: ROLES } = permissions;
@@ -163,6 +164,11 @@ const Dashboard = () => {
                 path="/licenses/0/steps"
                 component={LicenseStatus}
                 roles={[ROLES.COACH]}
+              />
+              <PrivateRoute
+                path="/add-license"
+                component={CreateLicense}
+                roles={[ROLES.SUPER_ADMIN, ROLES.LEAGUE_ADMIN]}
               />
             </Switch>
           </Content>

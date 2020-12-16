@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { gql } from '@apollo/client';
 import {
   Table, Row, Col, Button, Typography,
@@ -50,14 +50,16 @@ const Licenses = () => {
         <Title data-fix-margins className={styles.tableTitle}>Licenses</Title>
       </Col>
       <Col>
-        <Button
-          size="large"
-          type="primary"
-          icon={<PlusOutlined />}
-          className={styles.tableFooterBtn}
-        >
-          create license
-        </Button>
+        <Link to="/add-license">
+          <Button
+            size="large"
+            type="primary"
+            icon={<PlusOutlined />}
+            className={styles.tableFooterBtn}
+          >
+            create license
+          </Button>
+        </Link>
       </Col>
     </Row>
   ), []);
