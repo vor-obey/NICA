@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { LICENSES_QUERY } from '../layouts/Dashboard/containers/Licenses/Licenses';
 import { LICENSE_STEPS_QUERY } from '../layouts/Dashboard/containers/LicenseSteps/LicenseSteps';
-import { QUESTION_TYPE, RESPONSE_TYPE } from '../utils/constants';
+import { LICENSE_LEVEL_STEP_TYPE, RESPONSE_TYPE } from '../utils/constants';
 import { createQuiz } from '../stories/Quiz/Quiz.stories';
 
 const statuses = ['signed', 'paid', 'passed'];
@@ -62,33 +62,33 @@ const licenseStepsMock = {
         id: 1,
         title: 'Introduction video',
         description: 'See the video to understand our goals',
-        type: QUESTION_TYPE.VIDEO,
+        type: LICENSE_LEVEL_STEP_TYPE.VIDEO,
         data: {
           url: 'https://player.vimeo.com/video/454825064',
         },
         quiz: createQuiz(),
         status: RESPONSE_TYPE.INITIAL,
       },
-      {
-        id: 2,
-        title: 'Upload first aid Certificate',
-        description: 'Document upload',
-        type: QUESTION_TYPE.FILE_UPLOAD,
-        data: {},
-        quiz: '',
-        status: RESPONSE_TYPE.PENDING,
-      },
-      {
-        id: 3,
-        title: 'Coach agreement',
-        description: 'Read and confirm the document',
-        type: QUESTION_TYPE.AGREEMENT,
-        data: {
-          document: faker.lorem.words(1000),
+        {
+          id: 2,
+          title: 'Upload first aid Certificate',
+          description: 'Document upload',
+          type: LICENSE_LEVEL_STEP_TYPE.FILE_UPLOAD,
+          data: {},
+          quiz: '',
+          status: RESPONSE_TYPE.PENDING,
         },
-        quiz: '',
-        status: RESPONSE_TYPE.APPROVED,
-      },
+        {
+          id: 3,
+          title: 'Coach agreement',
+          description: 'Read and confirm the document',
+          type: LICENSE_LEVEL_STEP_TYPE.AGREEMENT,
+          data: {
+            document: faker.lorem.words(1000),
+          },
+          quiz: '',
+          status: RESPONSE_TYPE.APPROVED,
+        },
       ],
     },
   }),
