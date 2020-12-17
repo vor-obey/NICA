@@ -58,17 +58,18 @@ const licenseStepsMock = {
   },
   newData: () => ({
     data: {
-      steps: [{
-        id: 1,
-        title: 'Introduction video',
-        description: 'See the video to understand our goals',
-        type: LICENSE_LEVEL_STEP_TYPE.VIDEO,
-        data: {
-          url: 'https://player.vimeo.com/video/454825064',
+      steps: [
+        {
+          id: 1,
+          title: 'Introduction video',
+          description: 'See the video to understand our goals',
+          type: LICENSE_LEVEL_STEP_TYPE.VIDEO,
+          data: {
+            url: 'https://player.vimeo.com/video/454825064',
+          },
+          quiz: createQuiz(),
+          status: RESPONSE_TYPE.INITIAL,
         },
-        quiz: createQuiz(),
-        status: RESPONSE_TYPE.INITIAL,
-      },
         {
           id: 2,
           title: 'Upload first aid Certificate',

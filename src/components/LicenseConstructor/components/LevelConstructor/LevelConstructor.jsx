@@ -31,9 +31,9 @@ const LevelConstructor = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const createStep = useCallback((values) => {
     const action = {
-      type: ACTIONS.ADD_STEP_TO_LEVEL,
+      type: ACTIONS.ADD_STEP,
       payload: {
-        index,
+        levelIndex: index,
         values,
       },
     };
@@ -55,7 +55,7 @@ const LevelConstructor = ({
 
   const removeStep = useCallback((stepIndex) => {
     const action = {
-      type: ACTIONS.REMOVE_STEP_FROM_LEVEL,
+      type: ACTIONS.REMOVE_STEP,
       payload: {
         levelIndex: index,
         stepIndex,
@@ -102,6 +102,38 @@ const LevelConstructor = ({
     },
   ], []);
 
+  const onCancelLevelInfoFormHandle = useCallback(() => {
+    setIsEdit(false);
+  }, [setIsEdit]);
+
+  const onSubmitLevelInfoFormHandle = useCallback((values) => {
+    dispatch({
+      type: ACTIONS.UPDATE_LEVEL,
+      payload: {
+        levelIndex: index,
+        values,
+      },
+    });
+    setIsEdit(false);
+  }, [dispatch, setIsEdit]);
+
+  const renderStepsTableFooter = useCallback(() => (
+    <Button
+      block
+      ghost
+      type="primary"
+      icon={<PlusOutlined />}
+      style={{
+        borderStyle: 'dashed',
+      }}
+      onClick={onClickAddStepBtnHandle}
+    >
+      Add Step
+    </Button>
+  ), [onClickAddStepBtnHandle]);
+
+  const onClickEditBtnHandle = useCallback(() => setIsEdit(true), [setIsEdit]);
+
   return (
     <Card
       className={styles.cardWidget}
@@ -122,7 +154,7 @@ const LevelConstructor = ({
                 size="large"
                 type="primary"
                 icon={<EditOutlined />}
-                onClick={() => setIsEdit(true)}
+                onClick={onClickEditBtnHandle}
               />
             </Space>
           </Col>
@@ -140,19 +172,8 @@ const LevelConstructor = ({
       <Divider />
       <LevelInfoForm
         visible={isEdit}
-        onCancel={() => {
-          setIsEdit(false);
-        }}
-        onSubmit={(values) => {
-          dispatch({
-            type: ACTIONS.LEVEL_CHANGE,
-            payload: {
-              index,
-              values,
-            },
-          });
-          setIsEdit(false);
-        }}
+        onCancel={onCancelLevelInfoFormHandle}
+        onSubmit={onSubmitLevelInfoFormHandle}
         initialValues={level}
       />
       <Title level={4}>Level Steps</Title>
@@ -160,20 +181,7 @@ const LevelConstructor = ({
         pagination={null}
         dataSource={steps}
         columns={stepsColumns}
-        footer={() => (
-          <Button
-            block
-            ghost
-            type="primary"
-            icon={<PlusOutlined />}
-            style={{
-              borderStyle: 'dashed',
-            }}
-            onClick={onClickAddStepBtnHandle}
-          >
-            Add Step
-          </Button>
-        )}
+        footer={renderStepsTableFooter}
       />
       <StepsConstructor
         onSubmit={createStep}

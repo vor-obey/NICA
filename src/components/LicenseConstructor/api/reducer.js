@@ -2,7 +2,7 @@ import produce from 'immer';
 import ACTIONS from './actions';
 
 const handlers = {
-  [ACTIONS.ADD_LEVEL_TO_LICENSE]: produce((state) => {
+  [ACTIONS.ADD_LEVEL]: produce((state) => {
     state.levels.push({
       title: '',
       description: '',
@@ -13,30 +13,26 @@ const handlers = {
     const { payload: { index } } = action;
     state.levels.splice(index, 1);
   }),
-  [ACTIONS.LICENSE_INFO_CHANGE]: (state, action) => {
+  [ACTIONS.UPDATE_LICENSE]: (state, action) => {
     const { payload: { values } } = action;
     return {
       ...state,
       ...values,
     };
   },
-  [ACTIONS.LEVEL_CHANGE]: (state, action) => {
-    const { payload: { index, values } } = action;
-    const levels = [...state.levels];
-    levels[index] = {
-      ...levels[index],
+  [ACTIONS.UPDATE_LEVEL]: produce((state, action) => {
+    const { payload: { levelIndex, values } } = action;
+    // eslint-disable-next-line no-param-reassign
+    state.levels[levelIndex] = {
+      ...state.levels[levelIndex],
       ...values,
     };
-    return {
-      ...state,
-      levels,
-    };
-  },
-  [ACTIONS.ADD_STEP_TO_LEVEL]: produce((state, action) => {
-    const { payload: { index, values } } = action;
-    state.levels[index].steps.push(values);
   }),
-  [ACTIONS.REMOVE_STEP_FROM_LEVEL]: produce((state, action) => {
+  [ACTIONS.ADD_STEP]: produce((state, action) => {
+    const { payload: { levelIndex, values } } = action;
+    state.levels[levelIndex].steps.push(values);
+  }),
+  [ACTIONS.REMOVE_STEP]: produce((state, action) => {
     const { payload: { levelIndex, stepIndex } } = action;
     state.levels[levelIndex].steps.splice(stepIndex, 1);
   }),

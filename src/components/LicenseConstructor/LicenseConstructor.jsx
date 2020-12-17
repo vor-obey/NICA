@@ -1,15 +1,13 @@
 /* eslint-disable react/no-array-index-key */
-import _ from 'lodash';
 import React, {
-  useState,
   useEffect,
   useReducer,
-  useCallback,
+  useCallback, useMemo,
 } from 'react';
 import {
-  Button, Card, Space, Typography, Row, Col, Descriptions, Form, Input, Modal,
+  Button, Card, Space, Typography, Form, Input,
 } from 'antd';
-import { PlusOutlined, EditOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import ACTIONS from './api/actions';
 import licenseConstructorReducer from './api/reducer';
 import styles from './LicenseConstructor.module.scss';
@@ -20,16 +18,25 @@ import LicenseConstructorContext from './api/LicenseConstructorContext';
 const { Title, Text } = Typography;
 
 const LicenseConstructor = ({ license, onSubmit }) => {
-  const [isEdit, setIsEdit] = useState(false);
   const [state, dispatch] = useReducer(licenseConstructorReducer, license, initializer);
   const { levels, ...licenseInfo } = state;
+
   useEffect(() => {
     localStorage.setItem(NEW_LICENSE_KEY, JSON.stringify(state));
   }, [state]);
 
+  const onSubmitHandler = useCallback((values) => {
+    dispatch({
+      type: ACTIONS.UPDATE_LICENSE,
+      payload: {
+        values,
+      },
+    });
+  }, []);
+
   const onClickAddLevelBtnHandle = useCallback(() => {
     dispatch({
-      type: ACTIONS.ADD_LEVEL_TO_LICENSE,
+      type: ACTIONS.ADD_LEVEL,
     });
   }, [dispatch]);
 
@@ -37,14 +44,9 @@ const LicenseConstructor = ({ license, onSubmit }) => {
     onSubmit(state);
   }, [onSubmit]);
 
-  const onSubmitHandler = useCallback((values) => {
-    dispatch({
-      type: ACTIONS.LICENSE_INFO_CHANGE,
-      payload: {
-        values,
-      },
-    });
-  }, []);
+  const levelsConstructors = useMemo(() => levels.map((level, index) => (
+    <LevelConstructor key={index} index={index} />
+  )), [levels]);
 
   return (
     <LicenseConstructorContext.Provider value={[
@@ -52,24 +54,14 @@ const LicenseConstructor = ({ license, onSubmit }) => {
       dispatch,
     ]}
     >
-      <Space direction="vertical" className={styles.w100} size="large">
+      <Space
+        size="large"
+        direction="vertical"
+        className={styles.w100}
+      >
         <Card
           className={styles.cardWidget}
-          title={(
-            <Row justify="space-between">
-              <Col>
-                <Title level={2}>License Info</Title>
-              </Col>
-              <Col>
-                <Button
-                  size="large"
-                  type="primary"
-                  icon={<EditOutlined />}
-                  onClick={() => setIsEdit(true)}
-                />
-              </Col>
-            </Row>
-          )}
+          title={<Title level={2}>License Info</Title>}
         >
           <Form
             onFinish={onSubmit}
@@ -99,14 +91,7 @@ const LicenseConstructor = ({ license, onSubmit }) => {
             </Form.Item>
           </Form>
         </Card>
-        {
-          levels.map((level, index) => (
-            <LevelConstructor
-              key={index}
-              index={index}
-            />
-          ))
-        }
+        {levelsConstructors}
         <Button
           ghost
           block
