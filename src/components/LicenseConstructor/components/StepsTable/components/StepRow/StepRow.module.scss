@@ -1,0 +1,55 @@
+$border: 2px dashed #1890ff;
+
+tr.dragging {
+  & > * {
+    transform: rotate(30deg);
+    transform-origin: center;
+  }
+}
+
+tr.stepRow td {
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+tr.dropOverDownward td {
+  border-bottom: $border;
+}
+
+tr.dropOverUpward td {
+  border-top: $border;
+}
+
+tr.dropEmptyContainer td {
+  border: $border
+}
+
+tr.dropArea {
+  &:first-child td {
+    border-top: $border;
+  }
+
+  &:last-child td {
+    border-bottom: $border;
+  }
+
+  & td:first-child {
+    border-left: $border;
+  }
+
+  & td:last-child {
+    border-right: $border;
+  }
+}
+
+tr.invisible {
+  opacity: 0;
+}
+
+
+

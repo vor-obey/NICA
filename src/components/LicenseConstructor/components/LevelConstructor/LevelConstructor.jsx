@@ -2,7 +2,7 @@ import React, {
   useCallback, useContext, useMemo, useState,
 } from 'react';
 import {
-  Button, Card, Typography, Table, Row, Col, Space, Divider,
+  Button, Card, Typography, Row, Col, Space, Descriptions,
 } from 'antd';
 import { DeleteOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import ACTIONS from '../../api/actions';
@@ -11,8 +11,9 @@ import LevelInfoForm from '../forms/LevelInfoForm';
 import styles from '../../LicenseConstructor.module.scss';
 import { LICENSE_LEVEL_STEP_TYPE } from '../../../../utils/constants';
 import LicenseConstructorContext from '../../api/LicenseConstructorContext';
+import StepsTable from '../StepsTable';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 const stepTypeTitles = {
   [LICENSE_LEVEL_STEP_TYPE.FILE_UPLOAD]: 'File uploading',
@@ -65,6 +66,9 @@ const LevelConstructor = ({
   }, [dispatch]);
 
   const stepsColumns = useMemo(() => [
+    {
+      dataIndex: 'id',
+    },
     {
       title: 'Step',
       dataIndex: 'title',
@@ -140,7 +144,7 @@ const LevelConstructor = ({
       title={(
         <Row justify="space-between" align="middle">
           <Col>
-            <Title style={{ margin: 0 }} level={3}>{`Level #${index + 1}. ${title}`}</Title>
+            <Title style={{ margin: 0 }} level={3}>{`${index + 1}. ${title}`}</Title>
           </Col>
           <Col>
             <Space>
@@ -161,24 +165,30 @@ const LevelConstructor = ({
         </Row>
       )}
     >
-      <Row>
-        <Title level={4}>Description:</Title>
-      </Row>
-      <Row>
-        <Paragraph>
-          {description}
-        </Paragraph>
-      </Row>
-      <Divider />
+      {/*
+       <Row>
+       <Col span={24}>
+       <Title style={{ margin: 0 }} level={4}>Description:</Title>
+       </Col>
+       <Col span={24}>
+       <Paragraph>
+       {description}
+       </Paragraph>
+       </Col>
+       </Row>
+       */}
       <LevelInfoForm
         visible={isEdit}
+        initialValues={level}
         onCancel={onCancelLevelInfoFormHandle}
         onSubmit={onSubmitLevelInfoFormHandle}
-        initialValues={level}
       />
-      <Title level={4}>Level Steps</Title>
-      <Table
-        pagination={null}
+
+      <StepsTable
+        title={() => <Title level={4}>Steps</Title>}
+        rowKey="id"
+        levelIndex={index}
+        pagination={false}
         dataSource={steps}
         columns={stepsColumns}
         footer={renderStepsTableFooter}
@@ -192,4 +202,4 @@ const LevelConstructor = ({
   );
 };
 
-export default LevelConstructor;
+export default React.memo(LevelConstructor);
