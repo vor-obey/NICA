@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 import produce from 'immer';
 import ACTIONS from './actions';
@@ -27,7 +28,6 @@ const handlers = {
   },
   [ACTIONS.UPDATE_LEVEL]: produce((state, action) => {
     const { payload: { levelIndex, values } } = action;
-    // eslint-disable-next-line no-param-reassign
     state.levels[levelIndex] = {
       ...state.levels[levelIndex],
       ...values,
@@ -37,8 +37,21 @@ const handlers = {
     const { payload: { levelIndex, values } } = action;
     state.levels[levelIndex].steps.push({
       id: stepId++,
-      ...values,
     });
+  }),
+  [ACTIONS.UPDATE_STEP]: produce((state, action) => {
+    const {
+      payload: {
+        stepIndex, levelIndex, values,
+      },
+    } = action;
+
+    const step = state.levels[levelIndex].steps[stepIndex];
+
+    state.levels[levelIndex].steps[stepIndex] = {
+      ...step,
+      ...values,
+    };
   }),
   [ACTIONS.REMOVE_STEP]: produce((state, action) => {
     const { payload: { levelIndex, stepIndex } } = action;

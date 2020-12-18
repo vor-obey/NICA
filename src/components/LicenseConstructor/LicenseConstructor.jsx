@@ -15,6 +15,7 @@ import { createDndContext, DndProvider } from 'react-dnd';
 import ACTIONS from './api/actions';
 import licenseConstructorReducer from './api/reducer';
 import styles from './LicenseConstructor.module.scss';
+import * as actionCreators from './api/actionCreators';
 import LevelConstructor from './components/LevelConstructor';
 import initializer, { NEW_LICENSE_KEY } from './api/initializer';
 import LicenseConstructorContext from './api/LicenseConstructorContext';
@@ -32,18 +33,11 @@ const LicenseConstructor = ({ license, onSubmit }) => {
   }, [state]);
 
   const onSubmitHandler = useCallback((values) => {
-    dispatch({
-      type: ACTIONS.UPDATE_LICENSE,
-      payload: {
-        values,
-      },
-    });
+    dispatch(actionCreators.updateLicense(values));
   }, []);
 
   const onClickAddLevelBtnHandle = useCallback(() => {
-    dispatch({
-      type: ACTIONS.ADD_LEVEL,
-    });
+    dispatch(actionCreators.addLevel());
   }, [dispatch]);
 
   const onClickCreateLicenseBtnHandle = useCallback(() => {
@@ -65,6 +59,7 @@ const LicenseConstructor = ({ license, onSubmit }) => {
           <Card
             className={styles.cardWidget}
             title={<Title level={2}>License Info</Title>}
+            style={{ maxWidth: '100%' }}
           >
             <Form
               layout="vertical"

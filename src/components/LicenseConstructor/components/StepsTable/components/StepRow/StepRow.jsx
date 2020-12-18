@@ -11,7 +11,7 @@ const type = 'StepRow';
 
 const StepRow = ({
   stepId,
-  stepIndex, className, moveRow, ...restProps
+  stepIndex, className, moveRow, style, ...restProps
 }) => {
   const ref = useRef();
   const { levelIndex } = useContext(LevelContext);
@@ -107,6 +107,10 @@ const StepRow = ({
         [styles.stepRow]: !isEmptyContainer,
         [styles.invisible]: (isDragging || isMe) && !isEmptyContainer,
       })}
+      style={{
+        ...style,
+        maxWidth: '100%',
+      }}
       {...restProps}
     />
   );

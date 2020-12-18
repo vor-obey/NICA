@@ -1,19 +1,20 @@
 import React, {
-  useCallback, useContext, useMemo, useState,
+  useCallback, useContext, useLayoutEffect, useMemo, useState,
 } from 'react';
 import {
-  Button, Card, Typography, Row, Col, Space, Descriptions,
+  Button, Card, Typography, Row, Col, Space,
 } from 'antd';
 import { DeleteOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import ACTIONS from '../../api/actions';
-import StepsConstructor from '../StepConstructor';
+import StepForm from '../forms/StepForm';
 import LevelInfoForm from '../forms/LevelInfoForm';
 import styles from '../../LicenseConstructor.module.scss';
 import { LICENSE_LEVEL_STEP_TYPE } from '../../../../utils/constants';
 import LicenseConstructorContext from '../../api/LicenseConstructorContext';
 import StepsTable from '../StepsTable';
+import * as actionCreators from '../../api/actionCreators';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 const stepTypeTitles = {
   [LICENSE_LEVEL_STEP_TYPE.FILE_UPLOAD]: 'File uploading',
@@ -29,69 +30,72 @@ const LevelConstructor = ({
   const {
     steps, title, description, ...level
   } = useMemo(() => state.levels[index], [state, index]);
+  const [editStepIndex, setEditStepIndex] = useState(-1);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const createStep = useCallback((values) => {
-    const action = {
-      type: ACTIONS.ADD_STEP,
-      payload: {
-        levelIndex: index,
-        values,
-      },
-    };
-    dispatch(action);
-    setIsModalVisible(false);
-  }, [dispatch]);
   const onClickAddStepBtnHandle = useCallback(() => {
-    setIsModalVisible(true);
+    dispatch(actionCreators.addStep(index));
+    setEditStepIndex(steps.length);
   }, [setIsModalVisible]);
   const onClickRemoveBtnHandle = useCallback(() => {
-    dispatch({
-      type: ACTIONS.REMOVE_LEVEL,
-      payload: index,
-    });
+    dispatch(actionCreators.removeLevel(index));
   }, [dispatch]);
   const onCancelStepConstructorHandle = useCallback(() => {
-    setIsModalVisible(false);
+    setEditStepIndex(-1);
   }, [setIsModalVisible]);
 
+  useLayoutEffect(() => {
+    // eslint-disable-next-line no-bitwise
+    if (~editStepIndex) {
+      setIsModalVisible(true);
+    } else {
+      setIsModalVisible(false);
+    }
+  }, [editStepIndex]);
+
   const removeStep = useCallback((stepIndex) => {
-    const action = {
-      type: ACTIONS.REMOVE_STEP,
-      payload: {
-        levelIndex: index,
-        stepIndex,
-      },
-    };
-    dispatch(action);
+    dispatch(actionCreators.removeStep(index, stepIndex));
   }, [dispatch]);
 
   const stepsColumns = useMemo(() => [
     {
+      title: 'ID',
       dataIndex: 'id',
+      ellipsis: true,
     },
     {
       title: 'Step',
       dataIndex: 'title',
+      ellipsis: true,
     },
     {
       title: 'Description',
       dataIndex: 'description',
+      ellipsis: true,
     },
     {
       title: 'Type',
       dataIndex: 'type',
       render: (text) => stepTypeTitles[text],
+      ellipsis: true,
+    },
+    {
+      title: 'URL',
+      dataIndex: 'videoURL',
+      ellipsis: true,
     },
     {
       title: 'Actions',
       key: 'actions',
       render: (text, record, stepIndex) => (
-        <Row gutter={20}>
+        <Row gutter={[20, 10]} wrap={false}>
           <Col>
             <Button
               ghost
               type="primary"
               icon={<EditOutlined />}
+              onClick={() => {
+                setEditStepIndex(stepIndex);
+              }}
             />
           </Col>
           <Col>
@@ -107,17 +111,11 @@ const LevelConstructor = ({
   ], []);
 
   const onCancelLevelInfoFormHandle = useCallback(() => {
-    setIsEdit(false);
+    setEditStepIndex(-1);
   }, [setIsEdit]);
 
   const onSubmitLevelInfoFormHandle = useCallback((values) => {
-    dispatch({
-      type: ACTIONS.UPDATE_LEVEL,
-      payload: {
-        levelIndex: index,
-        values,
-      },
-    });
+    dispatch(actionCreators.updateLevel(index, values));
     setIsEdit(false);
   }, [dispatch, setIsEdit]);
 
@@ -193,8 +191,12 @@ const LevelConstructor = ({
         columns={stepsColumns}
         footer={renderStepsTableFooter}
       />
-      <StepsConstructor
-        onSubmit={createStep}
+      <StepForm
+        initialValues={steps[editStepIndex]}
+        onSubmit={(values) => {
+          dispatch(actionCreators.updateStep(index, editStepIndex, values));
+          setEditStepIndex(-1);
+        }}
         visible={isModalVisible}
         onCancel={onCancelStepConstructorHandle}
       />

@@ -12,7 +12,7 @@ const components = {
 };
 
 const tableScroll = {
-  x: true,
+  x: '100%',
 };
 
 const StepsTable = ({ levelIndex, ...restProps }) => {
