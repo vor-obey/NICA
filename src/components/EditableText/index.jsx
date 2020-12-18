@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 import styles from './EditableText.module.scss';
 
 const EditableText = ({
-  children, onChange, onBlur, onFocus,
+  children, onChange, onBlur, onFocus, index,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState(children);
 
   useEffect(() => {
-    onChange?.(value);
+    onChange?.(value, index);
   }, [value]);
 
   const onChangeInputHandle = useCallback(({ target }) => {
@@ -32,6 +32,7 @@ const EditableText = ({
 
   const classNameValue = useMemo(() => cn({
     [styles.passive]: !isEdit,
+    [styles.active]: isEdit,
   }), [isEdit]);
 
   return (
