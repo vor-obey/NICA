@@ -19,7 +19,7 @@ const CreateLicense = () => {
     });
   }, [createLicense]);
 
-  return <LicenseConstructor onCreate={console.log} />;
+  return <LicenseConstructor onCreate={console.log} onSubmit={console.log} />;
 };
 
 export default CreateLicense;
