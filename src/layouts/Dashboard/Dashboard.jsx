@@ -95,7 +95,9 @@ const Dashboard = () => {
             />
           </div>
         </Sider>
-        <Layout className={styles.layoutInner}>
+        <Layout
+          className={styles.layoutInner}
+        >
           <DashboardHeader
             loading={loading}
             user={data?.user}

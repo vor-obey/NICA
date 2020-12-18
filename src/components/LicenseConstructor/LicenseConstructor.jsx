@@ -1,21 +1,28 @@
 /* eslint-disable react/no-array-index-key */
 import React, {
+  useRef,
+  useMemo,
   useEffect,
   useReducer,
-  useCallback, useMemo,
+  useCallback,
 } from 'react';
 import {
-  Button, Card, Space, Typography, Form, Input,
+  Button, Card, Typography, Form, Input, Row, Col,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { createDndContext, DndProvider } from 'react-dnd';
 import ACTIONS from './api/actions';
 import licenseConstructorReducer from './api/reducer';
 import styles from './LicenseConstructor.module.scss';
+import * as actionCreators from './api/actionCreators';
 import LevelConstructor from './components/LevelConstructor';
 import initializer, { NEW_LICENSE_KEY } from './api/initializer';
 import LicenseConstructorContext from './api/LicenseConstructorContext';
 
 const { Title, Text } = Typography;
+
+const RNDContext = createDndContext(HTML5Backend);
 
 const LicenseConstructor = ({ license, onSubmit }) => {
   const [state, dispatch] = useReducer(licenseConstructorReducer, license, initializer);
@@ -26,18 +33,11 @@ const LicenseConstructor = ({ license, onSubmit }) => {
   }, [state]);
 
   const onSubmitHandler = useCallback((values) => {
-    dispatch({
-      type: ACTIONS.UPDATE_LICENSE,
-      payload: {
-        values,
-      },
-    });
+    dispatch(actionCreators.updateLicense(values));
   }, []);
 
   const onClickAddLevelBtnHandle = useCallback(() => {
-    dispatch({
-      type: ACTIONS.ADD_LEVEL,
-    });
+    dispatch(actionCreators.addLevel());
   }, [dispatch]);
 
   const onClickCreateLicenseBtnHandle = useCallback(() => {
@@ -45,77 +45,82 @@ const LicenseConstructor = ({ license, onSubmit }) => {
   }, [onSubmit]);
 
   const levelsConstructors = useMemo(() => levels.map((level, index) => (
-    <LevelConstructor key={index} index={index} />
+    <Col span={12} key={level.id}>
+      <LevelConstructor key={index} index={index} />
+    </Col>
   )), [levels]);
 
+  const manager = useRef(RNDContext);
+
   return (
-    <LicenseConstructorContext.Provider value={[
-      state,
-      dispatch,
-    ]}
-    >
-      <Space
-        size="large"
-        direction="vertical"
-        className={styles.w100}
-      >
-        <Card
-          className={styles.cardWidget}
-          title={<Title level={2}>License Info</Title>}
-        >
-          <Form
-            onFinish={onSubmit}
-            layout="vertical"
-            onValuesChange={onSubmitHandler}
-            initialValues={licenseInfo}
+    <LicenseConstructorContext.Provider value={[state, dispatch]}>
+      <Row gutter={[10, 20]}>
+        <Col span={24}>
+          <Card
+            className={styles.cardWidget}
+            title={<Title level={2}>License Info</Title>}
+            style={{ maxWidth: '100%' }}
           >
-            <Form.Item
-              name="title"
-              rules={[{
-                required: true,
-                message: 'Missing title',
-              }]}
-              label={<Text strong>License title</Text>}
+            <Form
+              layout="vertical"
+              onFinish={onSubmit}
+              initialValues={licenseInfo}
+              onValuesChange={onSubmitHandler}
             >
-              <Input placeholder="license title.." />
-            </Form.Item>
-            <Form.Item
-              name="description"
-              rules={[{
-                required: true,
-                message: 'Missing description',
-              }]}
-              label={<Text strong>License description</Text>}
-            >
-              <Input.TextArea placeholder="license description.." />
-            </Form.Item>
-          </Form>
-        </Card>
-        {levelsConstructors}
-        <Button
-          ghost
-          block
-          size="large"
-          type="primary"
-          icon={<PlusOutlined />}
-          style={{
-            borderStyle: 'dashed',
-          }}
-          onClick={onClickAddLevelBtnHandle}
-        >
-          Add Level
-        </Button>
-        <Button
-          size="large"
-          type="primary"
-          htmlType="submit"
-          onClick={onClickCreateLicenseBtnHandle}
-        >
-          Create License
-        </Button>
-      </Space>
+              <Form.Item
+                name="title"
+                rules={[{
+                  required: true,
+                  message: 'Missing title',
+                }]}
+                label={<Text strong>License title</Text>}
+              >
+                <Input placeholder="license title.." />
+              </Form.Item>
+              <Form.Item
+                name="description"
+                rules={[{
+                  required: true,
+                  message: 'Missing description',
+                }]}
+                label={<Text strong>License description</Text>}
+              >
+                <Input.TextArea placeholder="license description.." />
+              </Form.Item>
+            </Form>
+          </Card>
+        </Col>
+        <DndProvider manager={manager.current.dragDropManager}>
+          {levelsConstructors}
+        </DndProvider>
+        <Col span={24}>
+          <Button
+            ghost
+            block
+            size="large"
+            type="primary"
+            icon={<PlusOutlined />}
+            style={{
+              borderStyle: 'dashed',
+            }}
+            onClick={onClickAddLevelBtnHandle}
+          >
+            Add Level
+          </Button>
+        </Col>
+        <Col span={24}>
+          <Button
+            size="large"
+            type="primary"
+            htmlType="submit"
+            onClick={onClickCreateLicenseBtnHandle}
+          >
+            Create License
+          </Button>
+        </Col>
+      </Row>
     </LicenseConstructorContext.Provider>
   );
 };
 
-export default LicenseConstructor;
+export default React.memo(LicenseConstructor);
