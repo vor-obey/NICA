@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Row } from 'antd';
-import QuizConstructor from '../../components/QuizConstr/QuizConstr';
+import QuizConstructor from '../../components/QuizConstructor';
 
 export default {
   title: 'QuizConstructor',

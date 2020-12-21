@@ -2,26 +2,22 @@ import React, {
   useCallback, useContext, useState,
 } from 'react';
 import {
-  Button, Space, Form, Input, Col, Row, Card, Checkbox, Typography,
+  Button, Form, Input, Col, Row, Card, Checkbox, Typography,
 } from 'antd';
 
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 
-import ACTIONS from '../../api/actions';
-import QuizConstructorContext from '../../api/QuizConstructorContext';
-import EditableText from '../../../EditableText';
+import ACTIONS from '../api/actions';
+import QuizConstructorContext from '../api/QuizConstructorContext';
+import EditableText from '../../EditableText';
 
 const { Text } = Typography;
 
-const defaultAnswer = {
-  text: 'Answer',
-  isCorrectAnswer: false,
-};
-
-const CreateQuestion = ({
-  item, index: questionIndex,
+const QuestionConstructor = ({
+  index: questionIndex,
 }) => {
   const [state, dispatch] = useContext(QuizConstructorContext);
+  const item = state.questions[questionIndex];
   const [questionValue, setQuestionValue] = useState(item.question);
 
   const onChangeInputHandle = useCallback(({ target }) => {
@@ -33,7 +29,6 @@ const CreateQuestion = ({
       type: ACTIONS.ADD_ANSWER,
       payload: {
         questionIndex,
-        defaultAnswer,
       },
     });
   }, [dispatch]);
@@ -53,7 +48,7 @@ const CreateQuestion = ({
       type: ACTIONS.REMOVE_QUESTION,
       payload: { questionIndex },
     });
-  }, [dispatch]);
+  }, [dispatch, questionIndex]);
 
   const onBlurAnswerChange = useCallback((value, index) => {
     dispatch({
@@ -80,7 +75,10 @@ const CreateQuestion = ({
   const onChangeQuestion = useCallback((value) => {
     dispatch({
       type: ACTIONS.QUESTION_INFO_CHANGE,
-      payload: { value, questionIndex },
+      payload: {
+        value,
+        questionIndex,
+      },
     });
   }, [dispatch]);
 
@@ -91,7 +89,10 @@ const CreateQuestion = ({
         actions={[
           <DeleteOutlined
             key="delete"
-            style={{ color: 'red', fontSize: 22 }}
+            style={{
+              color: 'red',
+              fontSize: 22,
+            }}
             onClick={onClickDeleteQuestion}
           />,
         ]}
@@ -100,7 +101,10 @@ const CreateQuestion = ({
           label={<Text strong>Question</Text>}
           name="question"
           fieldKey="question"
-          rules={[{ required: true, message: 'Missing text' }]}
+          rules={[{
+            required: true,
+            message: 'Missing text',
+          }]}
         >
           <Input
             onBlur={(e) => onChangeQuestion(e.target.value)}
@@ -109,17 +113,17 @@ const CreateQuestion = ({
           />
         </Form.Item>
 
-        {item.answers.map((el, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-          <Row align="center" key={`${index} ${el.text}`}>
+        {item.answers.map((answer, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Row align="center" key={answer.id}>
             <Col span={1} align="end">
               <Form.Item
-                name={['isCorrectAnswer']}
-                fieldKey={['isCorrectAnswer']}
+                name={['isCorrect']}
+                fieldKey={['isCorrect']}
               >
                 <Checkbox
                   style={{ marginRight: 10 }}
-                  checked={el.isCorrectAnswer}
+                  checked={answer.isCorrect}
                   onChange={(e) => onChangeCorrectAnswer(e.target.checked, index)}
                 />
               </Form.Item>
@@ -129,16 +133,25 @@ const CreateQuestion = ({
               <Form.Item
                 name={['text']}
                 fieldKey={['text']}
-                rules={[{ required: true, message: 'Missing text' }]}
+                rules={[{
+                  required: true,
+                  message: 'Missing text',
+                }]}
               >
                 <EditableText onBlur={(event) => onBlurAnswerChange(event.target.value, index)}>
-                  {el.text}
+                  {answer.text}
                 </EditableText>
               </Form.Item>
             </Col>
 
             <Col span={4} align="end">
-              <DeleteOutlined style={{ color: 'red', fontSize: 22 }} onClick={() => removeAnswer(index)} />
+              <DeleteOutlined
+                style={{
+                  color: 'red',
+                  fontSize: 22,
+                }}
+                onClick={() => removeAnswer(index)}
+              />
             </Col>
           </Row>
         ))}
@@ -152,4 +165,4 @@ const CreateQuestion = ({
   );
 };
 
-export default CreateQuestion;
+export default QuestionConstructor;
