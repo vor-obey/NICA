@@ -1,4 +1,4 @@
-export const NEW_LICENSE_KEY = 'NEW_LICENSE';
+export const LICENSE_KEY = 'LICENSE_CONSTRUCTOR';
 
 const defaultValues = {
   title: '',
@@ -10,7 +10,7 @@ const initializer = (license) => {
   if (license) {
     return license;
   }
-  const savedLicense = localStorage.getItem(NEW_LICENSE_KEY);
+  const savedLicense = localStorage.getItem(LICENSE_KEY);
   if (savedLicense) {
     return JSON.parse(savedLicense);
   }

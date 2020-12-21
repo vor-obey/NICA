@@ -22,6 +22,7 @@ tr.dropOverDownward td {
 }
 
 tr.dropOverUpward td {
+  box-sizing: border-box;
   border-top: $border;
 }
 

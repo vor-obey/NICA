@@ -1,9 +1,9 @@
 import { Table } from 'antd';
 import React, { useCallback, useContext } from 'react';
-import StepRow from './components/StepRow';
-import LicenseConstructorContext from '../../api/LicenseConstructorContext';
-import ACTIONS from '../../api/actions';
 import LevelContext from './LevelContext';
+import StepRow from './components/StepRow';
+import { moveStep } from '../../api/actionCreators';
+import LicenseConstructorContext from '../../api/LicenseConstructorContext';
 
 const components = {
   body: {
@@ -17,30 +17,21 @@ const tableScroll = {
 
 const StepsTable = ({ levelIndex, ...restProps }) => {
   const [, dispatch] = useContext(LicenseConstructorContext);
-  const moveRow = useCallback(({
-    drag,
-    drop,
-  }) => {
-    dispatch({
-      type: ACTIONS.MOVE_STEP,
-      payload: {
-        drag,
-        drop,
-      },
-    });
-  }, []);
+
+  const moveRowHandle = useCallback((options) => dispatch(moveStep(options)), []);
+
+  const onRowHandle = useCallback((record, index) => ({
+    index,
+    moveRow: moveRowHandle,
+    id: record.id,
+  }), [moveRowHandle]);
+
   return (
     <LevelContext.Provider value={{ levelIndex }}>
       <Table
-        components={components}
-        onRow={
-          (record, stepIndex) => ({
-            stepIndex,
-            moveRow,
-            stepId: record.id,
-          })
-        }
+        onRow={onRowHandle}
         scroll={tableScroll}
+        components={components}
         {...restProps}
       />
     </LevelContext.Provider>

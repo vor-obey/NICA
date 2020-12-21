@@ -1,116 +1,92 @@
 import _ from 'lodash';
 import React, {
-  useContext, useMemo, useRef,
+  useRef, useMemo, useContext,
 } from 'react';
 import cn from 'classnames';
 import { useDrag, useDrop } from 'react-dnd';
 import styles from './StepRow.module.scss';
 import LevelContext from '../../LevelContext';
 
-const type = 'StepRow';
+const STEP_ROW_TYPE = 'StepRow';
 
 const StepRow = ({
-  stepId,
-  stepIndex, className, moveRow, style, ...restProps
+  id, index, moveRow, className, ...restProps
 }) => {
   const ref = useRef();
   const { levelIndex } = useContext(LevelContext);
-  const isEmptyContainer = useMemo(() => _.isUndefined(stepIndex), [stepIndex]);
+  const [{ isDragging, canDrag }, drag] = useDrag({
+    item: {
+      id,
+      type: STEP_ROW_TYPE,
+      index,
+      moveRow,
+      levelIndex,
+    },
+    canDrag: () => !_.isUndefined(id),
+    collect: (monitor) => ({
+      canDrag: monitor.canDrag(),
+      isDragging: monitor.isDragging(),
+    }),
+    isDragging: (monitor) => id === monitor.getItem().id && !monitor.didDrop(),
+  });
 
-  const [{ dropClassName, isOver, isMe }, drop] = useDrop({
-    accept: type,
+  const [{ isOver }, drop] = useDrop({
+    accept: STEP_ROW_TYPE,
     hover: (item) => {
-      if (isEmptyContainer) return;
-      if (!ref.current) return;
-      if (item.stepIndex === stepIndex && item.levelIndex === levelIndex) return;
-      item.moveRow(
-        {
-          drag: {
-            stepIndex: item.stepIndex,
-            levelIndex: item.levelIndex,
-          },
-          drop: {
-            stepIndex,
-            levelIndex,
-          },
-        },
-      );
-
-      // eslint-disable-next-line no-param-reassign
-      item.stepIndex = stepIndex;
-      // eslint-disable-next-line no-param-reassign
-      item.levelIndex = levelIndex;
-    },
-    collect: (monitor) => {
-      const {
-        ref: draggingRef,
-        stepId: draggingStepId,
-        stepIndex: dragStepIndex,
-        levelIndex: dragLevelIndex,
-      } = monitor.getItem() || {};
-      const isMeDragging = stepId === draggingStepId
-        && ref?.current !== draggingRef?.current
-        && !monitor.didDrop();
-      if (dragStepIndex === stepIndex && dragLevelIndex === levelIndex) {
-        return {
-          isMe: isMeDragging,
-        };
-      }
-      return {
-        isMe: isMeDragging,
-        isOver: monitor.isOver(),
-        dropClassName: cn({
-          [styles.dropEmptyContainer]: isEmptyContainer,
-        }),
-      };
-    },
-    drop: (item) => {
-      if (isEmptyContainer) {
+      if (item.id === id || !ref.current) return;
+      if (id) {
         item.moveRow({
           drag: {
-            stepIndex: item.stepIndex,
+            stepIndex: item.index,
             levelIndex: item.levelIndex,
           },
           drop: {
-            stepIndex,
+            stepIndex: index,
             levelIndex,
           },
         });
+        // eslint-disable-next-line no-param-reassign
+        item.index = index;
+        // eslint-disable-next-line no-param-reassign
+        item.levelIndex = levelIndex;
       }
     },
-  });
-  const [{ isDragging }, drag] = useDrag({
-    item: {
-      type,
-      stepId,
-      stepIndex,
-      levelIndex,
-      ref,
-      moveRow,
+    collect: (monitor) => {
+      const { id: draggingId } = monitor.getItem() || {};
+      if (id === draggingId) return {};
+      return { isOver: monitor.isOver() };
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+    drop: (item) => {
+      if (canDrag) return;
+      item.moveRow({
+        drag: {
+          stepIndex: item.index,
+          levelIndex: item.levelIndex,
+        },
+        drop: {
+          stepIndex: index,
+          levelIndex,
+        },
+      });
+    },
   });
 
-  if (isEmptyContainer) {
+  if (canDrag) {
     drop(ref);
   } else {
     drop(drag(ref));
   }
 
+  const classNameValue = useMemo(() => cn(className, {
+    [styles.stepRow]: canDrag,
+    [styles.invisible]: isDragging,
+    [styles.dropEmptyContainer]: isOver && !canDrag,
+  }), [isOver, canDrag, isDragging]);
+
   return (
     <tr
       ref={ref}
-      className={cn(className, {
-        [dropClassName]: isOver,
-        [styles.stepRow]: !isEmptyContainer,
-        [styles.invisible]: (isDragging || isMe) && !isEmptyContainer,
-      })}
-      style={{
-        ...style,
-        maxWidth: '100%',
-      }}
+      className={classNameValue}
       {...restProps}
     />
   );

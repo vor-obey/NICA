@@ -111,7 +111,7 @@ const LevelConstructor = ({
   ], []);
 
   const onCancelLevelInfoFormHandle = useCallback(() => {
-    setEditStepIndex(-1);
+    setIsEdit(false);
   }, [setIsEdit]);
 
   const onSubmitLevelInfoFormHandle = useCallback((values) => {

@@ -10,7 +10,13 @@ const LevelInfoForm = ({
 }) => {
   const [form] = Form.useForm();
   return (
-    <Modal visible={visible} onCancel={onCancel} onOk={form.submit}>
+    <Modal
+      destroyOnClose
+      visible={visible}
+      onOk={form.submit}
+      onCancel={onCancel}
+      maskClosable={false}
+    >
       <Form
         form={form}
         layout="vertical"

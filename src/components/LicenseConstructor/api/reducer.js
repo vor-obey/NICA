@@ -16,8 +16,8 @@ const handlers = {
     });
   }),
   [ACTIONS.REMOVE_LEVEL]: produce((state, action) => {
-    const { payload: { index } } = action;
-    state.levels.splice(index, 1);
+    const { payload: { levelIndex } } = action;
+    state.levels.splice(levelIndex, 1);
   }),
   [ACTIONS.UPDATE_LICENSE]: (state, action) => {
     const { payload: { values } } = action;
@@ -34,7 +34,7 @@ const handlers = {
     };
   }),
   [ACTIONS.ADD_STEP]: produce((state, action) => {
-    const { payload: { levelIndex, values } } = action;
+    const { payload: { levelIndex } } = action;
     state.levels[levelIndex].steps.push({
       id: stepId++,
     });

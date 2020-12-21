@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, {
   useRef,
   useMemo,
@@ -7,20 +6,20 @@ import React, {
   useCallback,
 } from 'react';
 import {
-  Button, Card, Typography, Form, Input, Row, Col,
+  Row, Col, Button, Card, Typography,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { createDndContext, DndProvider } from 'react-dnd';
-import ACTIONS from './api/actions';
 import licenseConstructorReducer from './api/reducer';
 import styles from './LicenseConstructor.module.scss';
 import * as actionCreators from './api/actionCreators';
 import LevelConstructor from './components/LevelConstructor';
-import initializer, { NEW_LICENSE_KEY } from './api/initializer';
+import LicenseInfoForm from './components/forms/LicenseInfoForm';
+import initializer, { LICENSE_KEY } from './api/initializer';
 import LicenseConstructorContext from './api/LicenseConstructorContext';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const RNDContext = createDndContext(HTML5Backend);
 
@@ -29,11 +28,11 @@ const LicenseConstructor = ({ license, onSubmit }) => {
   const { levels, ...licenseInfo } = state;
 
   useEffect(() => {
-    localStorage.setItem(NEW_LICENSE_KEY, JSON.stringify(state));
+    localStorage.setItem(LICENSE_KEY, JSON.stringify(state));
   }, [state]);
 
-  const onSubmitHandler = useCallback((values) => {
-    dispatch(actionCreators.updateLicense(values));
+  const onChangeLicenseInfoFormHandle = useCallback((changedValues) => {
+    dispatch(actionCreators.updateLicense(changedValues));
   }, []);
 
   const onClickAddLevelBtnHandle = useCallback(() => {
@@ -45,8 +44,8 @@ const LicenseConstructor = ({ license, onSubmit }) => {
   }, [onSubmit]);
 
   const levelsConstructors = useMemo(() => levels.map((level, index) => (
-    <Col span={12} key={level.id}>
-      <LevelConstructor key={index} index={index} />
+    <Col key={level.id} span={12}>
+      <LevelConstructor index={index} />
     </Col>
   )), [levels]);
 
@@ -59,35 +58,8 @@ const LicenseConstructor = ({ license, onSubmit }) => {
           <Card
             className={styles.cardWidget}
             title={<Title level={2}>License Info</Title>}
-            style={{ maxWidth: '100%' }}
           >
-            <Form
-              layout="vertical"
-              onFinish={onSubmit}
-              initialValues={licenseInfo}
-              onValuesChange={onSubmitHandler}
-            >
-              <Form.Item
-                name="title"
-                rules={[{
-                  required: true,
-                  message: 'Missing title',
-                }]}
-                label={<Text strong>License title</Text>}
-              >
-                <Input placeholder="license title.." />
-              </Form.Item>
-              <Form.Item
-                name="description"
-                rules={[{
-                  required: true,
-                  message: 'Missing description',
-                }]}
-                label={<Text strong>License description</Text>}
-              >
-                <Input.TextArea placeholder="license description.." />
-              </Form.Item>
-            </Form>
+            <LicenseInfoForm onChange={onChangeLicenseInfoFormHandle} initialValues={licenseInfo} />
           </Card>
         </Col>
         <DndProvider manager={manager.current.dragDropManager}>
