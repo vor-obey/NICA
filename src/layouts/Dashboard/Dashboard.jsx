@@ -157,7 +157,7 @@ const Dashboard = () => {
               />
               <PrivateRoute
                 exact
-                path="/licenses/:licenseId/step/:index"
+                path="/licenses/:licenseId/step/:stepId"
                 component={LicenseSteps}
                 roles={[ROLES.COACH]}
               />
