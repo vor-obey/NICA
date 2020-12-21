@@ -26,12 +26,13 @@ const LicenseSteps = () => {
   });
 
   const history = useHistory();
-  const { licenseId, index } = useParams();
+  const { licenseId, stepId } = useParams();
 
-  const currentIndex = useMemo(() => parseInt(index, 10), [index]);
+  const currentIndex = useMemo(() => parseInt(stepId, 10), [stepId]);
 
   useEffect(() => {
-    history.push(`/licenses/${licenseId}/step/0`);
+    const indexItem = data?.steps?.findIndex((item) => item.id === +stepId);
+    history.push(`/licenses/${licenseId}/step/${indexItem}`);
   }, []);
 
   const setCurrentStep = useCallback((nextStep) => {
