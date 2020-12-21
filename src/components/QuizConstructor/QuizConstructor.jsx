@@ -32,8 +32,7 @@ const QuizConstructor = ({ quiz, onSubmit }) => {
 
   const questionsConstructors = useMemo(() => (
     state.questions.map((item, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <QuestionConstructor index={index} key={item.id} />
+      <QuestionConstructor key={item.id} index={index} />
     ))
   ), [state.questions]);
 

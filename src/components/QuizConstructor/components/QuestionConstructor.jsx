@@ -17,8 +17,8 @@ const QuestionConstructor = ({
   index: questionIndex,
 }) => {
   const [state, dispatch] = useContext(QuizConstructorContext);
-  const item = state.questions[questionIndex];
-  const [questionValue, setQuestionValue] = useState(item.question);
+  const question = state.questions[questionIndex];
+  const [questionValue, setQuestionValue] = useState(question.question);
 
   const onChangeInputHandle = useCallback(({ target }) => {
     setQuestionValue(target.value);
@@ -31,7 +31,7 @@ const QuestionConstructor = ({
         questionIndex,
       },
     });
-  }, [dispatch]);
+  }, [dispatch, questionIndex]);
 
   const removeAnswer = useCallback((deleteIndex) => {
     dispatch({
@@ -41,7 +41,7 @@ const QuestionConstructor = ({
         deleteIndex,
       },
     });
-  }, [dispatch]);
+  }, [dispatch, questionIndex]);
 
   const onClickDeleteQuestion = useCallback(() => {
     dispatch({
@@ -59,7 +59,7 @@ const QuestionConstructor = ({
         index,
       },
     });
-  }, [dispatch]);
+  }, [dispatch, questionIndex]);
 
   const onChangeCorrectAnswer = useCallback((value, index) => {
     dispatch({
@@ -70,7 +70,7 @@ const QuestionConstructor = ({
         questionIndex,
       },
     });
-  }, [dispatch]);
+  }, [dispatch, questionIndex]);
 
   const onChangeQuestion = useCallback((value) => {
     dispatch({
@@ -80,7 +80,7 @@ const QuestionConstructor = ({
         questionIndex,
       },
     });
-  }, [dispatch]);
+  }, [dispatch, questionIndex]);
 
   return (
     <Form layout="vertical" initialValues={{ question: questionValue }}>
@@ -113,7 +113,7 @@ const QuestionConstructor = ({
           />
         </Form.Item>
 
-        {item.answers.map((answer, index) => (
+        {question.answers.map((answer, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <Row align="center" key={answer.id}>
             <Col span={1} align="end">
