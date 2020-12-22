@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Row, Card, Skeleton,
 } from 'antd';
@@ -11,30 +11,36 @@ import styles from './UserProfile.module.scss';
 import useAuthQuery from '../../../../hooks/useAuthQuery';
 
 export const USER_QUERY = gql`
-    query dashboardCoach($coachId: ID!){
-        coach (id: $coachId){
+    query dashboardCoach($userId: ID!){
+        user (id: $userId){
             id
             firstName
             lastName
             email
-            gender
-            birthday
-            phone
+            birthDate
+            cellPhone
+            homePhone
+            workPhone
+            timeZone
             address
             role
-            league
+            memberships
         },
     }`;
 
 const UserProfile = () => {
   const { data, loading } = useAuthQuery(USER_QUERY, {
     variables: {
-      coachId: 1,
+      userId: 1,
     },
   });
 
-  const roleTitle = `${data?.coach?.firstName} ${data?.coach?.lastName}`;
-  const role = data?.coach?.role;
+  const roleTitle = `${data?.user?.firstName} ${data?.user?.lastName}`;
+  const role = data?.user?.role;
+
+  useEffect(() => {
+    console.log(role);
+  }, [data]);
 
   const renderTitle = {
     [permissions.roles.COACH]: `Coach: ${roleTitle}`,
@@ -48,14 +54,13 @@ const UserProfile = () => {
         <PageTitle
           loading={loading}
           title={renderTitle[role] || ''}
-          avatar={data?.coach?.league.image}
-          description={`${data?.coach?.league?.name?.short ?? ''} league`}
+          avatar={data?.user?.memberships?.organizations[0]?.leagues[0]?.image}
         />
       </Row>
 
       <Skeleton loading={loading} active>
         <Card bordered={false}>
-          <PersonalInformation data={data?.coach} loading={loading} />
+          <PersonalInformation data={data?.user} loading={loading} />
         </Card>
       </Skeleton>
     </>

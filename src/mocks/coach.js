@@ -3,21 +3,6 @@ import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/CoachLicens
 import { USER_QUERY } from '../layouts/Dashboard/containers/UserProfile/UserProfile';
 import { getUser } from './common';
 
-const league = {
-  id: 1,
-  season: {
-    id: 1,
-    name: '2020',
-    __typename: 'Season',
-  },
-  name: {
-    short: 'Utah',
-    formal: 'Utah Interscholastic',
-  },
-  image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
-  __typename: 'League',
-};
-
 const generateCoachesLicense = (length) => [...new Array(length)].map((item, index) => (
   {
     id: index,
@@ -39,35 +24,12 @@ const coachMock = {
   request: {
     query: USER_QUERY,
     variables: {
-      coachId: 1,
+      userId: 1,
     },
   },
   newData: () => ({
     data: {
-      coach: {
-        ...getUser(),
-        gender: faker.name.gender(),
-        birthday: faker.date.recent()
-          .toISOString(),
-        phone: {
-          cellPhone: faker.phone.phoneNumberFormat(),
-          homePhone: faker.phone.phoneNumberFormat(),
-          workPhone: faker.phone.phoneNumberFormat(),
-        },
-        address: {
-          street1: faker.address.streetAddress(),
-          street2: faker.address.streetAddress(),
-          city: faker.address.city(),
-          state: faker.address.state(),
-          zip: faker.random.number({
-            min: 10000,
-            max: 90000,
-          }),
-          zone: faker.address.timeZone(),
-        },
-        __typename: 'User',
-        league,
-      },
+      user: getUser(),
     },
   }),
 };

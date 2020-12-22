@@ -75,7 +75,7 @@ const DashboardHeader = ({
                 avatar={(
                   <Avatar
                     size="large"
-                    src={user?.image}
+                    src={user?.images?.profile}
                     icon={<UserOutlined />}
                   />
                 )}

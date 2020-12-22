@@ -7,7 +7,7 @@ export const CURRENT_USER_QUERY = gql`
             id
             firstName
             lastName
-            image
+            images
             email
             role
         }

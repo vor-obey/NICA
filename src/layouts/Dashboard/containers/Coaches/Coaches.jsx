@@ -19,7 +19,6 @@ export const COACH_QUERY = gql`
             coach {
                 id,
                 league,
-                image,
                 name,
                 level,
                 email,
