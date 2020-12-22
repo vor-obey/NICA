@@ -10,7 +10,7 @@ const { Title } = Typography;
 const PersonalInformation = ({ data }) => {
   const { userId } = useParams();
   const {
-    email, name, gender, birthday, phone, address,
+    email, firstName, lastName, gender, birthday, phone, address,
   } = data;
 
   const deactivate = userId && (
@@ -28,8 +28,8 @@ const PersonalInformation = ({ data }) => {
       extra={deactivate}
     >
       <Descriptions.Item label="Email">{email}</Descriptions.Item>
-      <Descriptions.Item label="First name">{name.firstName}</Descriptions.Item>
-      <Descriptions.Item label="Last name">{name.lastName}</Descriptions.Item>
+      <Descriptions.Item label="First name">{firstName}</Descriptions.Item>
+      <Descriptions.Item label="Last name">{lastName}</Descriptions.Item>
       <Descriptions.Item label="Gender">{gender}</Descriptions.Item>
       <Descriptions.Item label="Birth date">{birthday}</Descriptions.Item>
       <Descriptions.Item label="Cell phone">{phone.cellPhone}</Descriptions.Item>

@@ -1,25 +1,5 @@
-import faker from 'faker/locale/en';
-import { DASHBOARD_USER_QUERY } from '../layouts/Dashboard/Dashboard';
 import { DASHBOARD_NAVBAR_QUERY } from '../layouts/Dashboard/components/NavBar/NavBar';
 
-const dashboardMock = {
-  request: {
-    query: DASHBOARD_USER_QUERY,
-    variables: { userId: 1 },
-  },
-  result: () => ({
-    data: {
-      user: {
-        id: 1,
-        firstName: faker.name.firstName(0),
-        lastName: faker.name.lastName(0),
-        image: faker.image.avatar(),
-        role: localStorage.getItem('role'),
-        __typename: 'User',
-      },
-    },
-  }),
-};
 const dashboardNavMock = {
   request: {
     query: DASHBOARD_NAVBAR_QUERY,

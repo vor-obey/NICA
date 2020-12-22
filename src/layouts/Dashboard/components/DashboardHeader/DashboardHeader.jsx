@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import styles from './DashboardHeader.module.scss';
 import { permissions } from '../../../../configs/app';
-import RoleContext from '../../../../roleContext';
+import AuthContext from '../../../../AuthContext';
 
 const { Header } = Layout;
 
@@ -29,7 +29,7 @@ const menu = (
 const DashboardHeader = ({
   user, siderTrigger, loading, ...props
 }) => {
-  const { role, setRole } = useContext(RoleContext);
+  const { role, setRole } = useContext(AuthContext);
 
   return (
     <Header className={styles.header} {...props}>

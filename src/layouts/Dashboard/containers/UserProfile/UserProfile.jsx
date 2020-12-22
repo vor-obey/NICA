@@ -14,14 +14,15 @@ export const USER_QUERY = gql`
     query dashboardCoach($coachId: ID!){
         coach (id: $coachId){
             id
-            name,
+            firstName
+            lastName
             email
-            gender,
-            birthday,
-            phone,
+            gender
+            birthday
+            phone
             address
-            role,
-            league,
+            role
+            league
         },
     }`;
 
@@ -32,7 +33,7 @@ const UserProfile = () => {
     },
   });
 
-  const roleTitle = `${data?.coach?.name?.firstName} ${data?.coach?.name?.lastName}`;
+  const roleTitle = `${data?.coach?.firstName} ${data?.coach?.lastName}`;
   const role = data?.coach?.role;
 
   const renderTitle = {

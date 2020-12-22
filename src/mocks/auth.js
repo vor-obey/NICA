@@ -1,18 +1,8 @@
 import _ from 'lodash';
-import faker from 'faker';
 import { CURRENT_USER_QUERY } from '../hooks/useCurrentUserQuery';
 import { LOGIN_USER } from '../layouts/Auth/containers/Login';
 import { SIGN_UP_USER } from '../layouts/Auth/containers/SignUp';
-
-const generateUser = () => ({
-  id: 1,
-  firstName: faker.name.firstName(),
-  lastName: faker.name.lastName(),
-  image: faker.image.people(),
-  email: faker.internet.email(),
-  role: localStorage.getItem('role'),
-  __typename: 'User',
-});
+import { getUser } from './common';
 
 export const testUser = {
   firstName: 'Name',
@@ -63,7 +53,7 @@ const currentUserMock = {
   },
   newData: () => ({
     data: {
-      user: generateUser(),
+      user: getUser(),
     },
   }),
   delay: 0,

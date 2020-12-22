@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
-import RoleContext from './roleContext';
+import AuthContext from './AuthContext';
 import { permissions } from './configs/app';
 
 const Auth = lazy(() => import('./layouts/Auth'));
@@ -11,9 +11,8 @@ const Dashboard = lazy(() => import('./layouts/Dashboard'));
 
 function App() {
   const [role, setRole] = useState(localStorage.getItem('role') ?? permissions.roles.SUPER_ADMIN);
-
   return (
-    <RoleContext.Provider value={{
+    <AuthContext.Provider value={{
       role,
       setRole,
     }}
@@ -26,7 +25,7 @@ function App() {
           </Switch>
         </Suspense>
       </Router>
-    </RoleContext.Provider>
+    </AuthContext.Provider>
   );
 }
 

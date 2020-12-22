@@ -1,6 +1,7 @@
 import faker from 'faker/locale/en';
 import { COACH_LICENSE_QUERY } from '../layouts/Dashboard/containers/CoachLicense/CoachLicense';
 import { USER_QUERY } from '../layouts/Dashboard/containers/UserProfile/UserProfile';
+import { getUser } from './common';
 
 const league = {
   id: 1,
@@ -21,7 +22,10 @@ const generateCoachesLicense = (length) => [...new Array(length)].map((item, ind
   {
     id: index,
     name: faker.commerce.productName(),
-    step: faker.random.number({ min: 1, max: 4 }),
+    step: faker.random.number({
+      min: 1,
+      max: 4,
+    }),
     level: index,
     progress: faker.random.number(80),
     completed: false,
@@ -41,12 +45,7 @@ const coachMock = {
   newData: () => ({
     data: {
       coach: {
-        id: faker.random.number(100),
-        name: {
-          firstName: faker.name.firstName(),
-          lastName: faker.name.lastName(),
-        },
-        email: faker.internet.email(),
+        ...getUser(),
         gender: faker.name.gender(),
         birthday: faker.date.recent()
           .toISOString(),
@@ -68,7 +67,6 @@ const coachMock = {
         },
         __typename: 'User',
         league,
-        role: localStorage.getItem('role'),
       },
     },
   }),

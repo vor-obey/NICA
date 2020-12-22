@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import RoleContext from '../roleContext';
+import AuthContext from '../AuthContext';
 
 const useAuthQuery = (...args) => {
-  const { role } = useContext(RoleContext);
+  const { role } = useContext(AuthContext);
   const result = useQuery(...args);
 
   useEffect(() => {

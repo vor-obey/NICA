@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { gql } from '@apollo/client';
 import styles from './NavBar.module.scss';
 import getNavItems from './helpers/getNavItems';
-import RoleContext from '../../../../roleContext';
+import AuthContext from '../../../../AuthContext';
 import useAuthQuery from '../../../../hooks/useAuthQuery';
 
 export const DASHBOARD_NAVBAR_QUERY = gql`
@@ -33,7 +33,7 @@ const reduceOptions = (data, role) => {
 };
 
 const NavBar = (props) => {
-  const { role } = useContext(RoleContext);
+  const { role } = useContext(AuthContext);
   const { data, loading } = useAuthQuery(DASHBOARD_NAVBAR_QUERY, {
     variables: {
       id: 1,
