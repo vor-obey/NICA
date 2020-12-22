@@ -24,4 +24,4 @@ const dashboardNavMock = {
   }),
 };
 
-export default [dashboardMock, dashboardNavMock];
+export default [dashboardNavMock];
