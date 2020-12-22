@@ -14,7 +14,6 @@ import {
 import {
   Switch,
 } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client';
 
 import Index from './containers/Index';
 import Coaches from './containers/Coaches';
@@ -33,6 +32,7 @@ import Logo from '../../components/Logo';
 import LicenseSteps from './containers/LicenseSteps';
 import CreateLicense from './containers/CreateLicense';
 import { LicenseStatus } from './containers/LicenseStatus/LicenseStatus';
+import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
 
 const { roles: ROLES } = permissions;
 const {
@@ -42,18 +42,8 @@ const {
 const siderWidth = 270;
 const siderCollapsedWidth = 80;
 
-export const DASHBOARD_USER_QUERY = gql`
-    query dashboardUser($userId: ID!){
-        user(id: $userId){
-            id
-            firstName
-            lastName
-            image
-            role
-        }
-    }`;
-
 const Dashboard = () => {
+  const { data, loading } = useCurrentUserQuery();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
   const onCollapse = useCallback((v) => setIsSiderCollapsed(v), []);
@@ -66,11 +56,6 @@ const Dashboard = () => {
     [],
   );
 
-  const { loading, data } = useQuery(DASHBOARD_USER_QUERY, {
-    variables: {
-      userId: 1,
-    },
-  });
   return (
     <Layout>
       <Layout
