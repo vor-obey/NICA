@@ -33,6 +33,8 @@ import LicenseSteps from './containers/LicenseSteps';
 import CreateLicense from './containers/CreateLicense';
 import { LicenseStatus } from './containers/LicenseStatus/LicenseStatus';
 import useCurrentUserQuery from '../../hooks/useCurrentUserQuery';
+import UserLeagues from './containers/UserLeagues';
+import UserTeams from './containers/UserTeams';
 
 const { roles: ROLES } = permissions;
 const {
@@ -133,7 +135,11 @@ const Dashboard = () => {
               />
               <PrivateRoute
                 path="/leagues/:leagueId"
-                component={SpecificLeague}
+                component={UserLeagues}
+              />
+              <PrivateRoute
+                path="/teams"
+                component={UserTeams}
               />
               <PrivateRoute
                 exact
