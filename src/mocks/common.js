@@ -43,6 +43,47 @@ const userData = {
                 name: 'Team 1 name',
                 permissions: ['a', 'b'],
               },
+              {
+                id: faker.random.number(1000000),
+                name: 'Team 2 name',
+                permissions: ['a', 'b'],
+              },
+            ],
+          },
+          {
+            id: faker.random.number(1000000),
+            name: 'League 2 Name',
+            image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
+            permissions: ['a', 'b'],
+            teams: [
+              {
+                id: faker.random.number(1000000),
+                name: 'Team 3 name',
+                permissions: ['a', 'b'],
+              },
+              {
+                id: faker.random.number(1000000),
+                name: 'Team 4 name',
+                permissions: ['a', 'b'],
+              },
+              {
+                id: faker.random.number(1000000),
+                name: 'Team 5 name',
+                permissions: ['a', 'b'],
+              },
+            ],
+          },
+          {
+            id: faker.random.number(1000000),
+            name: 'League 3 Name',
+            image: 'https://www.sefiles.net/merchant/481/images/site/utah-logo.png',
+            permissions: ['a', 'b'],
+            teams: [
+              {
+                id: faker.random.number(1000000),
+                name: 'Team 6 name',
+                permissions: ['a', 'b'],
+              },
             ],
           },
         ],
